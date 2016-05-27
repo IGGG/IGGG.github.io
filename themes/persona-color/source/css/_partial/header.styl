@@ -1,0 +1,125 @@
+#header
+  width 100%
+  position fixed
+  left 0px
+  z-index 9999
+  @media screen and (min-width: 801px)
+    display none
+  background-color color-sidebar
+  height 66px
+  a
+    color color-info
+    &:hover
+      color color-info
+
+  .personal-info-mini
+  #title-mini
+    @media screen and (max-width: 450px)
+      font-size 2.3em
+
+  h1
+    display inline
+    position relative
+    left 20px
+    color color-font
+    font-weight normal
+    font-size 2.5em
+    line-height 1
+
+  h2
+    font-weight normal
+    font-size 0.9em
+    line-height 1
+    margin-top 10px
+
+  .personal-photo
+    position relative
+    left 15px
+    top 10px
+    border-radius 50px
+    height 50px
+    width 50px
+    // border 5px
+  #main-nav
+    font-family font-title
+    @media screen and (max-width: 501px)
+      display none
+      top 5px
+    ul
+      list-style none
+      li
+        float left
+        margin-left 30px
+    .icon
+      @media screen and (min-width: 600px)
+        font-size 30px
+        top 18px
+      @media screen and (max-width: 601px)
+        font-size 28px
+        top 20px
+      position relative
+      background-color color-sidebar
+      font 1.1em font-icon
+      margin 0 auto
+      padding 10px
+      text-decoration none
+      color color-info
+      &:hover
+        color color-font
+    .github
+      &:before
+        content "\f09b"
+    .googleplus
+      &:before
+        content "\f0d4"
+    .zhihu
+      &:before
+        content "知"
+    .facebook
+      &:before
+        content "\f082"
+    .twitter
+      &:before
+        content "\f099"
+    .email
+      &:before
+        content "\f0e0"
+    .weibo
+      &:before
+        content "\f18a"
+    .renren
+      &:before
+        content "\f18b"
+    .pinterest
+      &:before
+        content "\f0d3"
+    .linkedin
+      &:before
+        content "\f0e1"
+    .instagram
+      &:before
+        content "\f16d"
+  
+
+
+.more
+  &:before
+    content "\f0c9"
+  &:hover
+    color color-title
+    text-decoration none
+  &:link
+    color color-title
+    text-decoration none
+  display none
+  text-decoration none
+  @media screen and (max-width: 501px)
+    display inline
+  position relative
+  font 2.1em font-icon
+  margin 0 auto
+  padding 10px
+  top 18px
+  text-decoration none
+  color color-info
+

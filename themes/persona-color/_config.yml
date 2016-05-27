@@ -1,0 +1,37 @@
+#You can eidt the color scheme in source/css/_base/variable.styl
+
+photo: /images/IGGG_l.png
+
+email:
+twitter: "@IGGGorg"
+facebook:
+googleplus:
+github: https://github.com/IGGG
+pinterest:
+linkedin:
+instagram:
+zhihu:
+weibo:
+renren:
+
+
+addthis:
+  enable: false
+  pubid:
+  facebook: false
+  twitter: true
+  google: false
+  pinterest: false
+
+fancybox: true
+
+#
+bighomepage: true
+
+#Use cdnjs' CDN
+usecdn: false
+
+google_analytics:
+rss:
+
+forvirgo: false

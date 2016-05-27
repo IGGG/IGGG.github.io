@@ -1,0 +1,20 @@
+<%- partial('_partial/head') %>
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><%- partial('_partial/header') %></header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><%- partial('_partial/sidebar') %></aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><%- body %></div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"><%- partial('_partial/footer') %></footer>
+  <%- partial('_partial/after_footer') %>
+</body>
+</html>

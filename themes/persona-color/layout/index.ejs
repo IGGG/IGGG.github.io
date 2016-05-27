@@ -1,0 +1,42 @@
+<% page.posts.each(function(item){ %>
+  <div class="archive titlelist">
+    <article class="<%= item.layout %>">
+      <div class="post-content animated fadeIn">
+        <header>
+            <% if (item.link){ %>
+              <a href="<%- config.root %><%- item.path %>"><div class="icon"></div></a>
+              <% if (item.title){ %>
+                <h2 class="title link"><a href="<%- item.link %>" target="_blank"><%= item.title %></a></h2>
+              <% } else { %>
+                <h2 class="title link"><a href="<%- item.link %>" target="_blank"><%= item.link %></a></h2>
+              <% } %>
+            <% } else { %>
+              <div class="icon depth"><a href="<%- config.root %><%- item.path %>"> </a></div>
+              <h2 class="depth title" ><a class="animated" href="<%- config.root %><%- item.path %>"><%= item.title %></a></h2>
+            <% } %>
+            <time class="time title depth" datetime="<%= item.date.toDate().toISOString() %>"><%= item.date.format(config.date_format) %></time>
+          </header>
+      </div>
+    </article>
+  </div>
+<% }); %>
+
+<% page.posts.each(function(item){ %>
+<% if (theme.bighomepage){ %>
+  <div class="animated fadeIn" idplus="<%= item.title.replace(/\s+/g,"") %>" style="display: none;">
+    <div idplusp="<%= item.title.replace(/\s+/g,"") %>">
+      <%- partial('_partial/article', {item: item, index: false}).replace(/img\ src/g, "img s1c") %>
+      <% if (config.disqus_shortname){ %>
+        <nav id="pagination">
+          <a href="<%- config.root %><%- item.path %>#comment" class="alignright next")"><%= __('viewcomment') %></a>
+          <div class="clearfix"></div>
+        </nav>
+      <% } %>
+    </div>
+  </div>
+<% } %>
+<% }); %>
+
+<%- partial('_partial/bighomepage') %>
+
+<%- partial('_partial/pagination') %>

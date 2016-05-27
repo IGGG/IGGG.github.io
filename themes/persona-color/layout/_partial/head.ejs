@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="<%- theme.photo %>">
+  <meta name="application-name" content="<%- config.title %>"/>
+  <meta name="msapplication-TileColor" content="#1b7aca"/>
+  <meta name="msapplication-square70x70logo" content="<%- theme.photo %>" />
+  <meta name="msapplication-square150x150logo" content="<%- theme.photo %>" />
+  <meta name="msapplication-wide310x150logo" content="<%- theme.photo %>" />
+  <meta name="msapplication-square310x310logo" content="<%- theme.photo %>" />
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="<%- theme.photo %>">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="<%- theme.photo %>">
+
+  <%
+  var title = [];
+  if (page.current > 1) title.push(__('page', page.current));
+  if (page.title) title.push(page.title);
+  if (page.category) title.push(page.category);
+  if (page.tag) title.push(page.tag);
+  if (page.archive){
+    if (page.year) title.push(__('archive_b', page.year + (page.month ? '/' + page.month : '')));
+    else title.push(__('archive_a'));
+  }
+  title.push(config.title);
+  %>
+  <title><%= title.join(' | ') %></title>
+  <% if (config.author){ %><meta name="author" content="<%= config.author %>"><% } %>
+  <% if (page.description){ %>
+  <meta name="description" content="<%= page.description %>">
+  <% } else if (config.description){ %>
+  <meta name="description" content="<%= config.description %>">
+  <% } else if (page.excerpt){ %>
+  <meta name="description" content="<%= strip_html(page.excerpt).replace(/^\s*/, '').replace(/\s*$/, '') %>">
+  <% } else if (page.content){ %>
+  <meta name="description" content="<%= strip_html(page.content).replace(/^\s*/, '').replace(/\s*$/, '').substring(0, 150) %>">
+  <% } %>
+  <% if (page.keywords){ %><meta name="keywords" content="<%= page.keywords %>"><% } %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <% if (page.title){ %><meta property="og:title" content="<%= page.title %>"/><% } %>
+  <meta property="og:site_name" content="<%= config.title %>"/>
+
+  <% if(page.cover) { %>
+    <meta property="og:image" content="<%= page.cover %>" />
+  <% } else { %>
+    <meta property="og:image" content="<%= config.cover %>"/>
+  <% } %>
+
+  <link href="<%- config.root %>favicon.png" rel="icon">
+  <link rel="alternate" href="<% if (theme.rss){ %><%- theme.rss %><% } else { %><%- config.root %>atom.xml<% } %>" title="<%= config.title %>" type="application/atom+xml">
+  <link rel="stylesheet" href="<%- config.root %>css/style.css" media="screen" type="text/css">
+  <% if (theme.usecdn){ %>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.0.0/animate.css" rel="stylesheet">
+  <% } else { %>
+    <link href="<%- config.root %>css/animate.css" rel="stylesheet">
+  <% } %>
+  <% if (theme.usecdn){ %>
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+  <% } else { %>
+    <script src="<%- config.root %>js/jquery-2.0.3.min.js"></script>
+  <% } %>
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script>
+    if (window.location.href.indexOf("<%- config.url.replace('http://', '').replace('https://', '') -%>")<0) {
+      location.href = location.href.replace(location.host, "<%- config.url.replace('http://', '').replace('https://', '') -%>");
+    }
+  </script>
+
+</head>
