@@ -25,11 +25,16 @@ SSH Key を作成(持ってたらもちろんいらない)して public key を 
 作成方法は適当にググってもらってもいいんだけど....
 
 1. `$ ssh-keygen -t rsa -C "<mail address>"` でカギを生成  
-  このとき、パスワードは設定しないようにしてください。
+  ~~このとき、パスフレーズは設定しないようにしてください。~~  
+  セキュリティ上パスフレーズの設定はしましょう
 2. windows なら `$ clip < ~/.ssh/id_rsa.pub` でクリップボードに公開鍵をコピーして
 3. https://github.com/settings/keys の右上の `New SSH key` を押して、下の Key の欄にペースト(title は何でもいい)
 
 `$ ssh -T git@github.com` でエラーが吐かれなければ問題なし(吐かれた場合はIGGG Slackで聞いて)．
+
+Note
+:   デプロイ時に `Error: Permission denied (publickey).` と怒られた場合、パスフレーズが原因の可能性が高いです。
+    `ssh-agent` を起動し、`ssh-add <privatekey>` を入力して秘密鍵を登録することで回避できます。
 
 ### 4. Node.js をインストール
 [公式サイト](https://nodejs.org/en/)で直接インストールしてもいいし，[nodist](https://github.com/marcelklehr/nodist) のようなバージョン管理ツールからインストールしてもいい。
