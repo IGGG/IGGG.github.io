@@ -20,7 +20,7 @@ Windows なら [Git for Windows](https://git-for-windows.github.io/) でいい�
 ついでに、クライアントアプリとしてAtlassian の [SourceTree](https://ja.atlassian.com/software/sourcetree) も入れるといいんじゃないかな。  
 後者は任意です。
 
-### 3. SSH Kye の作成と登録
+### 3. SSH Key の作成と登録
 SSH Key を作成(持ってたらもちろんいらない)して public key を Github に登録してください。
 作成方法は適当にググってもらってもいいんだけど....
 
