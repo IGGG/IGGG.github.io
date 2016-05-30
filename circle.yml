@@ -1,8 +1,10 @@
 machine:
-  timezone:
-    UTC
+  timezone: Asia/Tokyo
   node:
     version: 4.4.5
+test:
+  override:
+    - ./dummy_test_script.sh
 deployment:
   production:
     branch: source
