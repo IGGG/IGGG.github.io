@@ -32,6 +32,6 @@ bighomepage: true
 usecdn: false
 
 google_analytics:
-rss:
+rss: /atom.xml
 
 forvirgo: false
