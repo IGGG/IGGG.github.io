@@ -1,9 +1,9 @@
 ---
-title: Github Pages + Hexo + Circle CI + Heroku で自動デプロイ管理
+title: Github Pages + Hexo + CircleCI + Heroku で自動デプロイ管理
 tags:
-  - circle-ci
-  - heroku
-  - github
+  - CircleCI
+  - Heroku
+  - GitHub
 categories: Web
 date: 2016-05-30 23:38:49
 ---
@@ -17,8 +17,8 @@ Slack 使って騒いでるんで一人ではないです。
 
 さて、今回は前言通り デプロイの自動化 を行いました。
 
-実は Github Pages 利用する少し前に Slack 上で CI (継続的インテグレーション) について(ほんの少しだけ)話していて、
-Github Pages の話題が上がったときに、CI の簡単な例がだよ、といつものお意見番が下記の記事を教えてくれました。
+実は GitHub Pages 利用する少し前に Slack 上で CI (継続的インテグレーション) について(ほんの少しだけ)話していて、
+GitHub Pages の話題が上がったときに、CI の簡単な例がだよ、といつものお意見番が下記の記事を教えてくれました。
 
 - [チームブログをGitHubとHexoではじめよう！](http://blog.otakumode.com/2014/08/08/Blogging-with-hexoio/)
 
@@ -27,7 +27,7 @@ Github Pages の話題が上がったときに、CI の簡単な例がだよ、�
 ## Goal
 結局何をしたいのかというと
 
-1. github に大本である source ブランチを **プッシュしたら自動でデプロイ** してほしい
+1. GitHub に大本である source ブランチを **プッシュしたら自動でデプロイ** してほしい
 2. source ブランチ以外をプッシュした場合は **ステージ環境に自動でデプロイ** してほしい
 
 の2点です。
@@ -36,34 +36,34 @@ Github Pages の話題が上がったときに、CI の簡単な例がだよ、�
 
 (まぁ本音は単純に私が面白そうだと思ったからですけど)
 
-そのために、github へのプッシュに対して自動でデプロイしてくれるサービスとステージング環境が必要です。  
-前述した記事を参考にして、前者には [Circle CI](https://circleci.com/) を、後者には [Heroku](https://dashboard.heroku.com/) を利用したいと思います。  
+そのために、GitHub へのプッシュに対して自動でデプロイしてくれるサービスとステージング環境が必要です。  
+前述した記事を参考にして、前者には [CircleCI](https://circleci.com/) を、後者には [Heroku](https://dashboard.heroku.com/) を利用したいと思います。  
 
-## Circle CI
-Circle CI は Github と連携して実行やテスト、デプロイなどを自動で行ってくれるサービスです。  
+## CircleCI
+CircleCI は GitHub と連携して実行やテスト、デプロイなどを自動で行ってくれるサービスです。  
 このように、プログラミングに付随する様々な作業を自動化して継続的に管理する事を **継続的インテグレーション** と言います(たぶん)。  
 私はコノコトについてちゃんと勉強してないので、後は自分で調べてください(おい)
 
 継続的インテグレーションをサポートするサービスは他にもイロイロあります。
-Circle CI の特徴については以下のスライドでも見てください(おい)
+CircleCI の特徴については以下のスライドでも見てください(おい)
 
 - [はじめての CircleCI](http://www.slideshare.net/mogproject/circleci-51253223)
 
 では順に準備を行っていきます。
 
-## Circle CI の準備
-Circle CI は既存の Github と認証を行います。  
+## CircleCI の準備
+CircleCI は既存の GitHub と認証を行います。  
 今回は、私のアカウントを使う事にします。
 
 まず、[公式サイト](https://circleci.com/) に行きます。
 後は、Sign up のところを押して、ポチポチしていくだけです(ざっくり)。
 
-登録が完了したら、Github の方で認証を行います(たぶん)。
-[ココ](https://github.com/integrations/circle-ci)に行って Add to Github を押せばいいはずです。
+登録が完了したら、GitHub の方で認証を行います(たぶん)。
+[ココ](https://GitHub.com/integrations/circle-ci)に行って Add to GitHub を押せばいいはずです。
 
-これで、Circle CI のダッシュボードに Github のリポジトリが出てくるはずです。
+これで、CircleCI のダッシュボードに GitHub のリポジトリが出てくるはずです。
 
-出てきたら、Circle CI で管理したいリポジトリを選択します。
+出てきたら、CircleCI で管理したいリポジトリを選択します。
 
 選択すると早速リポジトリのビルドを始めようとしますが、設定ファイルを入れてないのでコケるはずです。
 
@@ -73,7 +73,7 @@ Heroku とは **AWSのIaaS上に構築されたPaaSで、Gitでデプロイで�
 次のサイトに書いてありました。
 残りは参照してください(おい)
 
-- [Heroku導入メモ - GitHub](https://gist.github.com/konitter/5370904)
+- [Heroku導入メモ - GitHub](https://gist.GitHub.com/konitter/5370904)
 
 と言っても、上記のサイトの情報は少し古く、料金体系が結構変わって、無料枠の容量の上限が 300MB に増えていたり、無料枠では日に6時間はスリープさせないといけなかったり、になっています。
 そのうえ、また無料枠を変更するみたいです。
@@ -94,15 +94,15 @@ $ heroku login
 $ heroku create
 ~~~
 
-## Circle CI と Heroku を連携させる
-[公式サイト](https://circleci.com/docs/continuous-deployment-with-heroku/) の指示に従って、Circle CI から Heroku を認証させます。
+## CircleCI と Heroku を連携させる
+[公式サイト](https://circleci.com/docs/continuous-deployment-with-heroku/) の指示に従って、CircleCI から Heroku を認証させます。
 
-Circle CI のダッシュボードでリポジトリ固有のページに移動します。
+CircleCI のダッシュボードでリポジトリ固有のページに移動します。
 そしたら、右上の `Project Settings` をクリックします。  
 次に、左下の方にある `Heroku Deployment` をクリックします。
 
 - **Step 1**
-  Circle CI アカウントの[コノページ](https://circleci.com/account/heroku)に Heroku API Key を登録します。
+  CircleCI アカウントの[コノページ](https://circleci.com/account/heroku)に Heroku API Key を登録します。
   Heroku API Key は [Heroku のアカウントページ](https://dashboard-preview.heroku.com/account) の下の方にあります。
 - **Strp 2**
   Heroku と SSH 認証を設定します。
@@ -111,7 +111,7 @@ Circle CI のダッシュボードでリポジトリ固有のページに移動�
 後は、リポジトリに circle.yml という設定ファイルを置くだけです。
 
 ## circle.yml の作成
-最初に紹介したサイトを参考にして、Github Pages 用のリポジトリに以下のような設定ファイル(circle.yml)を加えました。
+最初に紹介したサイトを参考にして、GitHub Pages 用のリポジトリに以下のような設定ファイル(circle.yml)を加えました。
 
 ~~~yaml
 machine:
