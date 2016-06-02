@@ -1,5 +1,5 @@
 ---
-title: Github Pages + Hexo + CircleCI + Heroku で自動デプロイ管理
+title: GitHub Pages + Hexo + CircleCI + Heroku で自動デプロイ管理
 tags:
   - CircleCI
   - Heroku
@@ -71,7 +71,7 @@ CircleCI は既存の GitHub と認証を行います。
 後は、Sign up のところを押して、ポチポチしていくだけです(ざっくり)。
 
 登録が完了したら、GitHub の方で認証を行います(たぶん)。
-[ココ](https://GitHub.com/integrations/circle-ci)に行って Add to GitHub を押せばいいはずです。
+[ココ](https://github.com/integrations/circle-ci)に行って Add to GitHub を押せばいいはずです。
 
 これで、CircleCI のダッシュボードに GitHub のリポジトリが出てくるはずです。
 
@@ -85,7 +85,7 @@ Heroku とは **AWSのIaaS上に構築されたPaaSで、Gitでデプロイで�
 次のサイトに書いてありました。
 残りは参照してください(おい)
 
-- [Heroku導入メモ - GitHub](https://gist.GitHub.com/konitter/5370904)
+- [Heroku導入メモ - GitHub](https://gist.github.com/konitter/5370904)
 
 と言っても、上記のサイトの情報は少し古く、料金体系が結構変わって、無料枠の容量の上限が 300MB に増えていたり、無料枠では日に6時間はスリープさせないといけなかったり、になっています。
 そのうえ、また無料枠を変更するみたいです。
@@ -202,10 +202,8 @@ Hexo で Heroku にデプロイするには専用のパッケージ、`hexo-depl
 
 - [Adding read/write deployment key - CircleCI](https://circleci.com/docs/adding-read-write-deployment-key/)
 
-たぶん、hexo でデプロイするときに master の内容を完全に入れ替えてるため、ssh鍵に write 権限が無くて怒られるようです。
-手順通りに、Github で新しい ssh 鍵を生成して、CircleCI に公開鍵を登録すればいいはずです。
-ちなみに、Github で鍵を生成する際にパスフレーズを付けないようにと注意書きされてます。
-まぁ、こっちは秘密鍵を Github サンで管理するから安全で、付けなくてもいいのかな。
+新しい ssh 鍵を生成して、GitHub に公開鍵を、CircleCI に秘密鍵を登録すればいいはずです。
+ちなみに、鍵を生成する際にパスフレーズを付けないようにと注意書きされてます。
 
 ## おわりに
 
