@@ -14,7 +14,7 @@ deployment:
       - ./node_modules/.bin/hexo generate
       - ./node_modules/.bin/hexo deploy
   staging:
-    branch: /.*/
+    branch: staging
     commands:
       - git config --global user.name "IGGGorg"
       - git config --global user.email "contcat@iggg.org"
