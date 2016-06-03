@@ -6,7 +6,7 @@
   @media screen and (min-width: 801px)
     display none
   background-color color-sidebar
-  height 66px
+  height 70px
   a
     color color-info
     &:hover
@@ -14,8 +14,20 @@
 
   .personal-info-mini
   #title-mini
-    @media screen and (max-width: 450px)
-      font-size 2.3em
+    text-align center
+    position absolute
+    top 20px
+    left 70px
+    @media screen and (max-width: 700px)
+      font-size 2.0em
+    @media screen and (max-width: 500px)
+      font-size 1.8em
+      right: 40px
+    @media screen and (max-width: 350px)
+      font-size 1.4em
+    @media screen and (max-width: 255px)
+      font-size 1.2em
+
 
   h1
     display inline
@@ -42,7 +54,7 @@
     // border 5px
   #main-nav
     font-family font-title
-    @media screen and (max-width: 501px)
+    @media screen and (max-width: 560px)
       display none
       top 5px
     ul
@@ -99,7 +111,7 @@
     .instagram
       &:before
         content "\f16d"
-  
+
 
 
 .more
@@ -113,7 +125,7 @@
     text-decoration none
   display none
   text-decoration none
-  @media screen and (max-width: 501px)
+  @media screen and (max-width: 560px)
     display inline
   position relative
   font 2.1em font-icon
@@ -122,4 +134,3 @@
   top 18px
   text-decoration none
   color color-info
-
