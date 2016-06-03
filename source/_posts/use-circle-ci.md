@@ -1,5 +1,5 @@
 ---
-title: Github Pages + Hexo + CircleCI + Heroku で自動デプロイ管理
+title: GitHub Pages + Hexo + CircleCI + Heroku で自動デプロイ管理
 tags:
   - CircleCI
   - Heroku
@@ -39,6 +39,18 @@ GitHub Pages の話題が上がったときに、CI の簡単な例がだよ、�
 そのために、GitHub へのプッシュに対して自動でデプロイしてくれるサービスとステージング環境が必要です。  
 前述した記事を参考にして、前者には [CircleCI](https://circleci.com/) を、後者には [Heroku](https://dashboard.heroku.com/) を利用したいと思います。  
 
+**追記 (2016.6.2)**  
+ブランチの構成を変更しました。
+例の相談役さんがステージング環境へのデプロイが競合しないようにステージング用のブランチを作った方が良いと助言してくれました。
+なので
+
+- **source** master へ自動デプロイされるブランチ
+- **staging** ステージング環境へ自動デプロイされるブランチ
+- それ以外のブランチはデプロイされない
+
+の構成に変更しました。
+変更箇所は後述します。
+
 ## CircleCI
 CircleCI は GitHub と連携して実行やテスト、デプロイなどを自動で行ってくれるサービスです。  
 このように、プログラミングに付随する様々な作業を自動化して継続的に管理する事を **継続的インテグレーション** と言います(たぶん)。  
@@ -59,7 +71,7 @@ CircleCI は既存の GitHub と認証を行います。
 後は、Sign up のところを押して、ポチポチしていくだけです(ざっくり)。
 
 登録が完了したら、GitHub の方で認証を行います(たぶん)。
-[ココ](https://GitHub.com/integrations/circle-ci)に行って Add to GitHub を押せばいいはずです。
+[ココ](https://github.com/integrations/circle-ci)に行って Add to GitHub を押せばいいはずです。
 
 これで、CircleCI のダッシュボードに GitHub のリポジトリが出てくるはずです。
 
@@ -73,7 +85,7 @@ Heroku とは **AWSのIaaS上に構築されたPaaSで、Gitでデプロイで�
 次のサイトに書いてありました。
 残りは参照してください(おい)
 
-- [Heroku導入メモ - GitHub](https://gist.GitHub.com/konitter/5370904)
+- [Heroku導入メモ - GitHub](https://gist.github.com/konitter/5370904)
 
 と言っても、上記のサイトの情報は少し古く、料金体系が結構変わって、無料枠の容量の上限が 300MB に増えていたり、無料枠では日に6時間はスリープさせないといけなかったり、になっています。
 そのうえ、また無料枠を変更するみたいです。
@@ -150,6 +162,19 @@ source ブランチか、それ以外かでデプロイ内容を分けていま�
 但し、ページ自体のブランチである、master ブランチは無視するように下の方に書いてあります。
 `hexo deploy --branch $CIRCLE_BRANCH --config _staging_config.yml` とすることで、デプロイの際に参照する Hexo の設定ファイルを `_staging_config.yml` に指定できます。
 
+**追記 (2016.6.2)**  
+前述したとおり、ブランチ構成を変更したので、上記の circle.yml を一部書き換えました。
+
+~~~diff
+staging:
+-     branch: /.*/
++     branch: staging
+  commands:
+~~~
+
+追記終わり。
+
+
 次に、その設定ファイル(`_staging_config.yml`)を加えましょう。
 またもや、例のサイトを参考にして、`deployment` のところを次のように書き換えます。
 
@@ -171,6 +196,14 @@ Hexo で Heroku にデプロイするには専用のパッケージ、`hexo-depl
 
 ## push !
 後はプッシュするだけのはずです ！
+
+**追記 (2016.6.2)**  
+もし、source ブランチの自動デプロイで ssh 鍵について怒られた場合は以下のページを参考にしてください。
+
+- [Adding read/write deployment key - CircleCI](https://circleci.com/docs/adding-read-write-deployment-key/)
+
+新しい ssh 鍵を生成して、GitHub に公開鍵を、CircleCI に秘密鍵を登録すればいいはずです。
+ちなみに、鍵を生成する際にパスフレーズを付けないようにと注意書きされてます。
 
 ## おわりに
 
