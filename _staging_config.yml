@@ -65,6 +65,13 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: persona-color
 
+## RSS plugin Setting
+feed:
+  type: atom
+  path: atom.xml
+  limit: 5
+  hub:
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
