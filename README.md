@@ -1,5 +1,5 @@
 # IGGG.github.io
-Github Pages for IGGG  
+GitHub Pages for IGGG  
 このブランチはページ構築用のリソースブランチです。
 
 [公式サイト](http://www.iggg.org/) や [IGGG Wiki](http://www.iggg.org/wiki/) では書きにくい、技術よりなネタをこのページ書いていこうかなー、と思ってます。  
@@ -7,7 +7,7 @@ By ひげ
 
 ## ブランチの構成と管理
 - **master**
-  Github Pages は master ブランチのHTMLファイルからページを構築します。
+  GitHub Pages は master ブランチのHTMLファイルからページを構築します。
   うちは Hexo 使って自動生成してるので、**このブランチは直接いじらないで**
 - **source**
   ページ構築用の本流ブランチです。
@@ -23,10 +23,10 @@ By ひげ
 ## 準備
 めちゃくちゃ基本的なことも含めて説明します。
 
-### 1. Github アカウントの作成と
+### 1. GitHub アカウントの作成と
 してください。  
 [公式サイト](https://github.com/)で適当にポチポチしてけば出来るはずです。  
-登録したら、**Github の IGGGグループに参加** させてもらってください。  
+登録したら、**GitHub の IGGGグループに参加** させてもらってください。  
 noob とか gion あたりに聞けばいいよ。
 
 ### 2. git コマンドのインストール
@@ -36,7 +36,7 @@ Windows なら [Git for Windows](https://git-for-windows.github.io/) でいい�
 後者は任意です。
 
 ### 3. SSH Key の作成と登録
-SSH Key を作成(持ってたらもちろんいらない)して public key を Github に登録してください。
+SSH Key を作成(持ってたらもちろんいらない)して public key を GitHub に登録してください。
 作成方法は適当にググってもらってもいいんだけど....
 
 1. `$ ssh-keygen -t rsa -C "<mail address>"` でカギを生成  
@@ -75,8 +75,10 @@ $ npm install
 以上で準備完了
 
 ## 編集
-というか、Hexo の基本的なコマンドを書いとくよ
+というか、Hexo の基本的なコマンドを書いとくよ。
+現在は **staging ブランチ** に居ると仮定します。
 
+- 新しいページ用のブランチを作成
 - 新しいページを作成
 ```
 $ hexo new <title>
@@ -86,13 +88,25 @@ $ hexo new <title>
 $ hexo server
 ```
 して、ブラウザで `localhost:4000` に接続すればいい
-- Github にデプロイ
-```
-$ hexo generate -deploy
-```
+- GitHub に **新しく作成したブランチ** をプッシュ
+- GitHub で **staging ブランチ** にプルリクエスト
+- プルリクエストが承認されたらステージング環境で確認し問題なければ **source ブランチ** にプルリクエスト
+- プルリクエストが承認されると master ブランチ(本番環境)にデプロイされる
 
 ~~テーマやら何やらの変え方はまだわからない。~~ テーマは変えました。
 少しずつ調べます。  
 プラグイン入れることでもっといろんなコトできるらしい。
 
 ちなみに利用できるテーマ一覧は[こちら](https://github.com/hexojs/hexo/wiki/Themes)
+
+## 注意点
+***Hexo コマンドでのデプロイはしないでください。***
+
+以下のコマンドのことです。
+
+```
+$ hexo generate -deploy
+```
+
+このコマンドを実行すると **いっきに master ブランチにデプロイ** されます。
+しかし、もし実行しても CircleCI をいじればすぐ治せるはずなので、焦らず Slack で報告してください。
