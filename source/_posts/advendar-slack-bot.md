@@ -17,9 +17,11 @@ IGGG 名古屋支部のひげです。
 ## いきさつ
 
 去年、なんとなくやりはじめた Advent Calendar 。
+
+その時の話。
 とりあえずググってみた結果、まぁ、Qiita が人気ですよね。
 
-![Qiitaが人気ですよね](./google_advent_calendar.jpg)
+![Qiitaが人気ですよね](/images/advendar-slack-bot/google_advent_calendar.jpg)
 
 [ここ](http://blog.qiita.com/post/152366526084/adventcalendar2016?utm_source=qiita&utm_medium=advent_calendar_jumbotron) に簡単にまとめてある。
 
@@ -28,7 +30,7 @@ IGGG 名古屋支部のひげです。
 
 サークルとかでも使われた事例はある。
 
-![サークルで使われてるのはADVENTAR](./google_advent_circle.jpg)
+![サークルで使われてるのはADVENTAR](/images/advendar-slack-bot/google_advent_circle.jpg)
 
 で、問題はここから。
 
@@ -36,13 +38,13 @@ Qiita は RSS による通知機能がある。
 なので、これを利用して、記事の追加や更新を Slack 等へと簡単に飛ばせる。
 しかし、**ADVENTAR にはない** 。
 
-# ADVENTAR にはない
+### ADVENTAR にはない
 
 ということで、スクレイピングして飛ばすことにした。
 
 あった。
 
-![slack bot スクレイピング で検索](./google_slack_bot.jpg)
+![slack bot スクレイピング で検索](/images/advendar-slack-bot/google_slack_bot.jpg)
 
 ### Google Apps Script
 
@@ -54,9 +56,7 @@ Qiita は RSS による通知機能がある。
 
 まぁ詳しくはググってみてださい。
 
-## 実装
-
-### Goal
+## Goal
 
 今回の目的のために、作る GAS プログラムを3つのステップに分ける。
 
@@ -72,7 +72,7 @@ Qiita は RSS による通知機能がある。
 
 を実現すればよい。
 
-### 0. GAS の準備
+## 0. GAS の準備
 
 まずは GAS の準備から。
 
@@ -83,7 +83,7 @@ Google Drive で *右クリック* し、一番下の *その他* から *アプ
 
 そしたら、`google apps script` を検索してインストール(接続)。
 
-![google apps script を検索](./google_drive_search_gas.jpg)
+![google apps script を検索](/images/advendar-slack-bot/google_drive_search_gas.jpg)
 
 あとは、スプレッドシートとかと同じように、Drive 内に作成できる。
 
@@ -95,15 +95,15 @@ Google Drive で *右クリック* し、一番下の *その他* から *アプ
 
 を置いておいてください。
 
-### 1. GAS によるWebスクレイピング
+## 1. GAS によるWebスクレイピング
 
-![まぁありますよね](./google_gas_scraping.jpg)
+![まぁありますよね](/images/advendar-slack-bot/google_gas_scraping.jpg)
 
 まぁ出てきますよね。
 
 適当に参考にしながら作った。
 
-#### 準備
+### 準備
 
 最小は以下のサイトを参考にしながら DOM Tree っぽく処理しようとしたのだが、` XmlService.parse` という関数は[正しい形式の HTML でないとパース出来ない](http://stackoverflow.com/questions/19455158/what-is-the-best-way-to-parse-html-in-google-apps-script) 。
 
@@ -124,7 +124,7 @@ GAS に新しく外部ライブラリを追加するためには、以下の手�
 Parser のキーは `M1lugvAXKKtUxn_vdAG9JZleS6DrsjUUV` 。
 バージョンは新しいのを選べばいいと思う(今回は 7 を使った)。
 
-#### テスト
+### テスト
 
 例えば次のコードを書いて実行し、ログで確認。
 
@@ -155,7 +155,7 @@ function postMessage() {
 つまり、同じタグが入れ子になっていると、最初の方の閉じタグを取ってきてしまう。
 欲しい情報を望んだとおりに取得するためには工夫が必要だ。
 
-#### ADVENTAR の場合
+### ADVENTAR の場合
 
 - 参考： [Adventerの日記をSlackに流してみよう一人プロジェクト - hotchpotch](https://hotchpotchj37.wordpress.com/2015/12/05/adventer%E3%81%AE%E6%97%A5%E8%A8%98%E3%82%92slack%E3%81%AB%E6%B5%81%E3%81%97%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86%E4%B8%80%E4%BA%BA%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88/)
 
@@ -211,7 +211,7 @@ function parseByTag(data, tag) {
 
 なんで、日付に年を加えてるのかと言うと、スプレッドシートに書き込むときに書いておかないと、今年の年を勝手に書き込むからだ。
 
-### 2. GAS によるスプレッドシートの操作
+## 2. GAS によるスプレッドシートの操作
 
 次に、スプレッドシートをDB代わりとして捜査する。
 
@@ -219,7 +219,7 @@ function parseByTag(data, tag) {
 
 と他にも Google の[公式ドキュメント](https://developers.google.com/apps-script/reference/spreadsheet/)を参考にした。
 
-#### Properties
+### Properties
 
 実際にいじる前に必要な知識を一つ。
 
@@ -237,13 +237,13 @@ var prop = PropertiesService.getScriptProperties().getProperties();
 ツールバーの *ファイル* から一番下の *プロジェクトのプロパティ* をクリック。
 今回はスクリプト単位で設定したいので、スクリプトのプロパティに行を追加していく。
 
-#### スプレッドシートの準備
+### スプレッドシートの準備
 
 予めスプレッドシートを作っておく。
 スプレッドシートの名前は何でも良い。
 シート名は `2015` とか `2016` などの *年* にする。
 
-#### スプレッドシートの読み取り
+### スプレッドシートの読み取り
 
 読み取るためにはスプレッドシートの ID が必要だ。
 
@@ -280,7 +280,7 @@ function doPost(e) {
 直接アクセスする方法もあるが、必要な分だけ予め配列として読み取って、JavaScript として処理した方が速いらしい。
 なのでそうしてる。
 
-#### スプレッドシートの更新
+### スプレッドシートの更新
 
 スクレイピングして得た情報 `entries` から新しくスプレッドシートに書き込むデータを作成して、書き込む。
 
@@ -313,7 +313,7 @@ function getIndexByDate(entries, date) {
 
 見ての通り、`getRange(a,b,c,d).setValues()` で書き込んでいる。
 
-### 3. GAS による Slack へのメッセージ送受信
+## 3. GAS による Slack へのメッセージ送受信
 
 最後にいよいよ Slack に Bot としてメッセージを飛ばす。
 
@@ -321,7 +321,7 @@ function getIndexByDate(entries, date) {
 
 GAS 側にタイマーを仕掛けて、一日一回とってくるのも良いが、おそらく12月に入るまで更新は少ないだろうから、Slack の Advent Calendar チャネルで特定のキーワードを打ったら返ってくるようにする。
 
-#### Slack の準備
+### Slack の準備
 
 *Outgoing WebHooks* というインテグレーションを追加する。
 
@@ -339,7 +339,7 @@ GAS 側にタイマーを仕掛けて、一日一回とってくるのも良い�
 
 まぁ、認証は無くても良いが、GAS コードのURLが漏れると、実行されまくるので注意。
 
-#### Slack API for GAS
+### Slack API for GAS
 
 作ってくれてた、ありがたい。
 
@@ -353,7 +353,7 @@ Slack の API を使うには専用のトークンが必要なので、[ココ](
 
 生成されたトークンは `SLACK_API_TOKEN` として Properties に追加しておく。
 
-#### 画像を利用
+### 画像を利用
 
 最初の方に用意した Bot 用のアイコンを利用する多面はひと工夫が必要である。
 
@@ -366,7 +366,7 @@ Webサイトなんかに埋め込むためには、このURLを `drive.google.co
 
 なので、この `{id}` を `ICON_ID` として Properties に追加しておく。
 
-#### GAS コード
+### GAS コード
 
 以下のように拡張する。
 
@@ -454,7 +454,7 @@ function isEntry(entry) {
 ```
 順に説明する。
 
-##### 認証
+#### 認証
 
 ```javascript
 if (prop.VERIFY_TOKEN != e.parameter.token) {
@@ -465,7 +465,7 @@ if (prop.VERIFY_TOKEN != e.parameter.token) {
 は言わずもがな前述した認証を行っている。
 これで、自分たちの Slack からしか実行できない。
 
-##### メッセージの送信
+#### メッセージの送信
 
 ```javascript
 var noUpdate = true;
@@ -486,7 +486,7 @@ if (noUpdate)
 で日付ごとに前との差分を取って、更新があればメッセージを送信している。
 なにも更新が無ければ、最後に `更新はありません` というメッセージを送信している。
 
-##### 差分をとる
+#### 差分をとる
 
 ```javascript
 function diffEntry(newEntry, oldEntry) {
@@ -524,7 +524,7 @@ function diffEntry(newEntry, oldEntry) {
 
 数値でもよかったが可読性優先して文字列にした。
 
-##### メッセージの作成
+#### メッセージの作成
 
 ```javascript
 function makeMessage(entry) {
@@ -558,7 +558,7 @@ ADVENTAR の更新を Slack に通知させる Bot の作成
 `message = message + '<' + url + '|' + title + '>' ;` でただURLを貼るのではなく、記事のタイトルにハイパーリンクを付けている。
 ただし、記事によってはタイトルが無い場合があるので、2~4行目あたりで、タイトルがない場合は `link this!` という文字列を代用している。
 
-#### URLを指定する。
+### URLを指定する。
 
 *Slack の準備* のとこで説明した、URL(s) に指定するURLを取得する。
 
@@ -568,7 +568,7 @@ GAS のツールバーの *公開* から *ウェブアプリケーションと�
 
 *導入* を押せば、URLが発行されるので、それを Slack のインテグレーションの Outgoing WebHooks の URL(s) にコピペする。
 
-### 4. コードの更新
+## 4. コードの更新
 
 最後に注意点。
 
@@ -582,6 +582,6 @@ GAS のツールバーの *公開* から *ウェブアプリケーションと�
 
 こんなかんじ
 
-![ひとりさみしく](./slack_bot.jpg)
+![ひとりさみしく](/images/advendar-slack-bot/slack_bot.jpg)
 
 ## おしまい
