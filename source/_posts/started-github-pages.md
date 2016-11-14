@@ -2,8 +2,8 @@
 title: Github Pages はじめました
 categories: Web
 tags:
-- github
-- node.js
+- GitHub
+- Node.js
 date: 2016-05-29 02:03:19
 ---
 
