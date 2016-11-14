@@ -1,3 +1,30 @@
+<% if (theme.usecdn){ %>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js"></script>
+
+<% if (theme.fancybox){ %>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.css" media="screen" type="text/css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+<% } %>
+
+<% } else { %>
+<script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
+
+<% if (theme.fancybox){ %>
+<link rel="stylesheet" href="<%- config.root %>fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="<%- config.root %>fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+<% } %>
+<% } %>
+
 <script src="<%- config.root %>js/headroom.min.and.gallery.js"></script>
 <script>
 $("#mini-toggle").click(function () {
@@ -23,7 +50,6 @@ $("#header").headroom({
   }
 });
 $("#header").headroom("destroy");
-console.log("这网站没彩蛋，不用找了……")
 </script>
 
 <script>
@@ -60,31 +86,4 @@ $("a").click(function () {
 <% if (theme.forvirgo){ %>
 <script src="<%- config.root %>js/pangu.js"></script>
 <script>pangu.page_spacing();</script>
-<% } %>
-
-<% if (theme.usecdn){ %>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js"></script>
-
-<% if (theme.fancybox){ %>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.css" media="screen" type="text/css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-<script>
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-<% } %>
-
-<% } else { %>
-<script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
-
-<% if (theme.fancybox){ %>
-<link rel="stylesheet" href="<%- config.root %>fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="<%- config.root %>fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-<% } %>
 <% } %>
