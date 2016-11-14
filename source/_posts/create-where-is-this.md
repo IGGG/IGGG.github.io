@@ -11,11 +11,11 @@ categories: Application
 IGGG 名古屋支部 支部長の ひげ です。  
 前回に続いて今回も群大理工学部の学園祭 [群桐祭](http://guntohfes.com/) のイベント、テクノドリームツアー用に作成した、ジオタグ解析アプリ、Where-is-This (名前は適当)について紹介したいと思います。
 
-## WHere-is-This とは
+## Where-is-This とは
 
 画像を与えると、画像の位置情報を解析して、Google Map にマッピングした情報が返ってくるというモノです。
 
-![送信前(左)と送信後(右)](./whereisthis.jpg)
+![送信前(左)と送信後(右)](/images/create-where-is-this/whereisthis.jpg)
 
 このプログラム自体は IGGG の期待の新星 [atpons](https://github.com/atpons) くんが10分くらいでこしらえてくれたものです(はやい)。
 それを少しだけ修正して IGGG の [Heroku](https://dashboard.heroku.com/) にあげました。
