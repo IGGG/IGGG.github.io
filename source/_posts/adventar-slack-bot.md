@@ -1,6 +1,6 @@
 ---
-title: ADVENDAR の更新を通知する Slack BOT を作ってみた
-date: 2016-11-13 21:37:13
+title: ADVENTAR の更新を通知する Slack BOT を作ってみた
+date: 2016-12-01 00:00:00
 tags:
 - Slack
 - Bot
@@ -21,7 +21,7 @@ IGGG 名古屋支部のひげです。
 その時の話。
 とりあえずググってみた結果、まぁ、Qiita が人気ですよね。
 
-![Qiitaが人気ですよね](/images/advendar-slack-bot/google_advent_calendar.jpg)
+![Qiitaが人気ですよね](/images/adventar-slack-bot/google_advent_calendar.jpg)
 
 [ここ](http://blog.qiita.com/post/152366526084/adventcalendar2016?utm_source=qiita&utm_medium=advent_calendar_jumbotron) に簡単にまとめてある。
 
@@ -30,7 +30,7 @@ IGGG 名古屋支部のひげです。
 
 サークルとかでも使われた事例はある。
 
-![サークルで使われてるのはADVENTAR](/images/advendar-slack-bot/google_advent_circle.jpg)
+![サークルで使われてるのはADVENTAR](/images/adventar-slack-bot/google_advent_circle.jpg)
 
 で、問題はここから。
 
@@ -44,7 +44,7 @@ Qiita は RSS による通知機能がある。
 
 あった。
 
-![slack bot スクレイピング で検索](/images/advendar-slack-bot/google_slack_bot.jpg)
+![slack bot スクレイピング で検索](/images/adventar-slack-bot/google_slack_bot.jpg)
 
 ### Google Apps Script
 
@@ -85,7 +85,7 @@ Google Drive で *右クリック* し、一番下の *その他* から *アプ
 
 そしたら、`google apps script` を検索してインストール(接続)。
 
-![google apps script を検索](/images/advendar-slack-bot/google_drive_search_gas.jpg)
+![google apps script を検索](/images/adventar-slack-bot/google_drive_search_gas.jpg)
 
 あとは、スプレッドシートとかと同じように、Drive 内に作成できる。
 
@@ -99,7 +99,7 @@ Google Drive で *右クリック* し、一番下の *その他* から *アプ
 
 ## 1. GAS によるWebスクレイピング
 
-![まぁありますよね](/images/advendar-slack-bot/google_gas_scraping.jpg)
+![まぁありますよね](/images/adventar-slack-bot/google_gas_scraping.jpg)
 
 まぁ出てきますよね。
 
@@ -586,7 +586,7 @@ GAS のツールバーの *公開* から *ウェブアプリケーションと�
 
 こんなかんじ
 
-![ひとりさみしく](/images/advendar-slack-bot/slack_bot.jpg)
+![ひとりさみしく](/images/adventar-slack-bot/slack_bot.jpg)
 
 ## ついでに
 
@@ -613,9 +613,9 @@ function postMessage() {
 `CHANNEL_ID` は `#randome` とかで良い。
 後は、GAS の設定で定期ポストをするだけ。
 
-![半日置きに定期ポストされるはず](/images/advendar-slack-bot/regular_post.jpg)
+![半日置きに定期ポストされるはず](/images/adventar-slack-bot/regular_post.jpg)
 
-![Bot から Bot へ](/images/advendar-slack-bot/bot2bot.jpg)
+![Bot から Bot へ](/images/adventar-slack-bot/bot2bot.jpg)
 
 
 ## おしまい
