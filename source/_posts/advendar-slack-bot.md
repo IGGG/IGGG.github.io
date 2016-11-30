@@ -576,7 +576,7 @@ GAS のツールバーの *公開* から *ウェブアプリケーションと�
 
 最後に注意点。
 
-コードを更新するたびに必要かはわからないが、更新してもうまく実行されない場合は、もう一度、上記の手順で
+コードを ~~更新するたびに必要かはわからないが、~~ (必要でした) 更新してもうまく実行されない場合は、もう一度、上記の手順で
  *ウェブアプリケーションとして導入* をし、*プロジェクトのバージョン* をあげること。
 
 ちなみに、仮にコードを更新するたびにバージョンをあげないといけないならば、ADVENTAR のURLや年が変わるたびに、あげないといけなくなる。
@@ -587,5 +587,35 @@ GAS のツールバーの *公開* から *ウェブアプリケーションと�
 こんなかんじ
 
 ![ひとりさみしく](/images/advendar-slack-bot/slack_bot.jpg)
+
+## ついでに
+
+定期ポストしたい場合の手っ取り場合方法は、Bot をフックするためのメッセージを定期ポストする GAS コードの Slack Bot を作るのがよさそう。
+
+コードはサクッとこんな感じ
+
+```javascript
+function postMessage() {
+
+  var prop = PropertiesService.getScriptProperties().getProperties();
+
+  const BOT_NAME = 'Gunmer BOT';
+  const BOT_ICON = 'http://drive.google.com/uc?export=view&id=' + prop.ICON_ID;
+
+  /* Post Message to Slack */
+  var slackApp = SlackApp.create(prop.SLACK_API_TOKEN);
+  var option = { username : BOT_NAME, icon_url : BOT_ICON };
+
+  slackApp.postMessage(prop.CHANNEL_ID, prop.MESSAGE, option);
+}
+```
+
+`CHANNEL_ID` は `#randome` とかで良い。
+後は、GAS の設定で定期ポストをするだけ。
+
+![半日置きに定期ポストされるはず](/images/advendar-slack-bot/regular_post.jpg)
+
+![Bot から Bot へ](/images/advendar-slack-bot/bot2bot.jpg)
+
 
 ## おしまい
