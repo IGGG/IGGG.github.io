@@ -72,6 +72,8 @@ Qiita は RSS による通知機能がある。
 
 を実現すればよい。
 
+最終的なコードは[コチラ](https://gist.github.com/matsubara0507/dbe64f8bf319ab8b86d103a7cb04027d)
+
 ## 0. GAS の準備
 
 まずは GAS の準備から。
