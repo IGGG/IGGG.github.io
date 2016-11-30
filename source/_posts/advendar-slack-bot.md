@@ -498,13 +498,14 @@ function diffEntry(newEntry, oldEntry) {
 
   if (equality)
     return 'no_update';
+  if (isEntry(newEntry) && isEntry(oldEntry))
+    return 'updated';
   if (isEntry(newEntry))
     return 'added_entry';
   if (isEntry(oldEntry))
     return 'deleted_entry';
 
-  return 'updated';
-}
+  return "undefined";}
 ```
 
 で、差分をとっている。
@@ -518,9 +519,10 @@ function diffEntry(newEntry, oldEntry) {
 もし、
 
 - 更新が無ければ `no_update` という文字列を、
+- 何らかの更新はある場合は `updated`
 - 記事が新しく追加された場合は `added_entry` を、
 - 登録がキャンセルされている場合は `deleted_entry` を、
-- それ以外の変更の場合は `updated`
+- それ以外の場合は (ないけど) `undefined`
 
 という文字列を返す。
 
