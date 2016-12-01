@@ -6,6 +6,8 @@ tags:
 - Bot
 - Google Apps Script
 categories: Web
+photos:
+cover: "/images/adventar-slack-bot/slack_bot.jpg"
 ---
 
 IGGG 名古屋支部のひげです。
@@ -107,7 +109,7 @@ Google Drive で *右クリック* し、一番下の *その他* から *アプ
 
 ### 準備
 
-最小は以下のサイトを参考にしながら DOM Tree っぽく処理しようとしたのだが、` XmlService.parse` という関数は[正しい形式の HTML でないとパース出来ない](http://stackoverflow.com/questions/19455158/what-is-the-best-way-to-parse-html-in-google-apps-script) 。
+最初は以下のサイトを参考にしながら DOM Tree っぽく処理しようとしたのだが、` XmlService.parse` という関数は[正しい形式の HTML でないとパース出来ない](http://stackoverflow.com/questions/19455158/what-is-the-best-way-to-parse-html-in-google-apps-script) 。
 
 - 参考 : [［GAS］HTML/XMLをパースする - 技術のメモ帳](http://yoshiyuki-hirano.hatenablog.jp/entry/2015/10/01/231813)
 
@@ -215,7 +217,7 @@ function parseByTag(data, tag) {
 
 ## 2. GAS によるスプレッドシートの操作
 
-次に、スプレッドシートをDB代わりとして捜査する。
+次に、スプレッドシートをDB代わりとして操作する。
 
 - 参考：[Google Apps Scriptのスプレッドシート読み書きを格段に高速化をする方法](http://tonari-it.com/gas-spreadsheet-speedup/)
 
@@ -357,7 +359,7 @@ Slack の API を使うには専用のトークンが必要なので、[ココ](
 
 ### 画像を利用
 
-最初の方に用意した Bot 用のアイコンを利用する多面はひと工夫が必要である。
+最初の方に用意した Bot 用のアイコンを利用するにはひと工夫が必要である。
 
 - 参考 : [Google Drive に保存した画像を直接呼び出せるURLの取得 - Qiita](http://qiita.com/arribux/items/0394968fa318d9309d33)
 
