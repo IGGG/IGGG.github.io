@@ -1,5 +1,8 @@
 <article class="<%= item.layout %>">
-  <% if (item.photos){ %>
+  <% if (item.thumbnail) { %>
+    <%- partial('post/thumbnail') %>
+  <% } %>
+  <% if (item.photos && item.photos != ""){ %>
     <%- partial('post/gallery') %>
   <% } %>
   <div class="post-content">
