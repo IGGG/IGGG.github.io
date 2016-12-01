@@ -415,12 +415,12 @@ function doPost(e) {
         break;
     }
     if (text != null) {
-      slackApp.postMessage(channelId, text, option);
+      slackApp.postMessage(prop.CHANNEL_ID, text, option);
       noUpdate = false;
     }
   }
   if (noUpdate)
-    slackApp.postMessage(channelId, "更新はありません", option);    
+    slackApp.postMessage(prop.CHANNEL_ID, "更新はありません", option);    
 }
 
 function makeMessage(entry) {
@@ -444,12 +444,14 @@ function diffEntry(newEntry, oldEntry) {
 
   if (equality)
     return 'no_update';
+  if (isEntry(newEntry) && isEntry(oldEntry))
+    return 'updated';
   if (isEntry(newEntry))
     return 'added_entry';
   if (isEntry(oldEntry))
     return 'deleted_entry';
 
-  return 'updated';
+  return "undefined";
 }
 
 function isEntry(entry) {
@@ -479,12 +481,12 @@ for(var i = 0; i < newEntries.length; i++) {
     /* ... */
   }
   if (text != null) {
-    slackApp.postMessage(channelId, text, option);
+    slackApp.postMessage(prop.CHANNEL_ID, text, option);
     noUpdate = false;
   }
 }
 if (noUpdate)
-  slackApp.postMessage(channelId, "更新はありません", option);    
+  slackApp.postMessage(prop.CHANNEL_ID, "更新はありません", option);    
 ```
 
 で日付ごとに前との差分を取って、更新があればメッセージを送信している。
@@ -507,7 +509,8 @@ function diffEntry(newEntry, oldEntry) {
   if (isEntry(oldEntry))
     return 'deleted_entry';
 
-  return "undefined";}
+  return "undefined";
+}
 ```
 
 で、差分をとっている。
@@ -619,5 +622,12 @@ function postMessage() {
 
 ![Bot から Bot へ](/images/adventar-slack-bot/bot2bot.jpg)
 
+## 追記
+
+![まかせろ](/images/adventar-slack-bot/req_hurry.jpg)
+
+[ほい](https://gist.github.com/matsubara0507/dbe64f8bf319ab8b86d103a7cb04027d#file-hurry-gs)
+
+![できたぜ](/images/adventar-slack-bot/hurry.jpg)
 
 ## おしまい
