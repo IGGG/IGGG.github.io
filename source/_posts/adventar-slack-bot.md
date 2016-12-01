@@ -7,7 +7,7 @@ tags:
 - Google Apps Script
 categories: Web
 photos:
-cover: "/images/adventar-slack-bot/bot2bot.jpg"
+cover: "/images/adventar-slack-bot/slack_bot.jpg"
 ---
 
 IGGG 名古屋支部のひげです。
