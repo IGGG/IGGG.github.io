@@ -4,16 +4,18 @@ date: 2016-12-05 11:29:48
 tags:
   - GitHub
 categories: Web
-cover: "/images/404_github.jpg"
+cover: "/images/test-github-submodule/404_github.jpg"
 ---
 
-IGGG アドベントカレンダー5日目の記事です。
+名古屋支部長のひげです。
 
-今回は C91 に向けて GitHub の使用をイロイロとテストしてみたときの話です。
+これは一応、[IGGG アドベントカレンダー](http://www.adventar.org/calendars/1572) 5日目の記事です。
+
+今回は C91 に向けて GitHub の仕様をイロイロとテストしてみたときの話です。
 
 ## いきさつ
 
-IGGG はココ何回か例の有名なコミケに出展しています。
+IGGG はココ何回か彼の有名なコミケに出展しています。
 とある事情より、前回(C90) は GitHub にて編集・管理を行いました。
 今回(C91)も同様に GitHub で編集・管理しようと思ったのですが、部誌([Lollipop](https://iggg.github.io/lollipop/))用の Web ページを GitHub Pages で作ろうと考え、この野心との兼ね合いでイロイロと試行錯誤しました。
 
@@ -41,7 +43,7 @@ IGGG/lollipop
 ```
 
 これは新しい巻が出るたびにクローンせずに済むので有り難い。
-しかし、古い巻に関係ない人も全ての巻のデータを落とさないと行けなくなる(例えば vol.5 は寄稿するが vol.4 では寄稿しなかった人)。
+しかし、古い巻に関係ない人も全ての巻のデータを落とさないといけなくなる(例えば vol.5 は寄稿するが vol.4 では寄稿しなかった人)。
 これは重い気がする。
 
 なので、後者を採用してひと工夫することにした。
@@ -64,9 +66,10 @@ IGGG/lollipop
 - lollipop-vol5 : vol.5 のプライベートリポジトリ
 - lollipop : lollipop 全体の管理用パブリックリポジトリ
     - submodule として lollipop-vol4 と lollipop-vol5 のリポジトリを持つ
-    - gh-pages ブランチを持つ(もちろん GitHub Pages 用のブランチ)
 
 [コレ](https://github.com/IGGG/lollipop)
+
+つまり、パブリックリポジトリの中にプライベートリポジトリを Submodule として持つことになる。
 
 ## 本題
 
@@ -82,14 +85,14 @@ IGGG/lollipop
 
 ## 検証
 
-検証用に利用したリポジトリは[コチラ](https://github.com/matsubara0507/test-submodule)。
+検証用に利用したリポジトリは[コチラ](https://github.com/matsubara0507/test-submodule) 。
 
 
 ### パブリックリポジトリにプライベートリポジトリの Submodule を持たせる
 
 できた。
 
-ただし、プライベートリポジトリにリード権限が無い人が Submodule にアクセスしようとしても、エラーが返ってくる。
+ただし、プライベートリポジトリにリード権限が無い人が Submodule にアクセスしようとしても、エラーが返ってくる(そりゃそうか)。
 
 ![クリック!](/images/test-github-submodule/click_private_submodule.jpg)
 
@@ -123,5 +126,7 @@ GitHub Pages は[リポジトリ内を漁れる](https://matsubara0507.github.io
 - パブリックリポジトリにプライベートリポジトリの Submodule を持たせれる
 - プライベートリポジトリの Submodule を持つリポジトリを GitHub Pages のソース置き場にできない
     - プライベートリポジトリの Submodule が無いブランチ(gh-pages)であれば可能
+
+これ利用してできたのが[このページ](https://iggg.github.io/lollipop/) 。
 
 ## おしまい
