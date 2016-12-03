@@ -4,6 +4,7 @@ date: 2016-12-05 11:29:48
 tags:
   - GitHub
 categories: Web
+cover: "/images/404_github.jpg"
 ---
 
 IGGG アドベントカレンダー5日目の記事です。
