@@ -1,0 +1,1 @@
+!function(a){a(".entry").each(function(b){a(this).find("img").each(function(){var c=this.alt;c&&a(this).after('<span class="caption">'+c+"</span>"),a(this).wrap('<a href="'+this.src+'" title="'+c+'" class="fancybox" rel="gallery'+b+'" />')})})}(jQuery);

@@ -49,16 +49,19 @@
           $(".titlelist").css("display","none");
           $("title").text("Tag Cloud | <%- config.title %>");
       } else {
-          $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-            options.async = true;
-          });
           //pages
           $('#myCanvasContainer').css("display","none");
           $("title").text(pageTitle + " | <%- config.title %>");
           var pageIDplus=pageTitle.replace(/\s+/g,"")
           $(".titlelist").css("display","none");
           $("[idplus=\'" + pageIDplus +"\']" ).css("display","");
+          $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+            options.async = true;
+          });
           $("[idplusp=\'" + pageIDplus +"\']" ).replaceWith($("[idplus=\'" + pageIDplus +"\']").html().replace(/img\ s1c/g, "img src"));
+          $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+            options.async = false;
+          });
       }
   };
   </script>
