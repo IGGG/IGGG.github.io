@@ -28,7 +28,7 @@
       <%- partial('_partial/article', {item: item, index: false}).replace(/img\ src/g, "img s1c") %>
       <% if (config.disqus_shortname){ %>
         <nav id="pagination">
-          <a href="<%- config.root %><%- item.path %>#comment" class="alignright next")"><%= __('viewcomment') %></a>
+          <a href="<%- config.root %><%- item.path %>#comment" class="alignright next"><%= __('viewcomment') %></a>
           <div class="clearfix"></div>
         </nav>
       <% } %>

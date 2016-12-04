@@ -55,7 +55,13 @@
           var pageIDplus=pageTitle.replace(/\s+/g,"")
           $(".titlelist").css("display","none");
           $("[idplus=\'" + pageIDplus +"\']" ).css("display","");
+          $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+            options.async = true;
+          });
           $("[idplusp=\'" + pageIDplus +"\']" ).replaceWith($("[idplus=\'" + pageIDplus +"\']").html().replace(/img\ s1c/g, "img src"));
+          $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+            options.async = false;
+          });
       }
   };
   </script>
@@ -72,4 +78,3 @@
 
   </script>
 <% } %>
-
