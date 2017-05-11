@@ -24,9 +24,9 @@ Windows上でやるせいで悪戦苦闘したという感じです。
 - Windows10 Home
 - Docker ToolBox
 - Docker version 17.03.1-ce
-- VertualBox 5.1.18
+- VirtualBox 5.1.18
 
-Windows10 Home なので [Docker for Windows](https://docs.docker.com/docker-for-windows/) は使えず、仕方がないので VerualBox を利用する [Docker ToolBox](https://www.docker.com/products/docker-toolbox) を使ってる。
+Windows10 Home なので [Docker for Windows](https://docs.docker.com/docker-for-windows/) は使えず、仕方がないので VirtualBox を利用する [Docker ToolBox](https://www.docker.com/products/docker-toolbox) を使ってる。
 
 ## Dockerfile
 
