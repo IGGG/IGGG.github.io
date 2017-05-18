@@ -15,7 +15,7 @@ IGGG では予てより [Slack](https://slack.com/) というチャットサー�
 皆を説得して有償プランにしようとか、ログの残るサービスに移ろうとか、何度かいろんな案で話し合ったのですが...いろいろな理由で難しい。
 そこで、IGGG の ~~外圧担当~~ CTO こと [擬音](https://twitter.com/gion_U) より **GitHub の Issue で管理しよう** との提案が、今年の4月中旬ぐらいにされた。
 
-![いい感じ](/images/make-manager-bot-for-slack.jpg)
+![いい感じ](/images/make-manager-bot-for-slack/management_repo.jpg)
 
 しっかりと問題提起・議論が残り、とてもいい感じ。
 
