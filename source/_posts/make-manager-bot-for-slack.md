@@ -1,5 +1,14 @@
 ---
 title: Slack と GAS と GitHub を使って部内の問題・情報管理を円滑にしたい話
+date: 2017-05-17 00:29:36
+tags:
+- Slack
+- Bot
+- Google Apps Script
+- GitHub
+categories: Web
+cover: "/images/make-manager-bot-for-slack/flow.jpg"
+photos: "/images/make-manager-bot-for-slack/flow.jpg"
 ---
 
 IGGG ソフトウェア基盤部のひげです。
