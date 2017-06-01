@@ -39,7 +39,7 @@ IGGG は部としての活動はあまりなく、個人での活動が多い(�
 
 まずは何も考えずにそのままツイートしてくれる Slack Bot を作る。
 GAS なので、[Outgoing Webhook](https://iggg.slack.com/apps/A0F7VRG6Q-outgoing-webhooks) を使う。
-Bot の名前を `annuncer` にするということにして(Customize Name をいじるわけではない、いじってもいいけど)，`@annuncer` を Trigger Word(s) に設定する。
+Bot の名前を `announcer` にするということにして(Customize Name をいじるわけではない、いじってもいいけど)，`@announcer` を Trigger Word(s) に設定する。
 
 イメージはこんな感じ
 
