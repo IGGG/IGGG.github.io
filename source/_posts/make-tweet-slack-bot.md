@@ -182,7 +182,13 @@ function authCallback(request) {
 ```
 
 `reset`, `getService`, `authCallback` 関数はサンプルコードをそのまんま、 `postTweet` 関数はサンプルコードの `run` 関数を返り値があるように書き換えたモノだ。
-いちど `postTweet` 関数を GAS 側で実行すると、**現在ログインしている Twitter アカウント** でのアプリケーション連携の認証ページへ飛ばされるので許可すればよい。
+
+次に、[Twitter側](https://apps.twitter.com)に `https://script.google.com/macros/d/{SCRIPT_ID}/usercallback` を Setting からの Callback URL に書き込む。
+ここでの `SCRIPT_ID` は `ファイル` の `プロジェクトのプロパティ` にある `スクリプト ID` に書いてある文字列である(URLからも実はわかる)。
+
+できたら、いちど `postTweet` 関数を GAS 側で実行すると、**現在ログインしている Twitter アカウント** でのアプリケーション連携の認証ページへ飛ばされるので許可すればよい。
+
+そして最後に、GAS側の `公開` の `ウェブアプリケーションとして導入` に書いてある URL を Outgoing Webhook の URL(s) にコピペすれば Slack 側とも繫がることができる。
 
 #### 1-3. ためしに実行
 
