@@ -31,11 +31,11 @@ jobs:
           at: .
       - run:
         name: init
-        command: |
-          git config --global user.name "IGGGorg"
-          git config --global user.email "contcat@iggg.org"
-          git submodule init
-          git submodule update
+          command: |
+            git config --global user.name "IGGGorg"
+            git config --global user.email "contcat@iggg.org"
+            git submodule init
+            git submodule update
       - run:
           name: deploy to production
           command: ./node_modules/.bin/hexo deploy
