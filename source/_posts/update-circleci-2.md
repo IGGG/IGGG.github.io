@@ -68,6 +68,8 @@ general:
 defaults: &defaults
   docker:
     - image: circleci/node:11.4.0
+      environment:
+        TZ: Asia/Tokyo
   working_directory: ~/work
 
 version: 2
