@@ -51,7 +51,14 @@ jobs:
             git config --global user.email "contcat@iggg.org"
       - run:
           name: deploy to staging
-          command: yes yes | ./node_modules/.bin/hexo deploy --branch $CIRCLE_BRANCH --config _staging_config.yml
+          command: |
+            mkdir .deploy
+            cd .deploy
+            git init
+            cp ../public/* .
+            git add -A
+            git commit -m "Site updated"
+            git push -u https://heroku:$HEROKU_API_KEY@git.heroku.com/iggg-github-io-staging.git master -f
 
 workflows:
   version: 2
