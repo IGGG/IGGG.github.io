@@ -1,0 +1,73 @@
+defaults: &defaults
+  docker:
+    - image: circleci/node:4.4.5
+  working_directory: ~/work
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: npm install
+      - run: node_modules/.bin/hexo clean
+      - run: node_modules/.bin/hexo generate
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+  deploy-production:
+    <<: *defaults
+    steps:
+      - run:
+        name: init
+        command:
+          - git config --global user.name "IGGGorg"
+          - git config --global user.email "contcat@iggg.org"
+          - git submodule init
+          - git submodule update
+      - run:
+        name: deploy to production
+        command:
+          - ./node_modules/.bin/hexo deploy
+  deploy-staging:
+    <<: *defaults
+    steps:
+      - run:
+          name: init
+          command:
+            - git config --global user.name "IGGGorg"
+            - git config --global user.email "contcat@iggg.org"
+      - run:
+          name: deploy to staging
+          command:
+            - ./node_modules/.bin/hexo deploy --branch $CIRCLE_BRANCH --config _staging_config.yml
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
+      - deploy-production:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - source
+      - deploy-staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - staging
