@@ -55,7 +55,7 @@ jobs:
             mkdir .deploy
             cd .deploy
             git init
-            cp ../public .
+            cp -r ../public .
             git add -A
             git commit -m "Site updated"
             git push -u https://heroku:$HEROKU_API_KEY@git.heroku.com/iggg-github-io-staging.git master -f
