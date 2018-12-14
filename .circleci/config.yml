@@ -26,27 +26,25 @@ jobs:
     steps:
       - run:
         name: init
-        command:
-          - git config --global user.name "IGGGorg"
-          - git config --global user.email "contcat@iggg.org"
-          - git submodule init
-          - git submodule update
+        command: |
+          git config --global user.name "IGGGorg"
+          git config --global user.email "contcat@iggg.org"
+          git submodule init
+          git submodule update
       - run:
-        name: deploy to production
-        command:
-          - ./node_modules/.bin/hexo deploy
+          name: deploy to production
+          command: ./node_modules/.bin/hexo deploy
   deploy-staging:
     <<: *defaults
     steps:
       - run:
           name: init
-          command:
-            - git config --global user.name "IGGGorg"
-            - git config --global user.email "contcat@iggg.org"
+          command: |
+            git config --global user.name "IGGGorg"
+            git config --global user.email "contcat@iggg.org"
       - run:
           name: deploy to staging
-          command:
-            - ./node_modules/.bin/hexo deploy --branch $CIRCLE_BRANCH --config _staging_config.yml
+          command: ./node_modules/.bin/hexo deploy --branch $CIRCLE_BRANCH --config _staging_config.yml
 
 workflows:
   version: 2
