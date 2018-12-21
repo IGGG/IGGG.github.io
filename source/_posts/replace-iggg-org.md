@@ -106,7 +106,7 @@ Hugo 利用するテーマをサブモジュールとして設定するみたい
     order = 5
 ```
 
-順番をうまくコントロースすることができなかったので `order` というパラメタを持たせています。
+順番をうまくコントロールすることができなかったので `order` というパラメタを持たせています。
 呼び出し側は[次](https://github.com/IGGG/hugo-theme-dopetrope/blob/cd4ae533e9e1fdedfecfebb84bca4a3d43d0a787/layouts/partials/nav.html)のようになります:
 
 ```html
