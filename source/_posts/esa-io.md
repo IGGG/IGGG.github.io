@@ -8,7 +8,7 @@ photos:
 cover: "/images/esa-io/esanta.png"
 ---
 
-![](/images/esa-io/esanta.png)
+<img src="/images/esa-io/esanta.png" width="220" height="220"></img>
 
 本記事は[IGGG アドベントカレンダー 2018](http://www.adventar.org/calendars/3217) 24日目の記事です。
 
