@@ -8,6 +8,8 @@ photos:
 cover: "/images/esa-io/esanta.png"
 ---
 
+![](/images/esa-io/esanta.png)
+
 本記事は[IGGG アドベントカレンダー 2018](http://www.adventar.org/calendars/3217) 24日目の記事です。
 
 群馬大学電子計算機研究会 IGGGでは，2018年の2月頃から情報共有の場として[esa](https://esa.io/)を利用させていただいています．
@@ -50,4 +52,4 @@ esaには[アカデミックプラン](https://docs.esa.io/posts/129)が存在�
 
 最後に，申請を承認していただいたesaのみなさまにはこの場を借りて感謝申し上げます．
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />記事中の <a href="https://docs.esa.io/posts/79">esa アイコン</a>は <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">クリエイティブ・コモンズ 表示 - 非営利 - 改変禁止 4.0 国際 ライセンス</a>の下に提供されています。© esa LLC
+記事中の <a href="https://docs.esa.io/posts/79">esa アイコン</a>は <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">クリエイティブ・コモンズ 表示 - 非営利 - 改変禁止 4.0 国際 ライセンス</a>の下に提供されています。© esa LLC
