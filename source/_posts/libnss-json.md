@@ -22,7 +22,7 @@ cover: "/images/libnss-json/libnss.png"
 先日行われた[技術書典7](https://techbookfest.org/)に参加し、[東工大デジタル創作同好会traP](https://trap.jp)のSysAd班が出している「[traP SysAd TechBook](https://techbookfest.org/event/tbf07/circle/5091367973814272)」を買って色々と読んでいたところ、libnss-jsonというのがあると言うことを知りました。
 
 ### libnssとは
-Linux(*nixにもあるらしい)にはName Service Switch(NSS)と呼ばれる、`/etc/passwd`などをファイルからどこから読むのかを管理する機構があります。これにLDAPなどを読みに行くようなものを書けば、`getent`をした際にそこに読みに行きます、というワケです。これらは、NSSサービスとして書くことができます。
+Linux(\*nixにもあるらしい)にはName Service Switch(NSS)と呼ばれる、`/etc/passwd`などをファイルからどこから読むのかを管理する機構があります。これにLDAPなどを読みに行くようなものを書けば、`getent`をした際にそこに読みに行きます、というワケです。これらは、NSSサービスとして書くことができます。
 
 ## libnss-jsonを使う
 これをJSONファイルで定義して、なおかつリモートから読み込んでくれるようなNSSサービスが、[libnss-json](https://github.com/Aklakan/libnss-json)です。導入方法などは上で挙げたtraPの本がとても参考になりました。
