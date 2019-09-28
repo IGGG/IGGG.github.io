@@ -79,3 +79,6 @@ deploy:
   type: git
   repo: git@github.com:IGGG/IGGG.github.io.git
   branch: master
+  message: Deploy by Hexo
+  name: IGGGorg
+  email: contact@iggg.org
