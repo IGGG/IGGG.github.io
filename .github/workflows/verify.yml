@@ -1,4 +1,4 @@
-ame: Verify PR
+name: Verify PR
 
 on: pull_request
 
