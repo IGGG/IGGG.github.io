@@ -17,4 +17,3 @@ jobs:
         npm install
         node_modules/.bin/hexo clean
         node_modules/.bin/hexo generate
-        git status
