@@ -10,4 +10,4 @@ echo "${DEPLOY_KEY}" > /root/.ssh/id_rsa
 chmod 400 /root/.ssh/id_rsa
 
 # deploy by hexo
-./node_modules/.bin/hexo deploy --config _config.yml
+./node_modules/.bin/hexo deploy --config $1

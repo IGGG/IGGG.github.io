@@ -22,6 +22,8 @@ jobs:
         node_modules/.bin/hexo generate
     - name: Deploy to production
       env:
-        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-      run: ./.github/scripts/deploy.bash _config.yml
+        DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
+      run: |
+        npm install hexo-deployer-heroku --save
+        ./.github/scripts/deploy.bash _staging_config.yml
       shell: bash
