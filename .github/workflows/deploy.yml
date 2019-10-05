@@ -1,0 +1,27 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+    - source
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Build by Hexo
+      run: |
+        npm install
+        node_modules/.bin/hexo clean
+        node_modules/.bin/hexo generate
+    - name: Deploy to production
+      env:
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+      run: ./.github/scripts/deploy.bash _config.yml
+      shell: bash
