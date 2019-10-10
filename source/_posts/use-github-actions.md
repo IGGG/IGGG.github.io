@@ -1,6 +1,6 @@
 ---
 title: GitHub Actions を使ってみた
-date: 2019-10-06 00:00:00
+date: 2019-10- 00:00:00
 tags:
   - GitHub
 categories: Web
