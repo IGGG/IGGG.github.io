@@ -6,6 +6,7 @@ set -eux
 eval "$(ssh-agent -s)"
 mkdir -p ${HOME}/.ssh
 ssh-keyscan -t rsa github.com > ${HOME}/.ssh/known_hosts
+ssh-keyscan -t rsa heroku.com >> ${HOME}/.ssh/known_hosts
 echo "${DEPLOY_KEY}" > ${HOME}/.ssh/id_rsa
 chmod 400 ${HOME}/.ssh/id_rsa
 
