@@ -25,5 +25,7 @@ jobs:
         DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
       run: |
         npm install hexo-deployer-heroku --save
+        git config --global user.name "IGGGorg"
+        git config --global user.email "contact@iggg.org"
         ./.github/scripts/deploy.bash _staging_config.yml
       shell: bash
