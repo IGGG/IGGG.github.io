@@ -4,7 +4,7 @@ date: 2019-10-06 00:00:00
 tags:
   - GitHub
 categories: Web
-cover: "/images/vs-thumbnail/before_after.png"
+cover: "/images/use-github-actions/actions.jpg"
 ---
 
 IGGG ソフトウェア基盤部のひげです。
@@ -20,6 +20,8 @@ GitHub が用意した CI/CD。
 まだベータ版な点に注意。
 
 - [Features • GitHub Actions · GitHub](https://github.com/features/actions)
+
+![](/images/use-github-actions/actions.jpg)
 
 ## 設定する
 
