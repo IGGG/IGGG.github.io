@@ -23,9 +23,10 @@ jobs:
     - name: Deploy to production
       env:
         DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
+        GIT_NAME: IGGGorg
+        GIT_EMAIL: contact@iggg.org
       run: |
         npm install hexo-deployer-heroku --save
-        git config --global user.name "IGGGorg"
-        git config --global user.email "contact@iggg.org"
+        ./.github/scripts/heroku-setup.bash
         ./.github/scripts/deploy.bash _staging_config.yml
       shell: bash
