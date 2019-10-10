@@ -77,5 +77,5 @@ feed:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: heroku
-  repo: https://git.heroku.com/iggg-github-io-staging.git
+  repo: git@heroku.com:iggg-github-io-staging.git
   message: Deploy by Hexo

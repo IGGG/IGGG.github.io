@@ -1,4 +1,4 @@
-name: Deploy GitHub Pages
+name: Deploy to Heroku
 
 on:
   push:
@@ -20,10 +20,13 @@ jobs:
         npm install
         node_modules/.bin/hexo clean
         node_modules/.bin/hexo generate
-    - name: Deploy to production
+    - name: Deploy to staging
       env:
         DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
+        GIT_NAME: IGGGorg
+        GIT_EMAIL: contact@iggg.org
       run: |
         npm install hexo-deployer-heroku --save
+        ./.github/scripts/heroku-setup.bash
         ./.github/scripts/deploy.bash _staging_config.yml
       shell: bash
