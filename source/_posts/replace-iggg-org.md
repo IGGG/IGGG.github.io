@@ -7,7 +7,7 @@ tags:
 - Hugo
 categories: Web
 photos:
-cover: "/images/replace_iggg_org/new-iggg-org.jpg"
+cover: "/images/replace-iggg-org/new-iggg-org.jpg"
 ---
 
 本記事は[IGGG アドベントカレンダー 2018](http://www.adventar.org/calendars/3217) 22日目の記事です。
