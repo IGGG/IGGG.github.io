@@ -19,3 +19,7 @@ jobs:
         npm install
         node_modules/.bin/hexo clean
         node_modules/.bin/hexo generate
+    - name: Check Tweet Message
+      run: ./.github/scripts/tweet-message.bash
+      shell: bash
+      if: github.base_ref == 'tweet'
