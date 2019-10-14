@@ -26,4 +26,4 @@ jobs:
         consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
         access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
         access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-        message: ${{ steps.message.result }}
+        message: ${{ steps.message.outputs.result }}
