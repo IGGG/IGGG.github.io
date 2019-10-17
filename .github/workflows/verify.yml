@@ -24,13 +24,11 @@ jobs:
     if: github.base_ref == 'tweet'
     steps:
     - uses: actions/checkout@v1
-      with:
-        fetch-depth: 1
     - name: Build tweet message
       uses: matsubara0507/actions/outputs@master
       id: message
       env:
-        TARGET_BRANCH: tweet
+        TARGET_BRANCH: origin/tweet
       with:
         script_path: ./.github/scripts/tweet-message.bash
     - name: Tweet (dryrun)

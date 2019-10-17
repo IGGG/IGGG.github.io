@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
-      with:
-        fetch-depth: 1
     - name: Build tweet message
       uses: matsubara0507/actions/outputs@master
       id: message
