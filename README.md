@@ -1,11 +1,13 @@
 # IGGG.github.io
+
 GitHub Pages for IGGG  
 このブランチはページ構築用のリソースブランチです。
 
-[公式サイト](http://www.iggg.org/) や [IGGG Wiki](http://www.iggg.org/wiki/) では書きにくい、技術よりなネタをこのページ書いていこうかなー、と思ってます。  
+[公式サイト](https://www.iggg.org/) や [IGGG Wiki](https://scrapbox.io/iggg/) では書きにくい、技術よりなネタをこのページ書いていこうかなー、と思ってます。  
 By ひげ
 
 ## ブランチの構成と管理
+
 - **master**
   GitHub Pages は master ブランチのHTMLファイルからページを構築します。
   うちは Hexo 使って自動生成してるので、**このブランチは直接いじらないで**
@@ -15,10 +17,18 @@ By ひげ
 - **staging**
   ステージング環境用のブランチです。
   このブランチの更新が自動でステージング環境にデプロイされます。
+- **tweet**
+  このブランチに新しい記事の差分を追加すると自動で IGGGorg にその旨をツイートします。
 
 基本的に **staging ブランチをクローンして、そこから新しくブランチを切ってから、新しい記事を作成してください。**
 その後、プルリクエストを送ってくれれば staging ブランチにマージし、ステージング環境で確認します。
 ステージング環境で問題が無い、あった場合は修正をして、source ブランチにマージします。
+
+### PR を作る
+
+- [ステージングに新しい記事を追加](https://github.com/IGGG/IGGG.github.io/compare/staging...?template=staging.md)
+- [本番に新しい記事を追加する](https://github.com/IGGG/IGGG.github.io/compare/source...staging?template=release.md)
+- [記事の追加をツイートする](https://github.com/IGGG/IGGG.github.io/compare/tweet...?template=tweet.md)
 
 ## 準備
 ローカルでビルドする方法として、めちゃくちゃ基本的なことも含めて説明します。
@@ -40,9 +50,7 @@ Windows なら [Git for Windows](https://git-for-windows.github.io/) でいい�
 SSH Key を作成(持ってたらもちろんいらない)して public key を GitHub に登録してください。
 作成方法は適当にググってもらってもいいんだけど....
 
-1. `$ ssh-keygen -t rsa -C "<mail address>"` でカギを生成  
-  ~~このとき、パスフレーズは設定しないようにしてください。~~  
-  セキュリティ上パスフレーズの設定はしましょう
+1. `$ ssh-keygen -t rsa -C "<mail address>"` でカギを生成
 2. windows なら `$ clip < ~/.ssh/id_rsa.pub` でクリップボードに公開鍵をコピーして
 3. https://github.com/settings/keys の右上の `New SSH key` を押して、下の Key の欄にペースト(title は何でもいい)
 
