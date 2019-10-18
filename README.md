@@ -28,7 +28,7 @@ By ひげ
 
 - [ステージングに新しい記事を追加](https://github.com/IGGG/IGGG.github.io/compare/staging...?template=staging.md)
 - [本番に新しい記事を追加する](https://github.com/IGGG/IGGG.github.io/compare/source...staging?template=release.md)
-- [記事の追加をツイートする](https://github.com/IGGG/IGGG.github.io/compare/tweet...?template=tweet.md)
+- [記事の追加をツイートする](https://github.com/IGGG/IGGG.github.io/compare/tweet...source?template=tweet.md)
 
 ## 準備
 ローカルでビルドする方法として、めちゃくちゃ基本的なことも含めて説明します。
