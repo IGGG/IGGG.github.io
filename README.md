@@ -26,9 +26,9 @@ By ひげ
 
 ### PR を作る
 
-- [ステージングに新しい記事を追加](https://github.com/IGGG/IGGG.github.io/compare/staging...?template=staging.md)
-- [本番に新しい記事を追加する](https://github.com/IGGG/IGGG.github.io/compare/source...staging?template=release.md)
-- [記事の追加をツイートする](https://github.com/IGGG/IGGG.github.io/compare/tweet...source?template=tweet.md)
+- [ステージングに新しい記事を追加](https://github.com/IGGG/IGGG.github.io/compare/staging...staging?template=staging.md&title=記事の追加%3A%20%5B記事名%5D&labels=New%20Post)
+- [本番に新しい記事を追加する](https://github.com/IGGG/IGGG.github.io/compare/source...staging?template=release.md&title=記事の追加%3A%20%5B記事名%5D&labels=New%20Post,Production)
+- [記事の追加をツイートする](https://github.com/IGGG/IGGG.github.io/compare/tweet...source?template=tweet.md&title=記事の追加をツイート%3A%20%5B記事名%5D&labels=Tweet)
 
 ## 準備
 ローカルでビルドする方法として、めちゃくちゃ基本的なことも含めて説明します。
