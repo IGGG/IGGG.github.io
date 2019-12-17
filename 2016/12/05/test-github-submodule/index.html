@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/images/IGGG_l.png">
+  <meta name="application-name" content="群馬大学電子計算機研究会 IGGG">
+  <meta name="msapplication-TileColor" content="#1b7aca">
+  <meta name="msapplication-square70x70logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square150x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-wide310x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square310x310logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/images/IGGG_l.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/images/IGGG_l.png">
+
+  
+  <title>Submodule と GitHub Pages についてイロイロとテストしてみた | 群馬大学電子計算機研究会 IGGG</title>
+  <meta name="author" content="IGGG">
+  
+  <meta name="description" content="名古屋支部長のひげです。
+これは一応、IGGG アドベントカレンダー 5日目の記事です。
+今回は C91 に向けて GitHub の仕様をイロイロとテストしてみたときの話です。
+いきさつIGGG はココ何回か彼の有名なコミケに出展しています。とある事情より、前回(C90) は GitHub にて編集">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Submodule と GitHub Pages についてイロイロとテストしてみた">
+  <meta property="og:site_name" content="群馬大学電子計算機研究会 IGGG">
+
+  
+    <meta property="og:image" content="/images/test-github-submodule/404_github.jpg">
+  
+
+  <link rel="alternate" href="/atom.xml" title="群馬大学電子計算機研究会 IGGG" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+</head>
+</html>
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">群馬大学電子計算機研究会 IGGG</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>IGGG</h3>
+      <p>Information technology researching society</p><p> of the Gunmer,</p><p> by the Gunmer,</p><p> for the Gunmer</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2019 IGGG
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-12-05T02:29:48.000Z"><a href="#">2016-12-05</a></time>
+      
+      
+  
+    <h1 class="depth title">Submodule と GitHub Pages についてイロイロとテストしてみた</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>名古屋支部長のひげです。</p>
+<p>これは一応、<a href="http://www.adventar.org/calendars/1572" target="_blank" rel="noopener">IGGG アドベントカレンダー</a> 5日目の記事です。</p>
+<p>今回は C91 に向けて GitHub の仕様をイロイロとテストしてみたときの話です。</p>
+<h2 id="いきさつ"><a href="#いきさつ" class="headerlink" title="いきさつ"></a>いきさつ</h2><p>IGGG はココ何回か彼の有名なコミケに出展しています。<br>とある事情より、前回(C90) は GitHub にて編集・管理を行いました。<br>今回(C91)も同様に GitHub で編集・管理しようと思ったのですが、部誌(<a href="https://iggg.github.io/lollipop/">Lollipop</a>)用の Web ページを GitHub Pages で作ろうと考え、この野心との兼ね合いでイロイロと試行錯誤しました。</p>
+<p>考えを整理すると以下の通りです。</p>
+<ul>
+<li>C90 のときのリポジトリがある (IGGG/lollipop-vol4)</li>
+<li>C91 のリポジトリを作りたい (IGGG/lollipop-vol5 ?)</li>
+<li>Lopllipop 用の GitHub Pages を作りたい</li>
+</ul>
+<p>考え得る案は2つ</p>
+<ol>
+<li>1つのリポジトリで全てを実現</li>
+<li>全て各々のリポジトリで実現</li>
+</ol>
+<p>前者の場合は既にある <code>lollipop-vol4</code> リポジトリを次のように改変することになる。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">IGGG/lollipop</span><br><span class="line"> | - lollipop-vol4</span><br><span class="line"> | | - ...</span><br><span class="line"> | - lollipop-vol5</span><br><span class="line"> | | - ...</span><br><span class="line"> | - README.md</span><br><span class="line"> | ...</span><br></pre></td></tr></table></figure>
+
+<p>これは新しい巻が出るたびにクローンせずに済むので有り難い。<br>しかし、古い巻に関係ない人も全ての巻のデータを落とさないといけなくなる(例えば vol.5 は寄稿するが vol.4 では寄稿しなかった人)。<br>これは重い気がする。</p>
+<p>なので、後者を採用してひと工夫することにした。<br>それが Submodule である。</p>
+<h3 id="Git-Submodule"><a href="#Git-Submodule" class="headerlink" title="Git Submodule"></a>Git Submodule</h3><p>詳しくはググってください。</p>
+<p><a href="http://qiita.com/kinpira/items/3309eb2e5a9a422199e9" target="_blank" rel="noopener">この</a>あたりを読むとわかりやすい。</p>
+<p>端的に言うと、Git Submodule は、リポジトリの下にリポジトリを追加する方法である。<br>自分的に一癖ある機能で、未だによくわかっていない。</p>
+<h3 id="最終的なリポジトリ構成"><a href="#最終的なリポジトリ構成" class="headerlink" title="最終的なリポジトリ構成"></a>最終的なリポジトリ構成</h3><p>次のようなリポジトリ構成にした</p>
+<ul>
+<li>lollipop-vol4 : vol.4 のプライベートリポジトリ</li>
+<li>lollipop-vol5 : vol.5 のプライベートリポジトリ</li>
+<li>lollipop : lollipop 全体の管理用パブリックリポジトリ<ul>
+<li>submodule として lollipop-vol4 と lollipop-vol5 のリポジトリを持つ</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/IGGG/lollipop" target="_blank" rel="noopener">コレ</a></p>
+<p>つまり、パブリックリポジトリの中にプライベートリポジトリを Submodule として持つことになる。</p>
+<h2 id="本題"><a href="#本題" class="headerlink" title="本題"></a>本題</h2><p>で、パブリックリポジトリがプライベートリポジトリの Submodule を持つ場合</p>
+<ul>
+<li>そもそも可能か？</li>
+<li>GitHub Pages の挙動はどうなるか<ul>
+<li><code>docs</code> 以下に置いた場合</li>
+<li><code>gh-pages</code> ブランチに置いた場合</li>
+</ul>
+</li>
+</ul>
+<p>という疑問が沸いたので検証してみた。<br>という話。</p>
+<h2 id="検証"><a href="#検証" class="headerlink" title="検証"></a>検証</h2><p>検証用に利用したリポジトリは<a href="https://github.com/matsubara0507/test-submodule" target="_blank" rel="noopener">コチラ</a> 。</p>
+<h3 id="パブリックリポジトリにプライベートリポジトリの-Submodule-を持たせる"><a href="#パブリックリポジトリにプライベートリポジトリの-Submodule-を持たせる" class="headerlink" title="パブリックリポジトリにプライベートリポジトリの Submodule を持たせる"></a>パブリックリポジトリにプライベートリポジトリの Submodule を持たせる</h3><p>できた。</p>
+<p>ただし、プライベートリポジトリにリード権限が無い人が Submodule にアクセスしようとしても、エラーが返ってくる(そりゃそうか)。</p>
+<p><img src="/images/test-github-submodule/click_private_submodule.jpg" alt="クリック!"></p>
+<p><img src="/images/test-github-submodule/404_github.jpg" alt="404エラー..."></p>
+<h3 id="docs-以下に-GitHub-Pages-を設定"><a href="#docs-以下に-GitHub-Pages-を設定" class="headerlink" title="docs 以下に GitHub Pages を設定"></a>docs 以下に GitHub Pages を設定</h3><p>最近のアップデートで、GitHub Pages の index.html を<a href="https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/" target="_blank" rel="noopener">プロジェクトページであれば master ブランチの docs に置いても良くなった</a>。<br>その方が、無駄にブランチを分ける必要が無いので便利な場合がある。</p>
+<p>今回も可能であればそうしようと思ったのだが…</p>
+<p>どうやら、プライベートリポジトリの Submodule を持つビルドできないようだ。</p>
+<p><img src="/images/test-github-submodule/error.jpg" alt="怒られた"></p>
+<p>メールまで飛んでくる始末である。</p>
+<h3 id="gh-pages-以下に-GitHub-Pages-を設定"><a href="#gh-pages-以下に-GitHub-Pages-を設定" class="headerlink" title="gh-pages 以下に GitHub Pages を設定"></a>gh-pages 以下に GitHub Pages を設定</h3><p>うまくいった。</p>
+<p>まぁそりゃそうか。</p>
+<p><a href="https://github.com/matsubara0507/test-submodule/tree/gh-pages" target="_blank" rel="noopener">コレ</a>と<a href="https://matsubara0507.github.io/test-submodule/" target="_blank" rel="noopener">ココ</a></p>
+<p>GitHub Pages は<a href="https://matsubara0507.github.io/test-submodule/README.md" target="_blank" rel="noopener">リポジトリ内を漁れる</a>ので注意。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul>
+<li>パブリックリポジトリにプライベートリポジトリの Submodule を持たせれる</li>
+<li>プライベートリポジトリの Submodule を持つリポジトリを GitHub Pages のソース置き場にできない<ul>
+<li>プライベートリポジトリの Submodule が無いブランチ(gh-pages)であれば可能</li>
+</ul>
+</li>
+</ul>
+<p>これ利用してできたのが<a href="https://iggg.github.io/lollipop/">このページ</a> 。</p>
+<h2 id="おしまい"><a href="#おしまい" class="headerlink" title="おしまい"></a>おしまい</h2>
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Web/">Web</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/GitHub/">GitHub</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+<script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  // 拡張リンクのアトリビューション分析用のタグをページに設定する
+  var pluginUrl =
+   '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-46141384-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    // ユーザー属性とインタレスト カテゴリに関するレポートを有効にする
+    // ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+
+</body>
+</html>

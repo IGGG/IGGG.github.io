@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/images/IGGG_l.png">
+  <meta name="application-name" content="群馬大学電子計算機研究会 IGGG">
+  <meta name="msapplication-TileColor" content="#1b7aca">
+  <meta name="msapplication-square70x70logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square150x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-wide310x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square310x310logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/images/IGGG_l.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/images/IGGG_l.png">
+
+  
+  <title>GitHub Actions を使ってみた | 群馬大学電子計算機研究会 IGGG</title>
+  <meta name="author" content="IGGG">
+  
+  <meta name="description" content="IGGG ソフトウェア基盤部のひげです。GitHub Pages へのデプロイに GitHub Actions を使ってみたので、そのことについて記事を書きます。
+ちなみに IGGG/new.iggg.org と IGGG/IGGG.github.io に GitHub Actions を使ってみま">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="GitHub Actions を使ってみた">
+  <meta property="og:site_name" content="群馬大学電子計算機研究会 IGGG">
+
+  
+    <meta property="og:image" content="/images/use-github-actions/actions.jpg">
+  
+
+  <link rel="alternate" href="/atom.xml" title="群馬大学電子計算機研究会 IGGG" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+</head>
+</html>
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">群馬大学電子計算機研究会 IGGG</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>IGGG</h3>
+      <p>Information technology researching society</p><p> of the Gunmer,</p><p> by the Gunmer,</p><p> for the Gunmer</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2019 IGGG
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2019-10-10T15:00:00.000Z"><a href="#">2019-10-11</a></time>
+      
+      
+  
+    <h1 class="depth title">GitHub Actions を使ってみた</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>IGGG ソフトウェア基盤部のひげです。<br>GitHub Pages へのデプロイに GitHub Actions を使ってみたので、そのことについて記事を書きます。</p>
+<p>ちなみに <a href="https://github.com/IGGG/new.iggg.org" target="_blank" rel="noopener">IGGG/new.iggg.org</a> と <a href="https://github.com/IGGG/IGGG.github.io" target="_blank" rel="noopener">IGGG/IGGG.github.io</a> に GitHub Actions を使ってみました。</p>
+<h2 id="GitHub-Actions"><a href="#GitHub-Actions" class="headerlink" title="GitHub Actions"></a>GitHub Actions</h2><p>GitHub が用意した CI/CD。</p>
+<p><code>.github/workflows</code> 配下に YAML ファイルで設定を置くことができます。<br>まだベータ版な点に注意。</p>
+<ul>
+<li><a href="https://github.com/features/actions" target="_blank" rel="noopener">Features • GitHub Actions · GitHub</a></li>
+</ul>
+<p><img src="/images/use-github-actions/actions.jpg" alt></p>
+<h2 id="設定する"><a href="#設定する" class="headerlink" title="設定する"></a>設定する</h2><p>やりたいことは2つ:</p>
+<ol>
+<li>PR では静的サイトを生成できるか試す</li>
+<li>メインブランチ(<code>master</code>)なら静的サイトをデプロイする(GitHub Pages)</li>
+</ol>
+<p>こんな感じにした:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/</span><br><span class="line"> |- .github</span><br><span class="line"> |  |- workflows</span><br><span class="line"> |  |  |- verify.yml</span><br><span class="line"> |  |  \- deploy.yml</span><br><span class="line"> |  \- scripts</span><br><span class="line"> |     \- deploy.bash</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+
+<p>うまく Condition を使って一つの YAML にまとめてもよかったんだけど、めんどくさくなったので分けた。<br>ファイル名から察せれる通り、<code>verify.yml</code> が (1) を <code>deploy.yml</code> が (2) のための設定ファイルだ。</p>
+<h3 id="verify-yml"><a href="#verify-yml" class="headerlink" title="verify.yml"></a>verify.yml</h3><p><code>verify.yml</code> は次の通り:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Verify</span> <span class="string">PR</span></span><br><span class="line"><span class="attr">on:</span> <span class="string">pull_request</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line"><span class="attr">  build:</span></span><br><span class="line"><span class="attr">    runs-on:</span> <span class="string">ubuntu-18.04</span></span><br><span class="line"><span class="attr">    steps:</span></span><br><span class="line"><span class="attr">    - uses:</span> <span class="string">actions/checkout@v1</span></span><br><span class="line"><span class="attr">      with:</span></span><br><span class="line"><span class="attr">        fetch-depth:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">        submodules:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">Setup</span> <span class="string">Hugo</span></span><br><span class="line"><span class="attr">      uses:</span> <span class="string">peaceiris/actions-hugo@v2.2.1</span></span><br><span class="line"><span class="attr">      with:</span></span><br><span class="line"><span class="attr">        hugo-version:</span> <span class="string">'0.58.3'</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">Build</span></span><br><span class="line"><span class="attr">      run:</span> <span class="string">hugo</span> <span class="bullet">--gc</span> <span class="bullet">--cleanDestinationDir</span> <span class="bullet">--minify</span> <span class="bullet">--config</span> <span class="string">config-prod.toml</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">display</span> <span class="string">status</span></span><br><span class="line"><span class="attr">      uses:</span> <span class="attr">docker://buildpack-deps:18.04-scm</span></span><br><span class="line"><span class="attr">      with:</span></span><br><span class="line"><span class="attr">        entrypoint:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">        args:</span> <span class="string">status</span></span><br></pre></td></tr></table></figure>
+
+<p>(ちなみにこれは IGGG/new.iggg.org の方で、これは Hugo による静的サイト)</p>
+<p><code>on: pull_request</code> と記述することで PR に対してのみ動作します。<br><code>jobs</code> 以下が実際の動作の内容で、各ステップでは状態を共有します。<br><code>uses</code> で GitHub Actions で実行するアクション(リポジトリ)を指定できます(<a href="https://github.com/actions" target="_blank" rel="noopener"><code>actions</code> で始まるものは公式です</a>):</p>
+<ul>
+<li><a href="https://github.com/actions/checkout" target="_blank" rel="noopener">actions/checkout - GitHub</a><ul>
+<li>対象のリポジトリのブランチへクローンしてチェックアウトする</li>
+<li><code>frtch-depth: 1</code> とすることでシャロークローンしてくれます</li>
+<li><code>submodules: true</code> とすることで <code>--recursive</code> オプション付きでクローンしてくれます(Hugo は利用するテーマを submodule として置くことが多い)</li>
+</ul>
+</li>
+<li><a href="https://github.com/peaceiris/actions-hugo" target="_blank" rel="noopener">peaceiris/actions-hugo - GitHub</a><ul>
+<li>Hugo をセットアップする</li>
+<li><code>hugo-version</code> でバージョンを指定できる</li>
+</ul>
+</li>
+</ul>
+<p><code>docker://xxx</code> という指定をすることで、Docker Hub などの Docker イメージのレジストリから直接指定することもできます。<br>で、結局このジョブは、単純に Hugo をビルドしてみてるだけですね。</p>
+<h3 id="deploy-yml"><a href="#deploy-yml" class="headerlink" title="deploy.yml"></a>deploy.yml</h3><p>ここからが鬼門。<br>対象は GitHub Pages なので、デプロイするとはすなわち GitHub にプッシュすることですね。<br>その時に CI 側に権限を与える必要があるのですが、個人的にパーソナルトークンを使うのがいやで、可能ならリポジトリごとに設定できる SSH 鍵を使いたい。</p>
+<p>そのように設定した <code>deploy.yml</code> は次の通り:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line"><span class="attr">  push:</span></span><br><span class="line"><span class="attr">    branches:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span></span><br><span class="line"><span class="attr">    paths-ignore:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"docs/**"</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line"><span class="attr">  build:</span></span><br><span class="line"><span class="attr">    runs-on:</span> <span class="string">ubuntu-18.04</span></span><br><span class="line"><span class="attr">    steps:</span></span><br><span class="line"><span class="attr">    - uses:</span> <span class="string">actions/checkout@v1</span></span><br><span class="line"><span class="attr">      with:</span></span><br><span class="line"><span class="attr">        fetch-depth:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">        submodules:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">Setup</span> <span class="string">Hugo</span></span><br><span class="line"><span class="attr">      uses:</span> <span class="string">peaceiris/actions-hugo@v2.2.1</span></span><br><span class="line"><span class="attr">      with:</span></span><br><span class="line"><span class="attr">        hugo-version:</span> <span class="string">'0.58.3'</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">Build</span></span><br><span class="line"><span class="attr">      run:</span> <span class="string">hugo</span> <span class="bullet">--gc</span> <span class="bullet">--cleanDestinationDir</span> <span class="bullet">--minify</span> <span class="bullet">--config</span> <span class="string">config-prod.toml</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">      uses:</span> <span class="attr">docker://buildpack-deps:18.04-scm</span></span><br><span class="line"><span class="attr">      env:</span></span><br><span class="line"><span class="attr">        DEPLOY_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.DEPLOY_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">        GIT_NAME:</span> <span class="string">Bot</span></span><br><span class="line"><span class="attr">        GIT_EMAIL:</span> <span class="string">example@example.com</span></span><br><span class="line"><span class="attr">        TARGET_BRANCH:</span> <span class="string">master</span></span><br><span class="line"><span class="attr">      with:</span></span><br><span class="line"><span class="attr">        entrypoint:</span> <span class="string">/bin/bash</span></span><br><span class="line"><span class="attr">        args:</span> <span class="string">.github/scripts/deploy.bash</span></span><br></pre></td></tr></table></figure>
+
+<p><code>on.push.branches</code> でこのワークフローが動作するブランチを指定しています。<br><code>on.push.paths-ignore: [&quot;docs/**&quot;]</code> とすることで、もし <strong>差分が <code>docs</code> 配下にしかない場合は動作しない</strong> ようにしています。<br>この <code>paths-ignore</code> と <code>**</code> は最近追加された機能で、詳しくは後述します。</p>
+<p><code>jobs</code> の前半は <code>verify.yml</code> と同じです。<br>違うのは <code>name: deploy</code> のステップだけ。<br>これは <code>.github/scripts/deploy.bash</code> を実行しているだけですね。<br>中身を見てます:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -eux</span><br><span class="line"></span><br><span class="line"><span class="comment"># ssh agent のセットアップ</span></span><br><span class="line"><span class="comment">## DEPLOY_KEY 環境変数に secret から秘密鍵を与える</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(ssh-agent -s)</span>"</span></span><br><span class="line">mkdir -p /root/.ssh</span><br><span class="line">ssh-keyscan -t rsa github.com &gt; /root/.ssh/known_hosts</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;DEPLOY_KEY&#125;</span>"</span> &gt; /root/.ssh/id_rsa</span><br><span class="line">chmod 400 /root/.ssh/id_rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># コミットするための準備</span></span><br><span class="line"><span class="comment">## GITHUB_REPOSITORY は GitHub Actions が用意してくれてる環境変数</span></span><br><span class="line">git config user.name <span class="string">"<span class="variable">$&#123;GIT_NAME&#125;</span>"</span></span><br><span class="line">git config user.email <span class="string">"<span class="variable">$&#123;GIT_EMAIL&#125;</span>"</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin git@github.com:<span class="variable">$&#123;GITHUB_REPOSITORY&#125;</span>.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># docs 配下の差分だけ TARGET_BRANCH にプッシュする</span></span><br><span class="line">git checkout <span class="variable">$&#123;TARGET_BRANCH&#125;</span></span><br><span class="line">git status</span><br><span class="line">git add docs</span><br><span class="line">git diff --staged --quiet || git commit -m <span class="string">"Update docs by GitHub Actions"</span></span><br><span class="line">git push origin <span class="variable">$&#123;TARGET_BRANCH&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>DEPLOY_KEY</code> で指定する SSH 鍵はリポジトリごとに設定するものを指定しています(その方が権限管理が楽で個人的には好みです)。<br><code>git diff --staged --quiet || git commit -m &quot;...&quot;</code> することで <code>docs</code> 配下に差分があった時にだけコミットを作ります。<br>もし差分がなく、コミットを作らなかった場合は <code>git push</code> は変更がなかったとメッセージを吐いて終了します。<br><code>docs</code> 配下に差分があった時だけプッシュすることで <code>on.push.paths-ignore: [&quot;docs/**&quot;]</code> と組み合わさって、GitHub Actions によるプッシュ(デプロイ)で GitHub Actions が再度動作することは無くなります(残念ながら <code>skip ci</code> のような機能は現状無いので)。<br>さて、これでリポジトリごとの SSH 鍵でデプロイする設定ができました！</p>
+<p>ちなみに、本当は Secret に秘密鍵を直接置くのは嫌なんですけど、、、まぁとりあえず妥協しました。</p>
+<h2 id="躓いたこと-on-push-paths"><a href="#躓いたこと-on-push-paths" class="headerlink" title="躓いたこと: on.push.paths"></a>躓いたこと: on.push.paths</h2><p>公式ドキュメントには当時、以下のようにすれば「<code>docs</code> 配下にのみ差分があったら動作しないようにできる」と書いてありました:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">on:</span></span><br><span class="line"><span class="attr">  push:</span></span><br><span class="line"><span class="attr">    paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'*'</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'!/docs/*'</span></span><br></pre></td></tr></table></figure>
+
+<p>これではうまくいきません。<br>色々調べた結果、<code>*</code> はディレクトリ階層を掘ってはくれないのです。<br><a href="https://github.community/t5/GitHub-Actions/GitHub-Actions-workflow-not-triggered-with-path/m-p/30321#M400" target="_blank" rel="noopener">これ</a>を読む限り、これはどうやら Go のモジュールの仕様らしいですね。<br>もし <code>*.md</code> の差分だけ動作して欲しい場合は:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">on:</span></span><br><span class="line"><span class="attr">  push:</span></span><br><span class="line"><span class="attr">    paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'*.md'</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'*/*.md'</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'*/*/*.md'</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'*/*/*/*.md'</span></span><br></pre></td></tr></table></figure>
+
+<p>みたいなアホな設定をする必要がありました。<br>「ベータだなぁ〜」って思ってた矢先、なんと神アップデートがありました:</p>
+<ul>
+<li><a href="https://github.blog/changelog/2019-09-30-github-actions-event-filtering-updates" target="_blank" rel="noopener">GitHub Actions – event filtering updates</a></li>
+</ul>
+<p><code>**</code> でディレクトリ階層を吸収してくれるのです。<br>つまり、<code>**/*.md</code> と書けば任意の深さのマークダウンの差分を検知してくれます。<br>また、<code>paths-ignore</code> は <code>!</code> を省くことができる機能ですね。</p>
+<h2 id="おしまい"><a href="#おしまい" class="headerlink" title="おしまい"></a>おしまい</h2><p>GitHub Actions を初めて使ってみましたが、結構満足してます(<code>paths</code> の修正のおかげで)。<br>あとはキャッシュぐらいかな。<br>それと、同じ GitHub 内だし GitHub Actions 用の SSH 鍵を設定する機能を公式が用意して欲しい。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Web/">Web</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/GitHub/">GitHub</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+<script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  // 拡張リンクのアトリビューション分析用のタグをページに設定する
+  var pluginUrl =
+   '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-46141384-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    // ユーザー属性とインタレスト カテゴリに関するレポートを有効にする
+    // ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+
+</body>
+</html>

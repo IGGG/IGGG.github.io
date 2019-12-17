@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/images/IGGG_l.png">
+  <meta name="application-name" content="群馬大学電子計算機研究会 IGGG">
+  <meta name="msapplication-TileColor" content="#1b7aca">
+  <meta name="msapplication-square70x70logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square150x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-wide310x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square310x310logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/images/IGGG_l.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/images/IGGG_l.png">
+
+  
+  <title>ジオタグ解析アプリを作りました | 群馬大学電子計算機研究会 IGGG</title>
+  <meta name="author" content="IGGG">
+  
+  <meta name="description" content="IGGG 名古屋支部 支部長の ひげ です。前回に続いて今回も群大理工学部の学園祭 群桐祭 のイベント、テクノドリームツアー用に作成した、ジオタグ解析アプリ、Where-is-This (名前は適当)について紹介したいと思います。
+Where-is-This とは画像を与えると、画像の位置情報を解析">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="ジオタグ解析アプリを作りました">
+  <meta property="og:site_name" content="群馬大学電子計算機研究会 IGGG">
+
+  
+    <meta property="og:image" content="/IGGG_l.png">
+  
+
+  <link rel="alternate" href="/atom.xml" title="群馬大学電子計算機研究会 IGGG" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+</head>
+</html>
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">群馬大学電子計算機研究会 IGGG</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>IGGG</h3>
+      <p>Information technology researching society</p><p> of the Gunmer,</p><p> by the Gunmer,</p><p> for the Gunmer</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2019 IGGG
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-10-19T10:41:38.000Z"><a href="#">2016-10-19</a></time>
+      
+      
+  
+    <h1 class="depth title">ジオタグ解析アプリを作りました</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>IGGG 名古屋支部 支部長の ひげ です。<br>前回に続いて今回も群大理工学部の学園祭 <a href="http://guntohfes.com/" target="_blank" rel="noopener">群桐祭</a> のイベント、テクノドリームツアー用に作成した、ジオタグ解析アプリ、Where-is-This (名前は適当)について紹介したいと思います。</p>
+<h2 id="Where-is-This-とは"><a href="#Where-is-This-とは" class="headerlink" title="Where-is-This とは"></a>Where-is-This とは</h2><p>画像を与えると、画像の位置情報を解析して、Google Map にマッピングした情報が返ってくるというモノです。</p>
+<p><img src="/images/create-where-is-this/whereisthis.jpg" alt="送信前(左)と送信後(右)"></p>
+<p>このプログラム自体は IGGG の期待の新星 <a href="https://github.com/atpons" target="_blank" rel="noopener">atpons</a> くんが10分くらいでこしらえてくれたものです(はやい)。<br>それを少しだけ修正して IGGG の <a href="https://dashboard.heroku.com/" target="_blank" rel="noopener">Heroku</a> にあげました。</p>
+<p><a href="https://where-is-this.herokuapp.com/" target="_blank" rel="noopener">ココ</a> でアクセスできますが、無料枠なんでアクセスが集中すると止まると思います。</p>
+<p>コンセプトとしては、来場者に画像には位置情報が含まれているということを知ってもらおうというモノでした。<br>画像には位置情報が含まれていて、撮った場所を特定することできる。<br>なので、外にあげるときは気を付けよう、という感じです(まぁ最近のSNSは位置情報の部分を消されちゃうらしいですが)。</p>
+<p>実はこのアプリ、結局のところ本番では、運用する余裕が無くて(テクノってすごく忙しいんです)、用意はしたのですが、使いませんでした…(ごめんね atpons)</p>
+<p>(いいわけではないですけど、ジオタグがどーのこーのと説明する時間が無くて)</p>
+<h2 id="実装"><a href="#実装" class="headerlink" title="実装"></a>実装</h2><p>別に私が作ったわけじゃないけど、ドヤ顔で紹介します。</p>
+<p>Ruby で書かれていて、なんとたったの15行しかない！<br>流石 Ruby ですねぇ。</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">"sinatra"</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">"exifr"</span></span><br><span class="line"></span><br><span class="line">get <span class="string">"/"</span> <span class="keyword">do</span></span><br><span class="line">  erb <span class="symbol">:index</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">post <span class="string">"/upload"</span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">if</span> params[<span class="symbol">:file</span>]</span><br><span class="line">    file = EXIFR::JPEG.new(params[<span class="symbol">:file</span>][<span class="symbol">:tempfile</span>].path)</span><br><span class="line">    @latitude = file.gps.latitude</span><br><span class="line">    @longitude = file.gps.longitude</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  erb <span class="symbol">:upload</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Sinatra"><a href="#Sinatra" class="headerlink" title="Sinatra"></a>Sinatra</h3><p>2つのライブラリを使っています。<br>その一つが <a href="http://www.sinatrarb.com/" target="_blank" rel="noopener">Sinatra</a> です。<br>(公式サイト曰く) Sinatra は</p>
+<blockquote>
+<p>Sinatraは最小の労力でRubyによるWebアプリケーションを手早く作るためのDSL</p>
+</blockquote>
+<p>だそうです。<br>Model View Controller（MVC）に基づかない設計で作成されており、小さく、柔軟性があるプログラミングが可能となるよう意識されている、そうです(wikipedia より)。</p>
+<p>正直、Sinatra の仕組みについてちっっっとも知りませんが、なんとなく読める通りに動くのでしょう(適当)。</p>
+<p>流石 Ruby ですねぇ。</p>
+<h3 id="Exifr"><a href="#Exifr" class="headerlink" title="Exifr"></a>Exifr</h3><p>もう一つが <a href="https://github.com/remvee/exifr" target="_blank" rel="noopener">Exifr</a> です。<br>察しの付く通り、Exif Reader ですね。<br>位置情報を含む画像の <a href="https://ja.wikipedia.org/wiki/Exchangeable_image_file_format" target="_blank" rel="noopener">Exif</a> をすごく簡単に取得するためのライブラリ群です。</p>
+<p>上のコードの10-12行目が exifr に相当します。<br>正直、こっちも仕組みについてはちっっっとも知りませんが、なんとなく読める通りに動くのでしょう(適当)。</p>
+<p>流石 Ruby ですねぇ(それしか言ってない)。</p>
+<h3 id="修正"><a href="#修正" class="headerlink" title="修正"></a>修正</h3><p>Heroku にあげるために以下の点を修正しました。</p>
+<ul>
+<li>次のように書かれた config.ru を作成<ul>
+<li>atpons のはローカルで動かすまでだったので無かった。</li>
+<li>コレがないと Heroku とかではデプロイしても動かない(当たり前？)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'bundler'</span></span><br><span class="line">Bundler.<span class="keyword">require</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">'./app'</span></span><br><span class="line">run Sinatra::Application</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Google Map の URL を HTTPs に変更<ul>
+<li>Heroku の URL が HTTPs なので、変更しないと動かないみたい</li>
+</ul>
+</li>
+</ul>
+<h3 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h3><p>Heroku へのデプロイはググれば出てくる一般的な方法(<a href="http://please-sleep.cou929.nu/deploy-sinatra-app-to-heroku.html" target="_blank" rel="noopener">こういうのとか</a>)でできました。<br>ただ、Heroku のリモートリポジトリと、GitHub のリモートリポジトリで、そこら辺の知識なくて、ごっちゃんになり苦労しました。</p>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>正直、これ以上書くことないです。<br>すごく簡単なんで。</p>
+<p>流石 Ruby ですねぇ。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Application/">Application</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Heroku/">Heroku</a>, <a href="/tags/Ruby/">Ruby</a>, <a href="/tags/guntohfes/">guntohfes</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+<script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  // 拡張リンクのアトリビューション分析用のタグをページに設定する
+  var pluginUrl =
+   '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-46141384-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    // ユーザー属性とインタレスト カテゴリに関するレポートを有効にする
+    // ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/images/IGGG_l.png">
+  <meta name="application-name" content="群馬大学電子計算機研究会 IGGG">
+  <meta name="msapplication-TileColor" content="#1b7aca">
+  <meta name="msapplication-square70x70logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square150x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-wide310x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square310x310logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/images/IGGG_l.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/images/IGGG_l.png">
+
+  
+  <title>Slack と GAS と GitHub を使って部内の問題・情報管理を円滑にしたい話 | 群馬大学電子計算機研究会 IGGG</title>
+  <meta name="author" content="IGGG">
+  
+  <meta name="description" content="IGGG ソフトウェア基盤部のひげです。
+特定の GitHub リポジトリの任意の Issue を任意の Slack のチャンネルに通知を飛ばすための Bot (これは公式のインテグレーションではできないはず) を GAS で作った話です。
+いきさつIGGG では予てより Slack というチャット">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Slack と GAS と GitHub を使って部内の問題・情報管理を円滑にしたい話">
+  <meta property="og:site_name" content="群馬大学電子計算機研究会 IGGG">
+
+  
+    <meta property="og:image" content="/images/make-manager-bot-for-slack/flow.jpg">
+  
+
+  <link rel="alternate" href="/atom.xml" title="群馬大学電子計算機研究会 IGGG" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+</head>
+</html>
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">群馬大学電子計算機研究会 IGGG</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>IGGG</h3>
+      <p>Information technology researching society</p><p> of the Gunmer,</p><p> by the Gunmer,</p><p> for the Gunmer</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2019 IGGG
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      
+        <img src="/images/make-manager-bot-for-slack/flow.jpg">
+      
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2017-05-16T15:29:36.000Z"><a href="#">2017-05-17</a></time>
+      
+      
+  
+    <h1 class="depth title">Slack と GAS と GitHub を使って部内の問題・情報管理を円滑にしたい話</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>IGGG ソフトウェア基盤部のひげです。</p>
+<p>特定の GitHub リポジトリの任意の Issue を任意の Slack のチャンネルに通知を飛ばすための Bot (これは公式のインテグレーションではできないはず) を GAS で作った話です。</p>
+<h2 id="いきさつ"><a href="#いきさつ" class="headerlink" title="いきさつ"></a>いきさつ</h2><p>IGGG では予てより <a href="https://slack.com/" target="_blank" rel="noopener">Slack</a> というチャットサービスを利用して日々 <del>雑談</del> ディスカッションをしております。<br>しかし、フリープランの Slack では <strong>ログが一万件しか残らない！</strong><br>割と重要な事案が <del>しょーもない雑談</del> 活発な技術的な議論によって、気づいたら流れてしまう…。</p>
+<p>皆を説得して有償プランにしようとか、ログの残るサービスに移ろうとか、何度かいろんな案で話し合ったのですが…いろいろな理由で難しい。<br>そこで、IGGG の <del>外圧担当</del> CTO こと <a href="https://twitter.com/gion_U" target="_blank" rel="noopener">擬音</a> より <strong>GitHub の Issue で管理しよう</strong> との提案が、今年の4月中旬ぐらいにされた。</p>
+<p><img src="/images/make-manager-bot-for-slack/management_repo.jpg" alt="いい感じ"></p>
+<p>しっかりと問題提起・議論が残り、とてもいい感じ。</p>
+<h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>ただ、いくつか問題があった。</p>
+<ol>
+<li>IGGG の GitHub 組織アカウントに所属しないと議論が見れない<ul>
+<li>誰しもが GitHub アカウントを持ってるわけでは…<ul>
+<li><del>もっておこうよ</del></li>
+</ul>
+</li>
+<li>Slack の GitHub Integration で特定のチャンネル(#management)に飛ばす<ul>
+<li>飛ばしてるけど、決定事項(Issueの結論)だけ #general に飛ばしたい</li>
+<li>全部 #general に飛ばしたらうるさい</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>特定のチャンネルで見たい特定の Issue がある<ul>
+<li>インフラチャンネルで <em>IPアドレスが欲しい</em> という Issue が見たいとか</li>
+<li>いちいち #management に移るのめんどい</li>
+</ul>
+</li>
+</ol>
+<p>要するに 1) #general に Issue の Open と Close だけをコメント付きで通知したいのと、 2) 任意の Issue のコメントを任意のチャンネルに通知したい。</p>
+<p>ということで、これらの問題を解決するために Slack の Bot を作った。</p>
+<h2 id="1-general-に-Issue-の-Open-と-Close-だけをコメント付きで通知する"><a href="#1-general-に-Issue-の-Open-と-Close-だけをコメント付きで通知する" class="headerlink" title="1. #general に Issue の Open と Close だけをコメント付きで通知する"></a>1. #general に Issue の Open と Close だけをコメント付きで通知する</h2><p>GitHub インテグレーションでも、Issue の Open, Close だけを飛ばすという設定はある。</p>
+<p><img src="/images/make-manager-bot-for-slack/github_integration_setting.jpg" alt="GitHub インテグレーションにて"></p>
+<p>だがしかし、これでは</p>
+<p><img src="/images/make-manager-bot-for-slack/issue_test.jpg" alt="てすと"></p>
+<p>という感じの Issue に対し(<code>てててすと</code> というコメントは Close 時に書いたコメント)</p>
+<p><img src="/images/make-manager-bot-for-slack/slack_github_notification.jpg" alt="てーすと"></p>
+<p>と感じに来る(そりゃそう)。<br>ここで、最後のコメントも通知してほしいのだ(Issueの結論を書いて)。</p>
+<h3 id="Manager-1号"><a href="#Manager-1号" class="headerlink" title="Manager 1号"></a>Manager 1号</h3><p>ということで Bot を作った。<br>ソースコードは<a href="https://github.com/IGGG/google-apps-scripts/blob/master/management/GeneralManager.gs" target="_blank" rel="noopener">こちら</a>。</p>
+<p>以下の3つのGASライブラリを用いている。</p>
+<ul>
+<li><a href="https://github.com/soundTricker/SlackApp" target="_blank" rel="noopener">SlackApp</a> : <code>M3W5Ut3Q39AaIwLquryEPMwV62A3znfOO</code></li>
+<li><a href="https://github.com/matsubara0507/gasdump/tree/githubapi/GitHubAPI" target="_blank" rel="noopener">GitHubAPI</a> : <code>1F4yn329GjHKdcXu9nm0uBZHFo40NGRUF8dfZCTHM1KjXpOXYr2BzIIcJ</code></li>
+<li><a href="https://github.com/simula-innovation/gas-underscore" target="_blank" rel="noopener">Underscore</a> : <code>M3i7wmUA_5n0NSEaa6NnNqOBao7QLBR4j</code></li>
+</ul>
+<p>また、<a href="https://api.slack.com/custom-integrations/legacy-tokens" target="_blank" rel="noopener">SlackBot の APIトークン</a> と <a href="https://github.com/blog/1509-personal-api-tokens" target="_blank" rel="noopener">GitHub の APIトークン</a> を利用している。</p>
+<p>GitHub の Personal Token を利用しているので、念のため IGGG の GAS では無く、個人の GAS 上で作った。</p>
+<h3 id="実装"><a href="#実装" class="headerlink" title="実装"></a>実装</h3><p>動作は Issue の Open と Close にフックして動作させ、POSTデータを解析し、適切なメッセージ作成して、Slack に投げている。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doPost</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> jsonString = e.postData.getDataAsString();</span><br><span class="line">  <span class="keyword">var</span> jsonData = <span class="built_in">JSON</span>.parse(jsonString);</span><br><span class="line">  postMessage(jsonData, <span class="string">'general'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">postMessage</span>(<span class="params">data, channelName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prop = PropertiesService.getScriptProperties().getProperties();</span><br><span class="line">  <span class="keyword">const</span> repo = prop.GITHUB_OWNER + <span class="string">'/'</span> + prop.GITHUB_REPO;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 念のためのフィルタリング */</span></span><br><span class="line">  <span class="keyword">if</span> (data[<span class="string">'repository'</span>][<span class="string">'full_name'</span>] != repo &amp;&amp; data[<span class="string">'comment'</span>] == <span class="literal">undefined</span> &amp;&amp; data[<span class="string">'issue'</span>] != <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"invalid repository."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/* 余計なアクション(editedとか)は破棄 */</span></span><br><span class="line">  <span class="keyword">if</span> (data[<span class="string">'action'</span>] != <span class="string">'opened'</span></span><br><span class="line">      &amp;&amp; data[<span class="string">'action'</span>] != <span class="string">'closed'</span></span><br><span class="line">      &amp;&amp; data[<span class="string">'action'</span>] != <span class="string">'reopened'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"undefined action: "</span> + data[<span class="string">'action'</span>]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">　<span class="comment">/* メッセージを作成 */</span></span><br><span class="line">  <span class="keyword">var</span> number = data[<span class="string">'issue'</span>][<span class="string">'number'</span>];</span><br><span class="line">  <span class="keyword">var</span> message = makeMessage(data[<span class="string">'action'</span>], data[<span class="string">'issue'</span>], repo, prop);  </span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Slackに投げる */</span></span><br><span class="line">  <span class="keyword">var</span> slackApp = SlackApp.create(prop.SLACK_API_TOKEN);</span><br><span class="line">  <span class="keyword">const</span> BOT_NAME = <span class="string">'manager'</span>;</span><br><span class="line">  <span class="keyword">const</span> BOT_ICON = <span class="string">'http://drive.google.com/uc?export=view&amp;id='</span> + prop.ICON_ID;</span><br><span class="line">  <span class="keyword">var</span> option = &#123; <span class="attr">username</span> : BOT_NAME, <span class="attr">icon_url</span> : BOT_ICON, <span class="attr">link_names</span> : <span class="number">1</span> &#125;;</span><br><span class="line">  <span class="keyword">var</span> _ = Underscore.load();</span><br><span class="line">  slackApp.postMessage(channelName, <span class="string">''</span>, _.extend(option, message));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>メッセージは Open, Close, ReOpen の場合に分けて作成している。<br>Close の場合だけ直近のコメントを GitHub API を使って取ってきている(<code>getIssueResentCommentBody</code>)。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeMessage</span>(<span class="params">action, issue, repo, prop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> user = <span class="string">'&lt;'</span> + issue[<span class="string">'user'</span>][<span class="string">'html_url'</span>] + <span class="string">'|'</span> + issue[<span class="string">'user'</span>][<span class="string">'login'</span>] + <span class="string">'&gt;'</span>;</span><br><span class="line">  <span class="comment">/* アクションごとに分岐 */</span></span><br><span class="line">  <span class="keyword">var</span> actionText = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">switch</span>(action) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'opened'</span>:</span><br><span class="line">      actionText = <span class="string">'created'</span>;</span><br><span class="line">      text = issue[<span class="string">'body'</span>];</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'closed'</span>:</span><br><span class="line">      actionText = <span class="string">'closed'</span>;</span><br><span class="line">      text = getIssueResentCommentBody(issue[<span class="string">'number'</span>], prop);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'reopened'</span>:</span><br><span class="line">      actionText = <span class="string">'re-opened'</span>;</span><br><span class="line">      text = issue[<span class="string">'body'</span>];</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;  </span><br><span class="line">  <span class="keyword">var</span> pretext = <span class="string">'['</span> + repo + <span class="string">'] Issue '</span> + actionText + <span class="string">' by '</span> + user;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* いい感じなメッセージにするために */</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="string">'attachments'</span>: <span class="built_in">JSON</span>.stringify([&#123;</span><br><span class="line">      <span class="string">'pretext'</span>: pretext,</span><br><span class="line">      <span class="string">'title'</span>: <span class="string">'#'</span> + issue[<span class="string">'number'</span>] + <span class="string">': '</span> + issue[<span class="string">'title'</span>],</span><br><span class="line">      <span class="string">'title_link'</span>: issue[<span class="string">'html_url'</span>],</span><br><span class="line">      <span class="string">'color'</span>: prop.COLOR,</span><br><span class="line">      <span class="string">'text'</span>: text,</span><br><span class="line">      <span class="string">'footer'</span>: <span class="string">'詳細は #management かリポジトリで'</span></span><br><span class="line">    &#125;])</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getIssueResentCommentBody</span>(<span class="params">number, prop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> github = GitHubAPI.create(prop.GITHUB_OWNER, prop.GITHUB_REPO, prop.GITHUB_API_TOKEN);</span><br><span class="line">  <span class="keyword">var</span> comment = github.get(<span class="string">"/issues/"</span> + number + <span class="string">"/comments"</span>);</span><br><span class="line">  <span class="keyword">return</span> comment[comment.length<span class="number">-1</span>][<span class="string">'body'</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://api.slack.com/docs/message-attachments" target="_blank" rel="noopener"><code>attachments</code></a>を使って、頑張っていい感じのメッセージにしている。<br>これを模索するために、テストとして無駄にメッセージを投げてしまった(ごめんね)。</p>
+<p>ちなみに、webhook せずにテストするときは</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prop = PropertiesService.getScriptProperties().getProperties();</span><br><span class="line">  <span class="keyword">var</span> data = &#123;</span><br><span class="line">    <span class="string">'action'</span>: <span class="string">'closed'</span>,</span><br><span class="line">    <span class="string">'repository'</span>: &#123;</span><br><span class="line">      <span class="string">'full_name'</span>: prop.GITHUB_OWNER + <span class="string">'/'</span> + prop.GITHUB_REPO</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'issue'</span>: &#123;</span><br><span class="line">      <span class="string">'number'</span>: <span class="number">15</span>,</span><br><span class="line">      <span class="string">'title'</span>: <span class="string">'このリポジトリは必要か'</span>,</span><br><span class="line">      <span class="string">'user'</span>: &#123;</span><br><span class="line">        <span class="string">'login'</span>: <span class="string">'matsubara0507'</span>,</span><br><span class="line">        <span class="string">'html_url'</span>: <span class="string">'https://github.com/matsubara0507'</span></span><br><span class="line">      &#125;,</span><br><span class="line">    <span class="string">'html_url'</span>: <span class="string">'https://github.com/'</span> + prop.GITHUB_OWNER + <span class="string">'/'</span> + prop.GITHUB_REPO + <span class="string">'/issues/15'</span>,</span><br><span class="line">    <span class="string">'body'</span>: <span class="string">'なんか知らぬ間に決まってる感じもある\n自分で見に行けってのもあるけどサ'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">/* テスト！！*/</span></span><br><span class="line">  postMessage(data, <span class="string">'bot-test'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>こんな感じの関数を作って実行する。</p>
+<p>あとは、このスクリプトを、<em>公開</em> -&gt; <em>ウェブアプリケーションとして導入</em> を押して webhook 用の URL を発行し、これを リポジトリの Webhook に設定するだけ。</p>
+<p><img src="/images/make-manager-bot-for-slack/webhook_setting1.jpg" alt="Issueだけチェックする"></p>
+<h3 id="実行"><a href="#実行" class="headerlink" title="実行"></a>実行</h3><p><img src="/images/make-manager-bot-for-slack/slack_manager1_notification.jpg" alt="いい感じ"></p>
+<h2 id="2-任意の-Issue-のコメントを任意のチャンネルに通知する"><a href="#2-任意の-Issue-のコメントを任意のチャンネルに通知する" class="headerlink" title="2. 任意の Issue のコメントを任意のチャンネルに通知する"></a>2. 任意の Issue のコメントを任意のチャンネルに通知する</h2><p>GitHub インテグレーションは特定のリポジトリと特定のチェンネルをつなぐ。<br>よって、特定のリポジトリの特定の Issue と特定の特定のチャンネル繋ぐことはできない。</p>
+<h3 id="Manager-2号"><a href="#Manager-2号" class="headerlink" title="Manager 2号"></a>Manager 2号</h3><p>どのチャンネルにどの Issue のを通知するかの設定も Slack からしたいよね。<br>そのため、設定する側と、コメントにフックして通知する側の2つに分けて書くことにする。<br>それらのソースコードは、<a href="9https://github.com/IGGG/google-apps-scripts/blob/master/management/WriteManager.gs" target="_blank" rel="noopener">これ(設定)</a> と <a href="https://github.com/IGGG/google-apps-scripts/blob/master/management/ReadManager.gs" target="_blank" rel="noopener">これ(通知)</a>。</p>
+<p>ライブラリは 1号のと同じ。</p>
+<p>チャンネルと Issue の対応表は(めちゃ簡単な)スプレッドシートで残しておくことにした。</p>
+<p><img src="/images/make-manager-bot-for-slack/table_ss.jpg" alt="雑な表"></p>
+<h2 id="設定側の実装"><a href="#設定側の実装" class="headerlink" title="設定側の実装"></a>設定側の実装</h2><p>Slack の Outgoing Webhook Integration にフックしてスプレッドシートに対応関係を書き込むことにする。</p>
+<p><code>@manager &lt;cmd&gt;: &lt;issue-num&gt;</code> というフォーマットでメッセージ送られてくると想定している。<br>コマンド (<code>&lt;cmd&gt;</code>)には、チャンネルと Issue の対応関係をセットする <code>set-issue</code> と、対応関係をアンセットする <code>unset-issue</code> がある。<br>また <code>set-issue</code> では、指定された Issue の番号 (<code>&lt;issue-num&gt;</code>) が本当に存在するかや、既にセット済みかを確認している(<code>existRow</code>)。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doPost</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prop = PropertiesService.getScriptProperties().getProperties();  </span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Spread Sheet の読み取り*/</span></span><br><span class="line">  <span class="comment">/* 割愛 */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Slack の準備*/</span></span><br><span class="line">  <span class="comment">/* 割愛 */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* メッセージによって分岐 */</span>  </span><br><span class="line">  <span class="keyword">var</span> message = e.parameter.text.split(<span class="string">' '</span>);</span><br><span class="line">  <span class="keyword">var</span> channelName = e.parameter.channel_name;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (message[<span class="number">0</span>] != (<span class="string">'@'</span> + BOT_NAME)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'invalid bot name.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> _ = Underscore.load();</span><br><span class="line">  <span class="keyword">var</span> subcmd = message[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">switch</span>(subcmd) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'set-issue:'</span>:</span><br><span class="line">      <span class="keyword">var</span> number = message[<span class="number">2</span>];</span><br><span class="line">      <span class="keyword">var</span> issue = getIssue(number, prop);</span><br><span class="line">      <span class="keyword">if</span> (issue == <span class="string">'error'</span>) &#123;</span><br><span class="line">        text = <span class="string">'issuer #'</span> + number + <span class="string">' is not exist.'</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (existRow(table, channelName, number)) &#123;</span><br><span class="line">        text = <span class="string">'issue &lt;'</span> + issue[<span class="string">'html_url'</span>] + <span class="string">'| #'</span> + number + <span class="string">'&gt; has already been set for #'</span> + channelName;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        text = <span class="string">'OK! set issue.'</span>;</span><br><span class="line">        <span class="keyword">var</span> repo = prop.GITHUB_OWNER + <span class="string">'/'</span> + prop.GITHUB_REPO;</span><br><span class="line">        option = _.extend(option, makeMessage(issue, repo, prop));</span><br><span class="line">        sheet.getRange(rowNum + <span class="number">1</span>, <span class="number">1</span>).setValue(channelName);</span><br><span class="line">        sheet.getRange(rowNum + <span class="number">1</span>, <span class="number">2</span>).setValue(number);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'unset-issue:'</span>:</span><br><span class="line">      <span class="keyword">var</span> number = message[<span class="number">2</span>];</span><br><span class="line">      text = <span class="string">'not set yet: '</span> + channelName + <span class="string">' - '</span> + number;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; table.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (table[i][<span class="number">0</span>] == channelName &amp;&amp; table[i][<span class="number">1</span>] == number) &#123;</span><br><span class="line">          sheet.getRange(i + <span class="number">1</span>, <span class="number">1</span>).setValue(<span class="string">''</span>);</span><br><span class="line">          sheet.getRange(i + <span class="number">1</span>, <span class="number">2</span>).setValue(<span class="string">''</span>);</span><br><span class="line">          text = <span class="string">'OK! unset issue.'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      text = <span class="string">'undefined cmd: '</span> + subcmd;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  slackApp.postMessage(channelName, text, option);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">existRow</span>(<span class="params">table, channelName, number</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; table.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (table[i][<span class="number">1</span>] == number &amp;&amp; table[i][<span class="number">0</span>] == channelName)</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>指定された Issue の番号が本当に存在するかを確認するために、GitHubAPI をたたいて、リポジトリ内の Issue を全て取得し、愚直に線形探索している。<br>見つかれば、その Issue をそのまま返し、無い場合は <code>&quot;error&quot;</code> という文字列を返している。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getIssue</span>(<span class="params">number, prop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> github = GitHubAPI.create(prop.GITHUB_OWNER, prop.GITHUB_REPO, prop.GITHUB_API_TOKEN);</span><br><span class="line">  <span class="keyword">var</span> issues = github.get(<span class="string">'/issues?state=all'</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; issues.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (issues[i][<span class="string">'number'</span>] == number)</span><br><span class="line">      <span class="keyword">return</span> issues[i];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'error'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>こいつも <code>attachments</code> でいい感じのメッセージにしている。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeMessage</span>(<span class="params">issue, repo, prop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> user = <span class="string">'&lt;'</span> + issue[<span class="string">'user'</span>][<span class="string">'html_url'</span>] + <span class="string">'|'</span> + issue[<span class="string">'user'</span>][<span class="string">'login'</span>] + <span class="string">'&gt;'</span>;</span><br><span class="line">  <span class="keyword">var</span> pretext = <span class="string">'['</span> + repo + <span class="string">']  Issue created by '</span> + user;</span><br><span class="line">  <span class="keyword">var</span> title = <span class="string">'#'</span> + issue[<span class="string">'number'</span>] + <span class="string">' '</span> + issue[<span class="string">'title'</span>];</span><br><span class="line">  <span class="keyword">var</span> title_link = issue[<span class="string">'html_url'</span>];</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="string">'attachments'</span>: <span class="built_in">JSON</span>.stringify([&#123;</span><br><span class="line">      <span class="string">'pretext'</span>: pretext,</span><br><span class="line">      <span class="string">'title'</span>: title,</span><br><span class="line">      <span class="string">'title_link'</span>: title_link,</span><br><span class="line">      <span class="string">'color'</span>: prop.COLOR,</span><br><span class="line">      <span class="string">'text'</span>: issue[<span class="string">'body'</span>]</span><br><span class="line">    &#125;])</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="設定側の実行"><a href="#設定側の実行" class="headerlink" title="設定側の実行"></a>設定側の実行</h2><p><img src="/images/make-manager-bot-for-slack/slack_manager2-1_notification.jpg" alt="いい感じ"></p>
+<h2 id="通知側の実装"><a href="#通知側の実装" class="headerlink" title="通知側の実装"></a>通知側の実装</h2><p>GitHub リポジトリに Issue のコメントだけに Webhook されるようにする。<br>そしたら POST データを解析し、スプレッドシートの中から2列目が等しい行の1列目だけ取ってきて(高階関数最高)、POST データからいい感じのメッセージ生成して、Slack Bot に通知している。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doPost</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> jsonString = e.postData.getDataAsString();</span><br><span class="line">  <span class="keyword">var</span> jsonData = <span class="built_in">JSON</span>.parse(jsonString);</span><br><span class="line">  postMessage(jsonData);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">postMessage</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prop = PropertiesService.getScriptProperties().getProperties();</span><br><span class="line">  <span class="keyword">const</span> repo = prop.GITHUB_OWNER + <span class="string">'/'</span> + prop.GITHUB_REPO;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* いい感じにフィルタリング */</span></span><br><span class="line">  <span class="keyword">if</span> (data[<span class="string">'repository'</span>][<span class="string">'full_name'</span>] != repo &amp;&amp; data[<span class="string">'comment'</span>] != <span class="literal">undefined</span> &amp;&amp; data[<span class="string">'issue'</span>] != <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'invalid repository.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Spread Sheet の読み取り*/</span></span><br><span class="line">  <span class="comment">/* 割愛 */</span></span><br><span class="line"></span><br><span class="line">　<span class="comment">/* 表からフックされた Issue の番号を線形探索 */</span></span><br><span class="line">  <span class="keyword">var</span> number = data[<span class="string">'issue'</span>][<span class="string">'number'</span>];</span><br><span class="line">  <span class="keyword">var</span> channels = table.filter(<span class="function"><span class="keyword">function</span>(<span class="params">row</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> row[<span class="number">1</span>] == number;</span><br><span class="line">  &#125;).map(<span class="function"><span class="keyword">function</span>(<span class="params">row</span>)</span>&#123; <span class="keyword">return</span> row[<span class="number">0</span>] &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* いい感じのメッセージを作成 */</span></span><br><span class="line">  <span class="keyword">var</span> message = makeMessage(data[<span class="string">'action'</span>], data[<span class="string">'comment'</span>], data[<span class="string">'issue'</span>], repo, prop);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Slack の準備*/</span></span><br><span class="line">  <span class="comment">/* 割愛 */</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> _ = Underscore.load();</span><br><span class="line">  channels.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">channelName</span>)</span>&#123;</span><br><span class="line">    option = _.extend(option, message);</span><br><span class="line">    slackApp.postMessage(channelName, <span class="string">''</span>, option);  </span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>メッセージはコメントの作成・編集・削除ごとに異なる。<br>ただ、編集時には編集前のコメントしか手に入らないので、GitHub API をたたいて編集後のコメントを取りに行ってる(getIssueCommentBody)。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeMessage</span>(<span class="params">action, comment, issue, repo, prop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> user = <span class="string">'&lt;'</span> + comment[<span class="string">'user'</span>][<span class="string">'html_url'</span>] + <span class="string">'|'</span> + comment[<span class="string">'user'</span>][<span class="string">'login'</span>] + <span class="string">'&gt;'</span>;</span><br><span class="line">  <span class="keyword">var</span> issueTitle = <span class="string">'&lt;'</span> + comment[<span class="string">'html_url'</span>] + <span class="string">'|'</span> + <span class="string">'#'</span> + issue[<span class="string">'number'</span>] + <span class="string">': '</span> + issue[<span class="string">'title'</span>] + <span class="string">'&gt;'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> actionText = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">switch</span>(action) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'created'</span>:</span><br><span class="line">      actionText = <span class="string">'New'</span>;</span><br><span class="line">      text = comment[<span class="string">'body'</span>];</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'edited'</span>:</span><br><span class="line">      actionText = <span class="string">'Edit'</span>;</span><br><span class="line">      text = getIssueCommentBody(comment[<span class="string">'id'</span>], prop);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'deleted'</span>:</span><br><span class="line">      actionText = <span class="string">'Delet'</span>;</span><br><span class="line">      text = comment[<span class="string">'body'</span>];</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> pretext = <span class="string">'['</span> + repo + <span class="string">'] '</span> + actionText + <span class="string">' comment by '</span> + user + <span class="string">' on isuue '</span> + issueTitle;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="string">'attachments'</span>: <span class="built_in">JSON</span>.stringify([&#123;</span><br><span class="line">      <span class="string">'pretext'</span>: pretext,</span><br><span class="line">      <span class="string">'color'</span>: prop.COLOR,</span><br><span class="line">      <span class="string">'text'</span>: text</span><br><span class="line">    &#125;])</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getIssueCommentBody</span>(<span class="params">id, prop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> github = GitHubAPI.create(prop.GITHUB_OWNER, prop.GITHUB_REPO, prop.GITHUB_API_TOKEN);</span><br><span class="line">  <span class="keyword">var</span> comment = github.get(<span class="string">'/issues/comments/'</span> + id);</span><br><span class="line">  <span class="keyword">return</span> comment[<span class="string">'body'</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="通知側の実行"><a href="#通知側の実行" class="headerlink" title="通知側の実行"></a>通知側の実行</h2><p><img src="/images/make-manager-bot-for-slack/slack_manager2-2_notification.jpg" alt="いい感じ"></p>
+<h2 id="おしまい"><a href="#おしまい" class="headerlink" title="おしまい"></a>おしまい</h2><p>これで部内の問題・情報管理がさらに円滑になるはず！(願望)</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Web/">Web</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/GitHub/">GitHub</a>, <a href="/tags/Slack/">Slack</a>, <a href="/tags/Bot/">Bot</a>, <a href="/tags/Google-Apps-Script/">Google Apps Script</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+<script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  // 拡張リンクのアトリビューション分析用のタグをページに設定する
+  var pluginUrl =
+   '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-46141384-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    // ユーザー属性とインタレスト カテゴリに関するレポートを有効にする
+    // ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+
+</body>
+</html>

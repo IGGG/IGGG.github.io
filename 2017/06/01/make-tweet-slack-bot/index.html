@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/images/IGGG_l.png">
+  <meta name="application-name" content="群馬大学電子計算機研究会 IGGG">
+  <meta name="msapplication-TileColor" content="#1b7aca">
+  <meta name="msapplication-square70x70logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square150x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-wide310x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square310x310logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/images/IGGG_l.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/images/IGGG_l.png">
+
+  
+  <title>Slack から特定のアカウントでツイートする Bot を作った | 群馬大学電子計算機研究会 IGGG</title>
+  <meta name="author" content="IGGG">
+  
+  <meta name="description" content="IGGG ソフトウェア基盤部のひげです。
+Slack をインターフェースにして特定の Twitter アカウントでツイートする Slack Bot を GAS で作った話。なんか Bot ばっかり作ってる気がする。
+いきさつIGGG は部としての活動はあまりなく、個人での活動が多い(ちなみに、それを">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Slack から特定のアカウントでツイートする Bot を作った">
+  <meta property="og:site_name" content="群馬大学電子計算機研究会 IGGG">
+
+  
+    <meta property="og:image" content="/images/make-tweet-slack-bot/test3.jpg">
+  
+
+  <link rel="alternate" href="/atom.xml" title="群馬大学電子計算機研究会 IGGG" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+</head>
+</html>
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">群馬大学電子計算機研究会 IGGG</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>IGGG</h3>
+      <p>Information technology researching society</p><p> of the Gunmer,</p><p> by the Gunmer,</p><p> for the Gunmer</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2019 IGGG
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2017-06-01T14:29:36.000Z"><a href="#">2017-06-01</a></time>
+      
+      
+  
+    <h1 class="depth title">Slack から特定のアカウントでツイートする Bot を作った</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>IGGG ソフトウェア基盤部のひげです。</p>
+<p>Slack をインターフェースにして特定の Twitter アカウントでツイートする Slack Bot を GAS で作った話。<br>なんか Bot ばっかり作ってる気がする。</p>
+<h2 id="いきさつ"><a href="#いきさつ" class="headerlink" title="いきさつ"></a>いきさつ</h2><p>IGGG は部としての活動はあまりなく、個人での活動が多い(ちなみに、それを支援する部になればなぁと思ってます。)。<br>いっけん何もしてないように見えるが、各々で何かしてる場合があるので、それをもっと広報してみようという話が、この前の Meetup のときにあった。</p>
+<p>そこで、個人の活動を PR するための <a href="https://twitter.com/IGGGorg_PR" target="_blank" rel="noopener">Twitter アカウント</a>を作って、活動、例えば、各々のWebサイトの更新や GitHub リポジトリの更新などをツイートしようとなった。</p>
+<p>ただ、いちいちログインしてツイートするのはめんどくさい。<br>ということで、Slack の特定のチャンネルで発言すると、それを本文としてツイートできるようにすることにした。</p>
+<h2 id="作る"><a href="#作る" class="headerlink" title="作る"></a>作る</h2><p>ステップバイステップに作ったので、せっかくだから、その過程を書いておく。<br>最終的な GAS コードは<a href="https://github.com/IGGG/google-apps-scripts/blob/announcer/announcer/Announcer.gs" target="_blank" rel="noopener">ココ</a>にある。<br>いくつかのプロパティの他に、以下の外部ライブラリを使用した。</p>
+<ul>
+<li><a href="https://github.com/soundTricker/SlackApp" target="_blank" rel="noopener">SlackApp</a> : <code>M3W5Ut3Q39AaIwLquryEPMwV62A3znfOO</code></li>
+<li><a href="https://github.com/googlesamples/apps-script-oauth1" target="_blank" rel="noopener">OAuth1</a> : <code>1CXDCY5sqT9ph64fFwSzVtXnbjpSfWdRymafDrtIZ7Z_hwysTY7IIhi7s</code></li>
+<li><a href="https://github.com/simula-innovation/gas-underscore" target="_blank" rel="noopener">Underscore</a> : <code>M3i7wmUA_5n0NSEaa6NnNqOBao7QLBR4j</code></li>
+</ul>
+<h3 id="1-とりあえずそのままツイート"><a href="#1-とりあえずそのままツイート" class="headerlink" title="1. とりあえずそのままツイート"></a>1. とりあえずそのままツイート</h3><p>まずは何も考えずにそのままツイートしてくれる Slack Bot を作る。<br>GAS なので、<a href="https://iggg.slack.com/apps/A0F7VRG6Q-outgoing-webhooks" target="_blank" rel="noopener">Outgoing Webhook</a> を使う。<br>Bot の名前を <code>announcer</code> にするということにして(Customize Name をいじるわけではない、いじってもいいけど)，<code>@announcer</code> を Trigger Word(s) に設定する。</p>
+<p>イメージはこんな感じ</p>
+<p><img src="/images/make-tweet-slack-bot/image.jpg" alt></p>
+<p>と打つと、Twitterで「こんにちは、テスト !!」をつぶやいてくれる。</p>
+<ul>
+<li><a href="https://ameblo.jp/ponkotsuameba/entry-12206865120.html" target="_blank" rel="noopener">Google Apps ScriptからTwitterに投稿する。｜ポンコツプログラマの開発日記</a></li>
+</ul>
+<p>を参考にして作った。</p>
+<h4 id="1-1-Twitter-API-Token-の取得"><a href="#1-1-Twitter-API-Token-の取得" class="headerlink" title="1-1. Twitter API Token の取得"></a>1-1. Twitter API Token の取得</h4><p>Twitter API を叩くために必要。<br>電話番号が登録されているアカウントでないとダメなので、自分のツイッターアカウントで発行した(ちなみに、こういう開発での用途か ROM 専でしか使ってない、ぼくは)。<br>発行の手順は簡単</p>
+<ol>
+<li>Twitter にログイン</li>
+<li><a href="https://dev.twitter.com/docs" target="_blank" rel="noopener">https://dev.twitter.com/docs</a> にアクセスして上の方にある <code>My apps</code> をクリック</li>
+<li><code>Create New App</code> をクリックして必要事項を埋める<ul>
+<li><code>Name</code>, <code>Description</code>, <code>Website</code> を埋める必要があるが、正直なんでもいい</li>
+<li>アプリで重要なのは <code>Callback URL</code> だが、まだ埋めなくても平気</li>
+</ul>
+</li>
+<li><code>Keys and Access Tokens</code> というタブをクリックすると、そこに必要なトークンがある</li>
+</ol>
+<p><img src="/images/make-tweet-slack-bot/slack_api_keys.jpg" alt></p>
+<h4 id="1-2-Bot-を書く！"><a href="#1-2-Bot-を書く！" class="headerlink" title="1-2. Bot を書く！"></a>1-2. Bot を書く！</h4><p><a href="https://github.com/googlesamples/apps-script-oauth1/blob/master/samples/Twitter.gs" target="_blank" rel="noopener">サンプルコード</a>を参考にして、ソースコードはこんな感じ。</p>
+<p>ちなみに、プロパティは以下のようになっている</p>
+<ul>
+<li><code>VERIFY_TOKEN</code>: Outgoing Webhook Slack App の <code>Token</code></li>
+<li><code>SLACK_API_TOKEN</code>: <a href="https://api.slack.com/custom-integrations/legacy-tokens" target="_blank" rel="noopener">ココ</a>から発行できる Slack の API トークン</li>
+<li><code>ICON_ID</code>: Google Drive にある Slack Bot のアイコンに使う画像の ID (別に無くてもいいし、URL を使うように書き換えたって良い)</li>
+<li><code>TWITTER_CONSUMER_KEY</code>: 1-1 で用意した Consumer Key (API Key)</li>
+<li><code>TWITTER_CONSUMER_SECRET</code>: 1-1 で用意した Consumer Secret (API Secret)</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doPost</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prop = PropertiesService.getScriptProperties().getProperties();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (prop.VERIFY_TOKEN != e.parameter.token) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'invalid token.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* for Slack */</span></span><br><span class="line">  <span class="keyword">var</span> slackApp = SlackApp.create(prop.SLACK_API_TOKEN);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> BOT_NAME = <span class="string">'announcer'</span>;</span><br><span class="line">  <span class="keyword">const</span> BOT_ICON = <span class="string">'http://drive.google.com/uc?export=view&amp;id='</span> + prop.ICON_ID;</span><br><span class="line">  <span class="keyword">var</span> option = &#123; <span class="attr">username</span> : BOT_NAME, <span class="attr">icon_url</span> : BOT_ICON, <span class="attr">link_names</span> : <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> message = e.parameter.text.split(<span class="string">'\n'</span>);</span><br><span class="line">  <span class="keyword">var</span> channelName = e.parameter.channel_name;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (message[<span class="number">0</span>] != (<span class="string">'@'</span> + BOT_NAME)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'invalid bot name.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> result = postTweet(message.slice(<span class="number">1</span>, message.length).join(<span class="string">'\n'</span>));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">if</span> (result != <span class="string">'error'</span>) &#123;</span><br><span class="line">    text = <span class="string">'Success!\n'</span> + <span class="string">'https://twitter.com/IGGGorg_PR/status/'</span> + result[<span class="string">'id_str'</span>];</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    text = <span class="string">'Denied...'</span></span><br><span class="line">  &#125;</span><br><span class="line">  Logger.log(slackApp.postMessage(channelName, text, option));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Authorizes and makes a request to the Twitter API.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">postTweet</span>(<span class="params">text</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> service = getService();</span><br><span class="line">  <span class="keyword">if</span> (service.hasAccess()) &#123;</span><br><span class="line">    <span class="keyword">var</span> url = <span class="string">'https://api.twitter.com/1.1/statuses/update.json'</span>;</span><br><span class="line">    <span class="keyword">var</span> payload = &#123;</span><br><span class="line">      status: text</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> response = service.fetch(url, &#123;</span><br><span class="line">      method: <span class="string">'post'</span>,</span><br><span class="line">      payload: payload</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">var</span> result = <span class="built_in">JSON</span>.parse(response.getContentText());</span><br><span class="line">    Logger.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> authorizationUrl = service.authorize();</span><br><span class="line">    Logger.log(<span class="string">'Open the following URL and re-run the script: %s'</span>,</span><br><span class="line">        authorizationUrl);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'error'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reset the authorization state, so that it can be re-tested.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reset</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> service = getService();</span><br><span class="line">  service.reset();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Configures the service.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getService</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prop = PropertiesService.getScriptProperties().getProperties();  </span><br><span class="line">  <span class="keyword">return</span> OAuth1.createService(<span class="string">'Twitter'</span>)</span><br><span class="line">      <span class="comment">// Set the endpoint URLs.</span></span><br><span class="line">      .setAccessTokenUrl(<span class="string">'https://api.twitter.com/oauth/access_token'</span>)</span><br><span class="line">      .setRequestTokenUrl(<span class="string">'https://api.twitter.com/oauth/request_token'</span>)</span><br><span class="line">      .setAuthorizationUrl(<span class="string">'https://api.twitter.com/oauth/authorize'</span>)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Set the consumer key and secret.</span></span><br><span class="line">      .setConsumerKey(prop.TWITTER_CONSUMER_KEY)</span><br><span class="line">      .setConsumerSecret(prop.TWITTER_CONSUMER_SECRET)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Set the name of the callback function in the script referenced</span></span><br><span class="line">      <span class="comment">// above that should be invoked to complete the OAuth flow.</span></span><br><span class="line">      .setCallbackFunction(<span class="string">'authCallback'</span>)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Set the property store where authorized tokens should be persisted.</span></span><br><span class="line">      .setPropertyStore(PropertiesService.getUserProperties());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Handles the OAuth callback.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">authCallback</span>(<span class="params">request</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> service = getService();</span><br><span class="line">  <span class="keyword">var</span> authorized = service.handleCallback(request);</span><br><span class="line">  <span class="keyword">if</span> (authorized) &#123;</span><br><span class="line">    <span class="keyword">return</span> HtmlService.createHtmlOutput(<span class="string">'Success!'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> HtmlService.createHtmlOutput(<span class="string">'Denied'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>reset</code>, <code>getService</code>, <code>authCallback</code> 関数はサンプルコードをそのまんま、 <code>postTweet</code> 関数はサンプルコードの <code>run</code> 関数を返り値があるように書き換えたモノだ。</p>
+<p>次に、<a href="https://apps.twitter.com" target="_blank" rel="noopener">Twitter側</a>に <code>https://script.google.com/macros/d/{SCRIPT_ID}/usercallback</code> を Setting からの Callback URL に書き込む。<br>ここでの <code>SCRIPT_ID</code> は <code>ファイル</code> の <code>プロジェクトのプロパティ</code> にある <code>スクリプト ID</code> に書いてある文字列である(URLからも実はわかる)。</p>
+<p>できたら、いちど <code>postTweet</code> 関数を GAS 側で実行すると、<strong>現在ログインしている Twitter アカウント</strong> でのアプリケーション連携の認証ページへ飛ばされるので許可すればよい。</p>
+<p>そして最後に、GAS側の <code>公開</code> の <code>ウェブアプリケーションとして導入</code> に書いてある URL を Outgoing Webhook の URL(s) にコピペすれば Slack 側とも繫がることができる。</p>
+<h4 id="1-3-ためしに実行"><a href="#1-3-ためしに実行" class="headerlink" title="1-3. ためしに実行"></a>1-3. ためしに実行</h4><p>こんな感じ</p>
+<p><img src="/images/make-tweet-slack-bot/test1.jpg" alt></p>
+<h3 id="2-適当にフィルタリング"><a href="#2-適当にフィルタリング" class="headerlink" title="2. 適当にフィルタリング"></a>2. 適当にフィルタリング</h3><p>なんでもかんでもツイートされては困るので、<code>http</code> ってキーワードとかでフィルターを掛けてみてはどうか、という話があったので、簡単にかけてみた。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doPost</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prop = PropertiesService.getScriptProperties().getProperties();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 同じなので割愛 */</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (message[<span class="number">0</span>] != (<span class="string">'@'</span> + BOT_NAME)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'invalid bot name.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">var</span> messageBody = message.slice(<span class="number">1</span>, message.length).join(<span class="string">'\n'</span>);</span><br><span class="line">  <span class="keyword">if</span> (messageBody.indexOf(<span class="string">'http'</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">    text = <span class="string">'Denied: do not include "http".'</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> result = tweet(messageBody);</span><br><span class="line">    <span class="keyword">if</span> (result != <span class="string">'error'</span>) &#123;</span><br><span class="line">      text = <span class="string">'Success!\n'</span> + <span class="string">'https://twitter.com/IGGGorg_PR/status/'</span> + result[<span class="string">'id_str'</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      text = <span class="string">'Denied...'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  Logger.log(slackApp.postMessage(channelName, text, option));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>GAS の JavaScript は古いため、文字列が任意の文字列を含むかどうかを <code>indexOf</code> メソッドで調べるしかないらしい。<br>雑な実装ですね…</p>
+<h3 id="3-Tweet-Request-TR-によるレビュー"><a href="#3-Tweet-Request-TR-によるレビュー" class="headerlink" title="3. Tweet Request (TR) によるレビュー"></a>3. Tweet Request (TR) によるレビュー</h3><p>どう考えてもガバガバフィルターだなぁと思ってるところに神からのお告げが来た。</p>
+<p><img src="/images/make-tweet-slack-bot/otsuge_from_kami.jpg" alt></p>
+<p><a href="https://api.slack.com/rtm" target="_blank" rel="noopener">Real Time Messaging API</a> であれば何でも取得できるので実装できそうだったが、GAS では RTM は使えない…orz</p>
+<p>だがしかし、Add Reaction をフックして投稿することはできないけど、</p>
+<ol>
+<li>PR を作るように Tweet Request を作成するメッセージを打つ</li>
+<li>TR に LGTM な Add Reaction をする</li>
+<li>PR をマージするみたいに TR を許可(ツイート)する用のメッセージを打つ<ul>
+<li>但し、Add Reaction が少ないとツイートできない</li>
+</ul>
+</li>
+</ol>
+<p>って感じに、リクエストの作成とツイートをポストするのを PR みたいに分ければできそうだ！<br>Add Reaction の取得自体は RTM じゃなくても、<a href="https://api.slack.com/web" target="_blank" rel="noopener">Slack の REST API</a> の <a href="https://api.slack.com/methods/reactions.get" target="_blank" rel="noopener"><code>reactions.get</code></a> を使えばできる。</p>
+<p>TR の管理にはスプレッドシートを使う(GitHub の Issue でもいい気はするけど)。<br>なので、スプレッドシート用に以下のプロパティを追加した。</p>
+<ul>
+<li><code>SPREAD_SHEET_ID</code>: TRを管理するためのスプレッドシートのID</li>
+<li><code>SHEET_NAME</code>: TRを管理するためのスプレッドシートのシート名</li>
+</ul>
+<h4 id="コード書き直す"><a href="#コード書き直す" class="headerlink" title="コード書き直す"></a>コード書き直す</h4><p>ソースコードはこんな感じになった(無駄に長い気もする)</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doPost</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prop = PropertiesService.getScriptProperties().getProperties();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (prop.VERIFY_TOKEN != e.parameter.token) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'invalid token.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Load Spread Sheet */</span></span><br><span class="line">  <span class="keyword">var</span> sheet = SpreadsheetApp.openById(prop.SPREAD_SHEET_ID).getSheetByName(prop.SHEET_NAME);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* for Slack */</span></span><br><span class="line">  <span class="keyword">var</span> slackApp = SlackApp.create(prop.SLACK_API_TOKEN);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> BOT_NAME = <span class="string">'announcer'</span>;</span><br><span class="line">  <span class="keyword">const</span> BOT_ICON = <span class="string">'http://drive.google.com/uc?export=view&amp;id='</span> + prop.ICON_ID;</span><br><span class="line">  <span class="keyword">var</span> option = &#123; <span class="attr">username</span> : BOT_NAME, <span class="attr">icon_url</span> : BOT_ICON, <span class="attr">link_names</span> : <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> body = e.parameter.text.slice(e.parameter.trigger_word.length).trim();</span><br><span class="line">  <span class="keyword">var</span> timestamp = e.parameter.timestamp;</span><br><span class="line">  <span class="keyword">var</span> channelId = e.parameter.channel_id;</span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">var</span> _ = Underscore.load();</span><br><span class="line">  <span class="keyword">switch</span> (e.parameter.trigger_word) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'$tweet?'</span>:</span><br><span class="line">      <span class="keyword">const</span> rowNum = sheet.getLastRow() + <span class="number">1</span>;</span><br><span class="line">      setTweetRequest(sheet, _.extend(e.parameter, &#123;<span class="attr">body</span>: body, <span class="attr">num</span>: rowNum&#125;));</span><br><span class="line">      text = <span class="string">'set tweet request: '</span> + rowNum;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'$tweet!'</span>:</span><br><span class="line">      <span class="keyword">var</span> tr = getTweetRequest(sheet, body);</span><br><span class="line">      <span class="keyword">if</span> (tr.ok) &#123;</span><br><span class="line">        <span class="keyword">var</span> result = tweetWithCheck(tr, prop.SLACK_API_TOKEN);</span><br><span class="line">        <span class="keyword">if</span> (result.ok)</span><br><span class="line">          sheet.getRange(tr.num, <span class="number">4</span>).setValue(<span class="number">1</span>);</span><br><span class="line">        text = result.text;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        text = tr.error;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      text = <span class="string">'undefined trigger word: '</span> + e.parameter.trigger_word;</span><br><span class="line">  &#125;</span><br><span class="line">  Logger.log(slackApp.postMessage(channelId, text, option));</span><br><span class="line"><span class="comment">//  Logger.log(text);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTweetRequest</span>(<span class="params">sheet, rowNum</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">isNaN</span>(rowNum)) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">ok</span>: <span class="literal">false</span>, <span class="attr">error</span>: <span class="string">'please input number: '</span> + rowNum &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> body = sheet.getRange(rowNum, <span class="number">1</span>).getValue();</span><br><span class="line">  <span class="keyword">if</span> (body == <span class="string">''</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">ok</span>: <span class="literal">false</span>, <span class="attr">error</span>: <span class="string">'not found tweet request: '</span> + rowNum &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    ok: <span class="literal">true</span>,</span><br><span class="line">    body: body,</span><br><span class="line">    channel_id: sheet.getRange(rowNum, <span class="number">2</span>).getValue(),</span><br><span class="line">    timestamp: sheet.getRange(rowNum, <span class="number">3</span>).getValue().slice(<span class="number">1</span>),</span><br><span class="line">    num: rowNum,</span><br><span class="line">    done: sheet.getRange(rowNum, <span class="number">4</span>).getValue() == <span class="number">1</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setTweetRequest</span>(<span class="params">sheet, tr</span>) </span>&#123;</span><br><span class="line">  sheet.getRange(tr.num, <span class="number">1</span>).setValue(tr.body);</span><br><span class="line">  sheet.getRange(tr.num, <span class="number">2</span>).setValue(tr.channel_id);</span><br><span class="line">  sheet.getRange(tr.num, <span class="number">3</span>).setValue(<span class="string">'t'</span> + tr.timestamp);  </span><br><span class="line">  sheet.getRange(tr.num, <span class="number">4</span>).setValue(tr.done ? <span class="number">1</span> : <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tweetWithCheck</span>(<span class="params">tr, token</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (tr.done) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">ok</span>: <span class="literal">false</span>, <span class="attr">text</span>: <span class="string">'TR '</span> + tr.num + <span class="string">' has already been tweeted.'</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> url = <span class="string">'https://slack.com/api/reactions.get'</span>;</span><br><span class="line">  <span class="keyword">var</span> options = &#123;</span><br><span class="line">    method: <span class="string">'post'</span>,</span><br><span class="line">    payload: &#123;</span><br><span class="line">      token: token,</span><br><span class="line">      channel: tr.channel_id,</span><br><span class="line">      timestamp: tr.timestamp</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> result = <span class="built_in">JSON</span>.parse(UrlFetchApp.fetch(url, options));</span><br><span class="line">  <span class="keyword">if</span> (!result.ok) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">ok</span>: <span class="literal">false</span>, <span class="attr">text</span>: <span class="string">'error: '</span> + result.error &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> borderline = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">var</span> lgtm = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> result.message.reactions) &#123;</span><br><span class="line">    <span class="keyword">var</span> reaction = result.message.reactions[i];</span><br><span class="line">    <span class="keyword">if</span> (reaction.name == <span class="string">'+1'</span>) &#123;</span><br><span class="line">      lgtm = reaction.count;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> emassage = <span class="string">'Few :+1: for tweet req: need '</span> + borderline + <span class="string">', now '</span> + lgtm;</span><br><span class="line">  <span class="keyword">return</span> lgtm &gt;= borderline ? tweet(tr) : &#123; <span class="attr">ok</span>: <span class="literal">false</span>, <span class="attr">text</span>: emassage &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tweet</span>(<span class="params">body</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result = postTweet(body);</span><br><span class="line"><span class="comment">//  var result = &#123; id_str: 'tweet!!' &#125;;</span></span><br><span class="line">  <span class="keyword">if</span> (result == <span class="string">'error'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">ok</span>: <span class="literal">false</span>, <span class="attr">text</span>: <span class="string">'Denied...'</span> &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (result.errors != <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">ok</span>: <span class="literal">false</span>, <span class="attr">text</span>: <span class="string">'Denied: '</span> + result.errors[<span class="number">0</span>].code + <span class="string">' '</span> + result.errors[<span class="number">0</span>].message &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">ok</span>: <span class="literal">true</span>, <span class="attr">text</span>: <span class="string">'Success!\n'</span> + <span class="string">'https://twitter.com/IGGGorg_PR/status/'</span> + result[<span class="string">'id_str'</span>] &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>あんまりスプレッドシートのオブジェクトを伝搬させたくなくて、奇妙な返り値になっている。<br>まぁとりあえずはこれで良しとします…</p>
+<p><a href="https://twitter.com/gion_U" target="_blank" rel="noopener">CTO</a> の助言のもと、TRの作成とTRのツイートのコマンドを <code>$tweet?</code> と <code>$tweet!</code> にした。</p>
+<p>スプレッドシートのカラムは、<code>ツイートしたい本文, チャンネルID, タイムスタンプ, ツイート済みかのフラグ</code> となっている。<br><code>reactions.get</code> を使って特定のメッセージの Add Reaction を取得するには、メッセージを特定するために、チャンネルIDとタイムスタンプが必要だ(<strong>チャンネル名ではダメ</strong>)。</p>
+<p>ちなみに、チャンネル名からチャンネルIDを調べるには、<a href="https://api.slack.com/methods/channels.list/test" target="_blank" rel="noopener">ココ</a> を使うのが良い<a href="http://qiita.com/Yinaura/items/bd28c7b9ef614696fb7e" target="_blank" rel="noopener">みたい</a>。<br>また、タイムスタンプはメッセージの時刻を右クリックして取得できる URL、例えば <code>https://iggg.slack.com/archives/C06FXCF4K/p1496313613432037</code> の <code>1496313613432037</code> を <code>1496313613.432037</code> のように前から10-11番目の数字の間に <code>.</code> を入れるだけで良い。<br>まぁ実際は Slack から飛んできたメッセージの情報に載ってるので、わざわざ手作業で集める必要はないんだけど、テストしたいときとかに使った。</p>
+<p>Slack API を便利に使う GAS ライブラリでは <code>reactions.get</code> を実行でき無さそうだったので、<code>UrlFetchApp.fetch</code> を以下のように直接使った。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="string">'https://slack.com/api/reactions.get'</span>;</span><br><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">  method: <span class="string">'post'</span>,</span><br><span class="line">  payload: &#123;</span><br><span class="line">    token: token,</span><br><span class="line">    channel: tr.channel_id,</span><br><span class="line">    timestamp: tr.timestamp</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> result = <span class="built_in">JSON</span>.parse(UrlFetchApp.fetch(url, options));</span><br></pre></td></tr></table></figure>
+
+<h2 id="実行"><a href="#実行" class="headerlink" title="実行"></a>実行</h2><p>いい感じ b</p>
+<p><img src="/images/make-tweet-slack-bot/test3.jpg" alt></p>
+<h2 id="おしまい"><a href="#おしまい" class="headerlink" title="おしまい"></a>おしまい</h2><p>みんなツイートしてくれるといいなぁ。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Web/">Web</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Slack/">Slack</a>, <a href="/tags/Bot/">Bot</a>, <a href="/tags/Google-Apps-Script/">Google Apps Script</a>, <a href="/tags/Twitter/">Twitter</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+<script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  // 拡張リンクのアトリビューション分析用のタグをページに設定する
+  var pluginUrl =
+   '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-46141384-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    // ユーザー属性とインタレスト カテゴリに関するレポートを有効にする
+    // ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/images/IGGG_l.png">
+  <meta name="application-name" content="群馬大学電子計算機研究会 IGGG">
+  <meta name="msapplication-TileColor" content="#1b7aca">
+  <meta name="msapplication-square70x70logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square150x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-wide310x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square310x310logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/images/IGGG_l.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/images/IGGG_l.png">
+
+  
+  <title>GitHub Pages + Hexo + CircleCI + Heroku で自動デプロイ管理 | 群馬大学電子計算機研究会 IGGG</title>
+  <meta name="author" content="IGGG">
+  
+  <meta name="description" content="IGGG 名古屋支部 支部長の ひげ です。今回も寂しく孤軍奮闘しております。嘘です。Slack 使って騒いでるんで一人ではないです。早速プルリクエストあったし。
+さて、今回は前言通り デプロイの自動化 を行いました。
+実は GitHub Pages 利用する少し前に Slack 上で CI (継続">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="GitHub Pages + Hexo + CircleCI + Heroku で自動デプロイ管理">
+  <meta property="og:site_name" content="群馬大学電子計算機研究会 IGGG">
+
+  
+    <meta property="og:image" content="/IGGG_l.png">
+  
+
+  <link rel="alternate" href="/atom.xml" title="群馬大学電子計算機研究会 IGGG" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+</head>
+</html>
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">群馬大学電子計算機研究会 IGGG</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>IGGG</h3>
+      <p>Information technology researching society</p><p> of the Gunmer,</p><p> by the Gunmer,</p><p> for the Gunmer</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2019 IGGG
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-05-30T14:38:49.000Z"><a href="#">2016-05-30</a></time>
+      
+      
+  
+    <h1 class="depth title">GitHub Pages + Hexo + CircleCI + Heroku で自動デプロイ管理</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>IGGG 名古屋支部 支部長の ひげ です。<br>今回も寂しく孤軍奮闘しております。<br>嘘です。<br>Slack 使って騒いでるんで一人ではないです。<br>早速プルリクエストあったし。</p>
+<p>さて、今回は前言通り デプロイの自動化 を行いました。</p>
+<p>実は GitHub Pages 利用する少し前に Slack 上で CI (継続的インテグレーション) について(ほんの少しだけ)話していて、<br>GitHub Pages の話題が上がったときに、CI の簡単な例がだよ、といつものお意見番が下記の記事を教えてくれました。</p>
+<ul>
+<li><a href="http://blog.otakumode.com/2014/08/08/Blogging-with-hexoio/" target="_blank" rel="noopener">チームブログをGitHubとHexoではじめよう！</a></li>
+</ul>
+<p>早速、 <del>パクッて</del> 参考にしてみました！</p>
+<h2 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h2><p>結局何をしたいのかというと</p>
+<ol>
+<li>GitHub に大本である source ブランチを <strong>プッシュしたら自動でデプロイ</strong> してほしい</li>
+<li>source ブランチ以外をプッシュした場合は <strong>ステージ環境に自動でデプロイ</strong> してほしい</li>
+</ol>
+<p>の2点です。<br>前者の理由は単純に手間を省くためです。<br>後者の理由は、新しい記事の精査を実行環境のない人でも行えるようにです。</p>
+<p>(まぁ本音は単純に私が面白そうだと思ったからですけど)</p>
+<p>そのために、GitHub へのプッシュに対して自動でデプロイしてくれるサービスとステージング環境が必要です。<br>前述した記事を参考にして、前者には <a href="https://circleci.com/" target="_blank" rel="noopener">CircleCI</a> を、後者には <a href="https://dashboard.heroku.com/" target="_blank" rel="noopener">Heroku</a> を利用したいと思います。  </p>
+<p><strong>追記 (2016.6.2)</strong><br>ブランチの構成を変更しました。<br>例の相談役さんがステージング環境へのデプロイが競合しないようにステージング用のブランチを作った方が良いと助言してくれました。<br>なので</p>
+<ul>
+<li><strong>source</strong> master へ自動デプロイされるブランチ</li>
+<li><strong>staging</strong> ステージング環境へ自動デプロイされるブランチ</li>
+<li>それ以外のブランチはデプロイされない</li>
+</ul>
+<p>の構成に変更しました。<br>変更箇所は後述します。</p>
+<h2 id="CircleCI"><a href="#CircleCI" class="headerlink" title="CircleCI"></a>CircleCI</h2><p>CircleCI は GitHub と連携して実行やテスト、デプロイなどを自動で行ってくれるサービスです。<br>このように、プログラミングに付随する様々な作業を自動化して継続的に管理する事を <strong>継続的インテグレーション</strong> と言います(たぶん)。<br>私はコノコトについてちゃんと勉強してないので、後は自分で調べてください(おい)</p>
+<p>継続的インテグレーションをサポートするサービスは他にもイロイロあります。<br>CircleCI の特徴については以下のスライドでも見てください(おい)</p>
+<ul>
+<li><a href="http://www.slideshare.net/mogproject/circleci-51253223" target="_blank" rel="noopener">はじめての CircleCI</a></li>
+</ul>
+<p>では順に準備を行っていきます。</p>
+<h2 id="CircleCI-の準備"><a href="#CircleCI-の準備" class="headerlink" title="CircleCI の準備"></a>CircleCI の準備</h2><p>CircleCI は既存の GitHub と認証を行います。<br>今回は、私のアカウントを使う事にします。</p>
+<p>まず、<a href="https://circleci.com/" target="_blank" rel="noopener">公式サイト</a> に行きます。<br>後は、Sign up のところを押して、ポチポチしていくだけです(ざっくり)。</p>
+<p>登録が完了したら、GitHub の方で認証を行います(たぶん)。<br><a href="https://github.com/integrations/circle-ci" target="_blank" rel="noopener">ココ</a>に行って Add to GitHub を押せばいいはずです。</p>
+<p>これで、CircleCI のダッシュボードに GitHub のリポジトリが出てくるはずです。</p>
+<p>出てきたら、CircleCI で管理したいリポジトリを選択します。</p>
+<p>選択すると早速リポジトリのビルドを始めようとしますが、設定ファイルを入れてないのでコケるはずです。</p>
+<h2 id="Heroku"><a href="#Heroku" class="headerlink" title="Heroku"></a>Heroku</h2><p>いったんハナシを脱線して Heroku について簡単に説明します。<br>Heroku とは <strong>AWSのIaaS上に構築されたPaaSで、Gitでデプロイできたり、Webアプリの開発から公開までがミラクルスペシャルウルトラスーパーメガトン簡単にできるプラットフォーム</strong> だそうです。<br>次のサイトに書いてありました。<br>残りは参照してください(おい)</p>
+<ul>
+<li><a href="https://gist.github.com/konitter/5370904" target="_blank" rel="noopener">Heroku導入メモ - GitHub</a></li>
+</ul>
+<p>と言っても、上記のサイトの情報は少し古く、料金体系が結構変わって、無料枠の容量の上限が 300MB に増えていたり、無料枠では日に6時間はスリープさせないといけなかったり、になっています。<br>そのうえ、また無料枠を変更するみたいです。</p>
+<p>まぁ、詳しくは公式サイトを読めばいいんじゃないかな…(おいおい)</p>
+<h2 id="Heroku-の準備"><a href="#Heroku-の準備" class="headerlink" title="Heroku の準備"></a>Heroku の準備</h2><p>イロイロと料金体系が変わっているみたいですが、(たぶん)ステージング環境としてならまだ使えそうなんで使っていきます。</p>
+<p>まず、<a href="https://dashboard.heroku.com/" target="_blank" rel="noopener">公式サイト</a> にアクセスして、Sign Up します。<br><strong>Pick your primary development language</strong> は単純によく使うプログラミングを聞いてるだけです。</p>
+<p>次に App を作成します。<br><a href="https://toolbelt.heroku.com/" target="_blank" rel="noopener">Heroku Toolkit</a> をインストールして、下記コマンドを実行しても良いですし、ダッシュボードからでもできるはずです。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ heroku login</span><br><span class="line">$ heroku create</span><br></pre></td></tr></table></figure>
+
+<h2 id="CircleCI-と-Heroku-を連携させる"><a href="#CircleCI-と-Heroku-を連携させる" class="headerlink" title="CircleCI と Heroku を連携させる"></a>CircleCI と Heroku を連携させる</h2><p><a href="https://circleci.com/docs/continuous-deployment-with-heroku/" target="_blank" rel="noopener">公式サイト</a> の指示に従って、CircleCI から Heroku を認証させます。</p>
+<p>CircleCI のダッシュボードでリポジトリ固有のページに移動します。<br>そしたら、右上の <code>Project Settings</code> をクリックします。<br>次に、左下の方にある <code>Heroku Deployment</code> をクリックします。</p>
+<ul>
+<li><strong>Step 1</strong><br>CircleCI アカウントの<a href="https://circleci.com/account/heroku" target="_blank" rel="noopener">コノページ</a>に Heroku API Key を登録します。<br>Heroku API Key は <a href="https://dashboard-preview.heroku.com/account" target="_blank" rel="noopener">Heroku のアカウントページ</a> の下の方にあります。</li>
+<li><strong>Strp 2</strong><br>Heroku と SSH 認証を設定します。<br>とはいっても、Heroku Deployment の Step 2 のところをクリックするだけで出来てしまいます。</li>
+</ul>
+<p>後は、リポジトリに circle.yml という設定ファイルを置くだけです。</p>
+<h2 id="circle-yml-の作成"><a href="#circle-yml-の作成" class="headerlink" title="circle.yml の作成"></a>circle.yml の作成</h2><p>最初に紹介したサイトを参考にして、GitHub Pages 用のリポジトリに以下のような設定ファイル(circle.yml)を加えました。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">machine:</span></span><br><span class="line"><span class="attr">  timezone:</span> <span class="string">Asia/Tokyo</span></span><br><span class="line"><span class="attr">  node:</span></span><br><span class="line"><span class="attr">    version:</span> <span class="number">4.4</span><span class="number">.5</span></span><br><span class="line"><span class="attr">deployment:</span></span><br><span class="line"><span class="attr">  production:</span></span><br><span class="line"><span class="attr">    branch:</span> <span class="string">source</span></span><br><span class="line"><span class="attr">    commands:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.name</span> <span class="string">"IGGGorg"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.email</span> <span class="string">"contact@iggg.org"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">submodule</span> <span class="string">init</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">submodule</span> <span class="string">update</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">generate</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  staging:</span></span><br><span class="line"><span class="attr">    branch:</span> <span class="string">/.*/</span></span><br><span class="line"><span class="attr">    commands:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.name</span> <span class="string">"IGGGorg"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.email</span> <span class="string">"contcat@iggg.org"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">generate</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">deploy</span> <span class="bullet">--branch</span> <span class="string">$CIRCLE_BRANCH</span> <span class="bullet">--config</span> <span class="string">_staging_config.yml</span></span><br><span class="line"><span class="attr">general:</span></span><br><span class="line"><span class="attr">  branches:</span></span><br><span class="line"><span class="attr">    ignore:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">master</span></span><br><span class="line"><span class="attr">test:</span></span><br><span class="line"><span class="attr">  override:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"test"</span></span><br></pre></td></tr></table></figure>
+
+<p>source ブランチか、それ以外かでデプロイ内容を分けています。<br>但し、ページ自体のブランチである、master ブランチは無視するように下の方に書いてあります。<br><code>hexo deploy --branch $CIRCLE_BRANCH --config _staging_config.yml</code> とすることで、デプロイの際に参照する Hexo の設定ファイルを <code>_staging_config.yml</code> に指定できます。</p>
+<p><strong>追記 (2016.6.2)</strong><br>前述したとおり、ブランチ構成を変更したので、上記の circle.yml を一部書き換えました。</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line">staging:</span><br><span class="line"><span class="deletion">-     branch: /.*/</span></span><br><span class="line"><span class="addition">+     branch: staging</span></span><br><span class="line">  commands:</span><br></pre></td></tr></table></figure>
+
+<p>追記終わり。</p>
+<p>次に、その設定ファイル(<code>_staging_config.yml</code>)を加えましょう。<br>またもや、例のサイトを参考にして、<code>deployment</code> のところを次のように書き換えます。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">heroku</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">git@heroku.com:&lt;作成したAPP名&gt;.git</span></span><br></pre></td></tr></table></figure>
+
+<p>更に、上の方の <code>url:</code> も書き換えておきましょう。  </p>
+<h2 id="package-json-ファイルの書き換え"><a href="#package-json-ファイルの書き換え" class="headerlink" title="package.json ファイルの書き換え"></a>package.json ファイルの書き換え</h2><p>最後に、<code>package.json</code> を書き換えます。</p>
+<p>Hexo で Heroku にデプロイするには専用のパッケージ、<code>hexo-deployer-heroku</code> が必要です。<br><code>package.json</code> の <code>&quot;dependencies&quot;:</code> に書き加えましょう。</p>
+<h2 id="push"><a href="#push" class="headerlink" title="push !"></a>push !</h2><p>後はプッシュするだけのはずです ！</p>
+<p><strong>追記 (2016.6.2)</strong><br>もし、source ブランチの自動デプロイで ssh 鍵について怒られた場合は以下のページを参考にしてください。</p>
+<ul>
+<li><a href="https://circleci.com/docs/adding-read-write-deployment-key/" target="_blank" rel="noopener">Adding read/write deployment key - CircleCI</a></li>
+</ul>
+<p>新しい ssh 鍵を生成して、GitHub に公開鍵を、CircleCI に秘密鍵を登録すればいいはずです。<br>ちなみに、鍵を生成する際にパスフレーズを付けないようにと注意書きされてます。</p>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>実は、こういうサービスいじるの初めてでして、まぁまぁてこずりました(笑)</p>
+<p>IGGG のみんな、つかってくれるとうれしいなぁ。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Web/">Web</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Heroku/">Heroku</a>, <a href="/tags/GitHub/">GitHub</a>, <a href="/tags/CircleCI/">CircleCI</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+<script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  // 拡張リンクのアトリビューション分析用のタグをページに設定する
+  var pluginUrl =
+   '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-46141384-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    // ユーザー属性とインタレスト カテゴリに関するレポートを有効にする
+    // ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+
+</body>
+</html>

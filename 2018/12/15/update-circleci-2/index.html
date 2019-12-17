@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/images/IGGG_l.png">
+  <meta name="application-name" content="群馬大学電子計算機研究会 IGGG">
+  <meta name="msapplication-TileColor" content="#1b7aca">
+  <meta name="msapplication-square70x70logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square150x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-wide310x150logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-square310x310logo" content="/images/IGGG_l.png">
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/images/IGGG_l.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/images/IGGG_l.png">
+
+  
+  <title>CircleCI の設定ファイルを 2.0 に更新 | 群馬大学電子計算機研究会 IGGG</title>
+  <meta name="author" content="IGGG">
+  
+  <meta name="description" content="IGGG ソフトウェア基盤部のひげです。1年ぶりの更新です。
+本記事はIGGG アドベントカレンダー 2018 15日目の記事です。まぁ今回はほとんど埋まっていませんが(笑)
+本当は別の話を書こうと思っていたんだけど、記事を書くためにこのサイトを整備、というかほったらかしにいていた CircleCI">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="CircleCI の設定ファイルを 2.0 に更新">
+  <meta property="og:site_name" content="群馬大学電子計算機研究会 IGGG">
+
+  
+    <meta property="og:image" content="/images/update-circleci-2/iggg-github-io.jpg">
+  
+
+  <link rel="alternate" href="/atom.xml" title="群馬大学電子計算機研究会 IGGG" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+</head>
+</html>
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">群馬大学電子計算機研究会 IGGG</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/images/IGGG_l.png" alt="IGGG">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>IGGG</h3>
+      <p>Information technology researching society</p><p> of the Gunmer,</p><p> by the Gunmer,</p><p> for the Gunmer</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/IGGGorg"></a>
+    
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/IGGG"></a>
+    
+    
+    
+    
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2019 IGGG
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2018-12-14T17:00:00.000Z"><a href="#">2018-12-15</a></time>
+      
+      
+  
+    <h1 class="depth title">CircleCI の設定ファイルを 2.0 に更新</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>IGGG ソフトウェア基盤部のひげです。<br>1年ぶりの更新です。</p>
+<p>本記事は<a href="http://www.adventar.org/calendars/3217" target="_blank" rel="noopener">IGGG アドベントカレンダー 2018</a> 15日目の記事です。<br>まぁ今回はほとんど埋まっていませんが(笑)</p>
+<p>本当は別の話を書こうと思っていたんだけど、記事を書くためにこのサイトを整備、というかほったらかしにいていた CircleCI 2.0 へのアップデートをしたら思いの外大変だったのでその過程を書きたいと思います。<br>まぁみんな既に 2.0 への更新は済んでそうですけどね。</p>
+<h2 id="ここの構成"><a href="#ここの構成" class="headerlink" title="ここの構成"></a>ここの構成</h2><p>このサイトは CircleCI を使って自動デプロイなどを導入している:</p>
+<ul>
+<li><a href="https://iggg.github.io/2016/05/30/use-circle-ci/">GitHub Pages + Hexo + CircleCI + Heroku で自動デプロイ管理｜群馬大学電子計算機研究会 IGGG</a></li>
+</ul>
+<p><img src="/images/update-circleci-2/iggg-github-io.jpg" alt></p>
+<p>実はこれ、 CircleCI 1.0 のままだった。<br>もう2年半近く前だからしょうがないね。<br>元々の設定はこんな感じ:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">machine:</span></span><br><span class="line"><span class="attr">  timezone:</span> <span class="string">Asia/Tokyo</span></span><br><span class="line"><span class="attr">  node:</span></span><br><span class="line"><span class="attr">    version:</span> <span class="number">4.4</span><span class="number">.5</span></span><br><span class="line"><span class="attr">deployment:</span></span><br><span class="line"><span class="attr">  production:</span></span><br><span class="line"><span class="attr">    branch:</span> <span class="string">source</span></span><br><span class="line"><span class="attr">    commands:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.name</span> <span class="string">"IGGGorg"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.email</span> <span class="string">"contact@iggg.org"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">submodule</span> <span class="string">init</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">submodule</span> <span class="string">update</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">generate</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  staging:</span></span><br><span class="line"><span class="attr">    branch:</span> <span class="string">staging</span></span><br><span class="line"><span class="attr">    commands:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.name</span> <span class="string">"IGGGorg"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.email</span> <span class="string">"contcat@iggg.org"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">generate</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">deploy</span> <span class="bullet">--branch</span> <span class="string">$CIRCLE_BRANCH</span> <span class="bullet">--config</span> <span class="string">_staging_config.yml</span></span><br><span class="line"><span class="attr">general:</span></span><br><span class="line"><span class="attr">  branches:</span></span><br><span class="line"><span class="attr">    ignore:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="更新作業"><a href="#更新作業" class="headerlink" title="更新作業"></a>更新作業</h2><p>ちなみに最終的にこんな感じ:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">defaults:</span> <span class="meta">&amp;defaults</span></span><br><span class="line"><span class="attr">  docker:</span></span><br><span class="line"><span class="attr">    - image:</span> <span class="string">circleci/node:11.4.0</span></span><br><span class="line"><span class="attr">      environment:</span></span><br><span class="line"><span class="attr">        TZ:</span> <span class="string">Asia/Tokyo</span></span><br><span class="line"><span class="attr">  working_directory:</span> <span class="string">~/work</span></span><br><span class="line"></span><br><span class="line"><span class="attr">version:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line"><span class="attr">  build:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*defaults</span></span><br><span class="line"><span class="attr">    steps:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">checkout</span></span><br><span class="line"><span class="attr">      - restore_cache:</span></span><br><span class="line"><span class="attr">          keys:</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">v1-dependencies-&#123;&#123;</span> <span class="string">checksum</span> <span class="string">"package.json"</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># fallback to using the latest cache if no exact match is found</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">v1-dependencies-</span></span><br><span class="line"><span class="attr">      - run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"><span class="attr">      - run:</span> <span class="string">node_modules/.bin/hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="attr">      - run:</span> <span class="string">node_modules/.bin/hexo</span> <span class="string">generate</span></span><br><span class="line"><span class="attr">      - save_cache:</span></span><br><span class="line"><span class="attr">          paths:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">node_modules</span></span><br><span class="line"><span class="attr">          key:</span> <span class="string">v1-dependencies-&#123;&#123;</span> <span class="string">checksum</span> <span class="string">"package.json"</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">      - persist_to_workspace:</span></span><br><span class="line"><span class="attr">          root:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">          paths:</span> <span class="string">[</span> <span class="string">'*'</span> <span class="string">]</span></span><br><span class="line"><span class="attr">  deploy-production:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*defaults</span></span><br><span class="line"><span class="attr">    steps:</span></span><br><span class="line"><span class="attr">      - attach_workspace:</span></span><br><span class="line"><span class="attr">          at:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">      - run:</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">init</span></span><br><span class="line"><span class="attr">          command:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            git config --global user.name "IGGGorg"</span></span><br><span class="line"><span class="string">            git config --global user.email "contact@iggg.org"</span></span><br><span class="line"><span class="string">            mkdir ~/.ssh/ &amp;&amp; echo -e "Host github.com\n\tStrictHostKeyChecking no\n" &gt; ~/.ssh/config</span></span><br><span class="line"><span class="string">            git submodule init</span></span><br><span class="line"><span class="string">            git submodule update</span></span><br><span class="line"><span class="string"></span><span class="attr">      - run:</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">deploy</span> <span class="string">to</span> <span class="string">production</span></span><br><span class="line"><span class="attr">          command:</span> <span class="string">./node_modules/.bin/hexo</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  deploy-staging:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*defaults</span></span><br><span class="line"><span class="attr">    steps:</span></span><br><span class="line"><span class="attr">      - attach_workspace:</span></span><br><span class="line"><span class="attr">          at:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">      - run:</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">init</span></span><br><span class="line"><span class="attr">          command:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            git config --global user.name "IGGGorg"</span></span><br><span class="line"><span class="string">            git config --global user.email "contact@iggg.org"</span></span><br><span class="line"><span class="string"></span><span class="attr">      - run:</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">deploy</span> <span class="string">to</span> <span class="string">staging</span></span><br><span class="line"><span class="attr">          command:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            mkdir .deploy</span></span><br><span class="line"><span class="string">            cd .deploy</span></span><br><span class="line"><span class="string">            git init</span></span><br><span class="line"><span class="string">            echo "&#123; \"root\": \"public/\" &#125;" &gt; static.json</span></span><br><span class="line"><span class="string">            git add -A</span></span><br><span class="line"><span class="string">            git commit -m "First commit"</span></span><br><span class="line"><span class="string">            cp -r ../public .</span></span><br><span class="line"><span class="string">            git add -A</span></span><br><span class="line"><span class="string">            git commit -m "Site updated"</span></span><br><span class="line"><span class="string">            git push -u https://heroku:$HEROKU_API_KEY@git.heroku.com/iggg-github-io-staging.git master -f</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span><span class="attr">workflows:</span></span><br><span class="line"><span class="attr">  version:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">  build-and-deploy:</span></span><br><span class="line"><span class="attr">    jobs:</span></span><br><span class="line"><span class="attr">      - build:</span></span><br><span class="line"><span class="attr">          filters:</span></span><br><span class="line"><span class="attr">            branches:</span></span><br><span class="line"><span class="attr">              ignore:</span></span><br><span class="line"><span class="bullet">                -</span> <span class="string">master</span></span><br><span class="line"><span class="attr">      - deploy-production:</span></span><br><span class="line"><span class="attr">          requires:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">build</span></span><br><span class="line"><span class="attr">          filters:</span></span><br><span class="line"><span class="attr">            branches:</span></span><br><span class="line"><span class="attr">              only:</span></span><br><span class="line"><span class="bullet">                -</span> <span class="string">source</span></span><br><span class="line"><span class="attr">      - deploy-staging:</span></span><br><span class="line"><span class="attr">          requires:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">build</span></span><br><span class="line"><span class="attr">          filters:</span></span><br><span class="line"><span class="attr">            branches:</span></span><br><span class="line"><span class="attr">              only:</span></span><br><span class="line"><span class="bullet">                -</span> <span class="string">staging</span></span><br></pre></td></tr></table></figure>
+
+<p>やっつけでやったからだいぶ余計な部分がありそう。</p>
+<h3 id="CircleCI-2-0"><a href="#CircleCI-2-0" class="headerlink" title="CircleCI 2.0"></a>CircleCI 2.0</h3><p>旧バージョンである <a href="https://circleci.com/blog/sunsetting-1-0/" target="_blank" rel="noopener">CircleCI 1.0 は2018年8月31日に終了</a>し、以降は 2.0 でしか CI を回せなくなった（このサイトは2017年3月以降回していない笑）。</p>
+<p>変更の仕方はそこまで難しくない。<br>下記の公式ドキュメントにしたがって変更して行けば良い:</p>
+<ul>
+<li><a href="https://circleci.com/docs/2.0/migrating-from-1-2/" target="_blank" rel="noopener">Migrating a Linux Project from 1.0 to 2.0 - CircleCI</a></li>
+</ul>
+<p>手順をざっくりと抜粋すると:</p>
+<ol>
+<li><code>/circle.yml</code> を <code>/.circleci/config.yml</code> に置換</li>
+<li><code>version: 2</code> を冒頭に追加</li>
+<li><code>deployment</code> は <code>jobs</code> に変更:<ul>
+<li><code>commands</code> は <code>steps</code> にする</li>
+<li><code>commands</code> のリストの要素は <code>run:</code> にする</li>
+</ul>
+</li>
+<li><code>machine</code> 以下の設定を <code>docker</code> にして <code>jobs</code> に書き加える</li>
+<li>適当に <code>workflows</code> を定義<ul>
+<li><code>branch</code> の設定はこっちでする</li>
+</ul>
+</li>
+</ol>
+<p>あとは <code>checkout</code> やキャッシュ回りの設定、job 間でワークスペースを共有するために <code>persist_to_workspace</code> と <code>attach_workspace</code> を追記した。</p>
+<h3 id="Hexo-の更新"><a href="#Hexo-の更新" class="headerlink" title="Hexo の更新"></a>Hexo の更新</h3><p>Node が古すぎて CircleCI の Docker イメージがなかった:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Build-agent version 0.1.1250-22bf9f5d (2018-12-12T11:32:15+0000)</span><br><span class="line">Starting container circleci/node:4.4.5</span><br><span class="line">  image cache not found on this host, downloading circleci/node:4.4.5</span><br><span class="line"></span><br><span class="line">Error response from daemon: manifest for circleci/node:4.4.5 not found</span><br></pre></td></tr></table></figure>
+
+<p>ので、随分古い Node と Hexo を使っていたので更新した。</p>
+<ul>
+<li>Node: 4.4.5 -&gt; 11.4.0</li>
+<li>Hexo: 3.3.5 -&gt; 3.8.0</li>
+</ul>
+<p>ここは特に問題なく動作した（たぶん）。</p>
+<h3 id="Heroku-と-CircleCI"><a href="#Heroku-と-CircleCI" class="headerlink" title="Heroku と CircleCI"></a>Heroku と CircleCI</h3><p>ここからがしんどい。。。</p>
+<p>上の手順で適当に書き換えても動かなかった。<br>何がかというと、最終的なデプロイの部分だ。<br>まずは Staging である Heroku の部分。<br>CircleCI でデプロイしてみたら:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create mode 100644 public/tags/Twitter/index.html</span><br><span class="line">create mode 100644 public/tags/guntohfes/index.html</span><br><span class="line">The authenticity of host &apos;heroku.com (50.19.85.156)&apos; can&apos;t be established.</span><br><span class="line">RSA key fingerprint is SHA256:XXX/o.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? Step was canceled</span><br></pre></td></tr></table></figure>
+
+<p>という状態で固まってしまった。<br>いろいろ調べてみたら、そもそも過去に設定したやり方はもう古いみたいだ（本当に？）。<br>なので <a href="https://circleci.com/docs/2.0/deployment-integrations/#heroku" target="_blank" rel="noopener">2.0 の資料</a>を参考にし <code>HEROKU_API_KEY</code> を使った方法にしようと思う。</p>
+<p>Hexo の Heroku へのデプロイには <a href="https://github.com/hexojs/hexo-deployer-heroku" target="_blank" rel="noopener">hexo-deployer-heroku</a> というライブラリを使っている。<br>このライブラリで <code>HEROKU_API_KEY</code> 環境変数を埋め込むのは難しそうなので、hexo-deployer-heroku のコードを読んで同様の手順を CI で直接実行するようにした:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir .deploy</span><br><span class="line"><span class="built_in">cd</span> .deploy</span><br><span class="line">git init</span><br><span class="line">cp -r ../public .</span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">"Site updated"</span></span><br><span class="line">git push -u https://heroku:<span class="variable">$HEROKU_API_KEY</span>@git.heroku.com/iggg-github-io-staging.git master -f</span><br></pre></td></tr></table></figure>
+
+<p>しかし、次のようなエラーが出た:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">Writing objects: 100% (171/171), 4.58 MiB | 8.98 MiB/s, done.</span><br><span class="line">Total 171 (delta 33), reused 0 (delta 0)</span><br><span class="line">remote: Compressing source files... done.        </span><br><span class="line">remote: Building source:        </span><br><span class="line">remote:</span><br><span class="line">remote: -----&gt; App not compatible with buildpack: https://buildpack-registry.s3.amazonaws.com/buildpacks/heroku/php.tgz        </span><br><span class="line">remote:                </span><br><span class="line">remote:  !     ERROR: Application not supported by this buildpack!        </span><br><span class="line">remote:  !             </span><br><span class="line">remote:  !     The &apos;heroku/php&apos; buildpack is set on this application, but was        </span><br><span class="line">remote:  !     unable to detect a PHP codebase.        </span><br><span class="line">remote:  !             </span><br><span class="line">remote:  !     A PHP app on Heroku requires a &apos;composer.json&apos; at the root of        </span><br><span class="line">remote:  !     the directory structure, or an &apos;index.php&apos; for legacy behavior.        </span><br><span class="line">remote:  !             </span><br><span class="line">remote:  !     If you are trying to deploy a PHP application, ensure that one        </span><br><span class="line">remote:  !     of these files is present at the top level directory.        </span><br><span class="line">remote:  !             </span><br><span class="line">remote:  !     If you are trying to deploy an application written in another        </span><br><span class="line">remote:  !     language, you need to change the list of buildpacks set on your        </span><br><span class="line">remote:  !     Heroku app using the &apos;heroku buildpacks&apos; command.        </span><br><span class="line">remote:  !             </span><br><span class="line">remote:  !     For more information, refer to the following documentation:        </span><br><span class="line">remote:  !     https://devcenter.heroku.com/articles/buildpacks        </span><br><span class="line">remote:  !     https://devcenter.heroku.com/articles/php-support#activation</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p><code>git push</code> のところで起きている。<br>buildpack に <code>heroku/php</code> を指定しているが、この場合はワークスペースに <code>index.php</code> などがないとダメらしい。<br>hexo-deployer-heroku ではこの <a href="https://github.com/hexojs/hexo-deployer-heroku/tree/08f9fb7feab9a71e983ff0b5a05b6f1183a398f1/assets" target="_blank" rel="noopener">assets</a> の中身をコピーして <code>heroku/php</code> に合わせていた。<br>同じようにしてもいいが、別に PHP ではないので静的サイト用の buildpack に変更するようにした:</p>
+<ul>
+<li><a href="https://github.com/heroku/heroku-buildpack-static" target="_blank" rel="noopener">heroku/heroku-buildpack-static - GitHub</a></li>
+</ul>
+<p>heroku-buildpack-static の設定ファイルとして <code>static.json</code> をワークスペースに置く必要がある。<br>なので、下記のコマンドを <code>git init</code> と <code>cp -r ../public .</code> の間で実行する:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"&#123; \"root\": \"public/\" &#125;"</span> &gt; static.json</span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">"First commit"</span></span><br></pre></td></tr></table></figure>
+
+<p>これで無事 Heroku にデプロイできた！</p>
+<h3 id="GitHub-と-CircleCI"><a href="#GitHub-と-CircleCI" class="headerlink" title="GitHub と CircleCI"></a>GitHub と CircleCI</h3><p>こっちも案の定ダメだった。<br>Heroku の時と同様に <code>yes/no</code> と聞かれて止まってしまう。<br>GitHub へのデプロイには <a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="noopener">hexojs/hexo-deployer-git</a> を使っている。<br>Heroku の時みたいに同様の動作を直接書き込んでもいいが、できれば API トークンを使いたくないので、別の方法を調べた。<br>良さそうな CircleCI の質問ページがあった:</p>
+<ul>
+<li><a href="https://discuss.circleci.com/t/git-clone-fails-in-circle-2-0/15211/10" target="_blank" rel="noopener">Git clone fails in Circle 2.0 - Build Environment - CircleCI Community Discussion</a></li>
+</ul>
+<p>次のようなのをデプロイする前に書けばいいらしい:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir ~/.ssh/ &amp;&amp; <span class="built_in">echo</span> -e <span class="string">"Host github.com\n\tStrictHostKeyChecking no\n"</span> &gt; ~/.ssh/config</span><br></pre></td></tr></table></figure>
+
+<p>エラーが変わった:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">create mode 100644 tags/guntohfes/index.html</span><br><span class="line">Warning: Permanently added &apos;github.com,192.30.253.112&apos; (RSA) to the list of known hosts.</span><br><span class="line"></span><br><span class="line">ERROR: The key you are authenticating with has been marked as read only.</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span><br><span class="line">Error: Warning: Permanently added &apos;github.com,192.30.253.112&apos; (RSA) to the list of known hosts.</span><br><span class="line"></span><br><span class="line">ERROR: The key you are authenticating with has been marked as read only.</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line"></span><br><span class="line">   at ChildProcess.&lt;anonymous&gt; (/home/circleci/work/node_modules/hexo-util/lib/spawn.js:37:17)</span><br><span class="line">   at ChildProcess.emit (events.js:189:13)</span><br><span class="line">   at maybeClose (internal/child_process.js:978:16)</span><br><span class="line">   at Socket.stream.socket.on (internal/child_process.js:395:11)</span><br><span class="line">   at Socket.emit (events.js:189:13)</span><br><span class="line">   at Pipe._handle.close (net.js:613:12)</span><br><span class="line">Exited with code 2</span><br></pre></td></tr></table></figure>
+
+<p>これは設定している GitHub の SSH 鍵に書き込み権限が無いせいだ。<br>読み込みだけのやつはコンソールからボタン一つでできたが、書き込み権限付きの鍵は自分で作る必要がある。<br>以下の記事がわかりやすかった（似たような記事はたくさんあると思うけど）:</p>
+<ul>
+<li><a href="https://qiita.com/boushi-bird/items/6b6eb1d1ed6f6d3341e4" target="_blank" rel="noopener">ircle CI で Github に write access 可能な Deploy key を設定する - Qiita</a></li>
+</ul>
+<p>これで無事本番にもデプロイできた！</p>
+<h2 id="残り作業"><a href="#残り作業" class="headerlink" title="残り作業"></a>残り作業</h2><p>README とか Docker のところとかもほんとは整備しなきゃ。。。</p>
+<h2 id="おしまい"><a href="#おしまい" class="headerlink" title="おしまい"></a>おしまい</h2><p>更新は計画的に。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Web/">Web</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Heroku/">Heroku</a>, <a href="/tags/GitHub/">GitHub</a>, <a href="/tags/CircleCI/">CircleCI</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+<script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  // 拡張リンクのアトリビューション分析用のタグをページに設定する
+  var pluginUrl =
+   '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-46141384-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    // ユーザー属性とインタレスト カテゴリに関するレポートを有効にする
+    // ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+
+</body>
+</html>
